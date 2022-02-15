@@ -19,10 +19,9 @@
             android:theme="@style/Theme.OversightTest">
 
 
-
             <TextView
                 android:id="@+id/title"
-                android:layout_width="258dp"
+                android:layout_width="292dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:minHeight="?actionBarSize"
@@ -32,11 +31,10 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="239dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:text="Account" />
+                app:icon="@android:drawable/ic_menu_preferences" />
 
         </LinearLayout>
 
@@ -62,5 +60,5 @@
         android:layout_gravity="bottom|end"
 
         android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
