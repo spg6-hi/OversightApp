@@ -45,11 +45,13 @@ public class TransactionsPage extends Fragment {
 
     private void setupPieChart(){
         pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.rgb(34, 34, 34));
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
         pieChart.setEntryLabelColor(Color.BLACK);
         pieChart.setCenterText("Spending by Category");
         pieChart.setCenterTextSize(24);
+        pieChart.setCenterTextColor(Color.WHITE);
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(false);
 
