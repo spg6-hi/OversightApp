@@ -1,8 +1,10 @@
-package com.example.oversighttest;
+package com.example.oversighttest.pages;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.oversighttest.R;
 
 public class SpendingplanActivity extends AppCompatActivity {
     //private ActivityMainBinding binding;

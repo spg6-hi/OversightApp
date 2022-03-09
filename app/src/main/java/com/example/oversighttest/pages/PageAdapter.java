@@ -1,4 +1,4 @@
-package com.example.oversighttest;
+package com.example.oversighttest.pages;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

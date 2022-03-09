@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OversightTest">
         <activity
-            android:name=".MainActivity"
+            android:name=".pages.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SpendingplanActivity"
+            android:name=".pages.SpendingplanActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserActivity"
+            android:name=".pages.UserActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TransactionActivity"
+            android:name=".pages.TransactionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

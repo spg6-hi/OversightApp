@@ -1,10 +1,12 @@
-package com.example.oversighttest;
+package com.example.oversighttest.pages;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class UserActivity extends AppCompatActivity {
+import com.example.oversighttest.R;
+
+public class TransactionActivity extends AppCompatActivity {
     //private ActivityMainBinding binding;
 
     @Override

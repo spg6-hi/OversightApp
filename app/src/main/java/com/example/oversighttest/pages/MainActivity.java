@@ -1,12 +1,12 @@
-package com.example.oversighttest;
+package com.example.oversighttest.pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 //import com.example.overesighttest.databinding.ActivityMainBinding;
 import android.os.Bundle;
-import android.widget.TableLayout;
 
+import com.example.oversighttest.R;
 import com.google.android.material.tabs.TabLayout;
 
 
