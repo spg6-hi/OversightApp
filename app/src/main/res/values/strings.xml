@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Oversight</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="transaction_header">Transaction</string>
+    <string name="spendingplan_header">Spending Plan</string>
+    <string name="user_header">User</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scrollViewDesc">Scroll</string>
 
 </resources>
