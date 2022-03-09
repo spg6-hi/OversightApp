@@ -3,12 +3,15 @@ package com.example.oversighttest.pages;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.oversighttest.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -25,6 +28,8 @@ import java.util.Collections;
 public class TransactionsPage extends Fragment {
 
     private PieChart pieChart;
+    private Button mAddTransaction;
+    private ListView mTransactionList;
     private View v;
 
 
@@ -36,13 +41,15 @@ public class TransactionsPage extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         v =  getView();
         pieChart = (PieChart) v.findViewById(R.id.pieChart);
         setupPieChart();
         loadPieChartData();
+
     }
+
 
     private void setupPieChart(){
         pieChart.setDrawHoleEnabled(true);
