@@ -67,10 +67,10 @@ public class TransactionsPage extends Fragment {
 
     private void  loadPieChartData(){
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(0.1f, "Food"));
-        entries.add(new PieEntry(0.3f, "Home"));
-        entries.add(new PieEntry(0.2f, "Entertainment"));
-        entries.add(new PieEntry(0.5f, "Car repairs"));
+        entries.add(new PieEntry(23, "Food"));
+        entries.add(new PieEntry(64, "Home"));
+        entries.add(new PieEntry(21, "Entertainment"));
+        entries.add(new PieEntry(50, "Car repairs"));
 
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color: ColorTemplate.MATERIAL_COLORS){
