@@ -61,7 +61,7 @@ public class SpendingPlanPage extends Fragment {
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
         pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.setCenterText("Spending by Category");
+        pieChart.setCenterText("Budget by Category");
         pieChart.setCenterTextSize(24);
         pieChart.setCenterTextColor(Color.WHITE);
         pieChart.getDescription().setEnabled(false);
