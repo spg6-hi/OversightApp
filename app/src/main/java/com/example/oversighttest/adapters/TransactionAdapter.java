@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewHolder;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -14,8 +13,10 @@ import androidx.annotation.Nullable;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Transaction;
+import com.example.oversighttest.pages.TransactionsPage;
 
 import java.util.ArrayList;
+import java.util.List;
 //https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
 
 public class TransactionAdapter extends ArrayAdapter<Transaction> {
@@ -28,16 +29,11 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
     //Override onCreateViewHolder method
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder;
         // Get the data item for this position
         Transaction transaction = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_transaction, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        }else {
-            viewHolder = (ViewHolder) convertView.getTag();
         }
         // Lookup view for data population
         TextView tvAmount = (TextView) convertView.findViewById(R.id.tvAmount);

@@ -39,14 +39,15 @@
 
                 </com.github.mikephil.charting.charts.PieChart>
 
-                <ListView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mTransactionList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/white">
+                    android:textColor="@color/white"
+                    android:divider="@null">
 
 
-                </ListView>
+                </androidx.recyclerview.widget.RecyclerView>
                 <Button
                     android:id="@+id/mAddTransaction"
                     android:layout_width="340dp"

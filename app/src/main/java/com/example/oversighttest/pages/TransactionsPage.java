@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
 import com.example.oversighttest.adapters.TransactionAdapter;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
@@ -35,12 +38,12 @@ public class TransactionsPage extends Fragment {
 
     private PieChart pieChart;
     private Button mAddTransaction;
-    private ListView mTransactionList;
+    //private RecyclerView mTransactionList;
     private View v;
     private DummyNetwork network;
     private ArrayList<Transaction> transactions;
     private Renderer r;
-    TransactionAdapter adapter;
+    //TransactionAdapter adapter;
     //ArrayAdapter<String> arrayAdapter;
 
     /*public TransactionsPage(Button addTransaction, ListView transactionList) {
@@ -73,9 +76,12 @@ public class TransactionsPage extends Fragment {
         setupPieChart();
         loadPieChartData();
 
-        //adapter = new TransactionAdapter(getContext(), transactions);
-        mTransactionList = (ListView) v.findViewById(R.id.mTransactionList);
-        mTransactionList.setAdapter(new TransactionAdapter(getContext(), transactions));
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.mTransactionList);
+        recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+        recyclerView.setLayoutManager((new LinearLayoutManager(getContext())));
+        //adapter = new RecyclerTransactionAdapter(getContext(), transactions);
+        //mTransactionList = (RecyclerView) v.findViewById(R.id.mTransactionList);
+        //mTransactionList.setAdapter(new RecyclerTransactionAdapter(getContext(),  transactions));
 
     }
 
