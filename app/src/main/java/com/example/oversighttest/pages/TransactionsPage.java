@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
 import com.github.mikephil.charting.charts.PieChart;
@@ -27,6 +28,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 public class TransactionsPage extends Fragment {
 
@@ -34,7 +37,9 @@ public class TransactionsPage extends Fragment {
     private View v;
     private DummyNetwork network;
     private ArrayList<Transaction> transactions;
+    private HashMap<String, Integer> pieEntries;
     private Renderer r;
+    ArrayList<Integer> colors;
 
 
     @Override
@@ -43,6 +48,7 @@ public class TransactionsPage extends Fragment {
         MainActivity a = (MainActivity) getActivity();
         network = a.getDm();
         transactions = network.getTransactions();
+        pieEntries = new HashMap<>();
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_transactions_page, container, false);
@@ -54,6 +60,7 @@ public class TransactionsPage extends Fragment {
         v =  getView();
         pieChart = (PieChart) v.findViewById(R.id.pieChart);
         r = pieChart.getRenderer();
+        colors = new ArrayList<>();
         setupPieChart();
         loadPieChartData();
     }
@@ -81,6 +88,33 @@ public class TransactionsPage extends Fragment {
 
     }
 
+
+    private void deleteTransaction(Transaction t){
+        PieEntry entryToChange = new PieEntry(pieEntries.get(t.getCategory().getDisplayName()), t.getCategory().getDisplayName());
+        transactions.remove(t);
+        PieDataSet ds = (PieDataSet) pieChart.getData().getDataSet();
+        ArrayList<PieEntry> entries = new ArrayList<>(ds.getValues());
+        entries.remove(entryToChange);
+        entryToChange = new PieEntry(((int) entryToChange.getValue())-t.getAmount(), entryToChange.getLabel());
+        entries.add(entryToChange);
+        pieEntries.put(entryToChange.getLabel(), (int) entryToChange.getValue());
+        network.setTransactions(transactions);
+        updatePieChart(entries);
+    }
+
+    private void updatePieChart(ArrayList<PieEntry> entries){
+        PieDataSet dataSet = new PieDataSet(entries, "Expense Category");
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+        data.setDrawValues(true);
+        data.setValueFormatter(new PercentFormatter(pieChart));
+        data.setValueTextSize(12f);
+
+        pieChart.setData(data);
+        pieChart.invalidate();
+    }
+
     private void  loadPieChartData(){
         ArrayList<PieEntry> entries = new ArrayList<>();
 
@@ -101,13 +135,14 @@ public class TransactionsPage extends Fragment {
             //makes single PieEntry for each category to prevent duplicates
             if (!t.getCategory().getDisplayName().equals(currCategory)){
                 entries.add(new PieEntry(currValue, currCategory));
+                pieEntries.put(currCategory, currValue);
                 currValue = t.getAmount();
                 currCategory = t.getCategory().getDisplayName();
             } else{
                 currValue += t.getAmount();
             }
         }
-        ArrayList<Integer> colors = new ArrayList<>();
+
         for (int color: ColorTemplate.MATERIAL_COLORS){
             colors.add(color);
         }
@@ -116,16 +151,6 @@ public class TransactionsPage extends Fragment {
             colors.add(color);
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Expense Category");
-        dataSet.setColors(colors);
-
-        PieData data = new PieData(dataSet);
-        data.setDrawValues(true);
-        data.setValueFormatter(new PercentFormatter(pieChart));
-        data.setValueTextSize(12f);
-
-        pieChart.setData(data);
-        pieChart.invalidate();
-
+        updatePieChart(entries);
     }
 }
