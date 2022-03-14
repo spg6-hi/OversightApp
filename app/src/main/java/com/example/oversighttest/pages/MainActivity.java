@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private DummyNetwork dm;
+    private static DummyNetwork dm;
 
     //private ActivityMainBinding binding;
 
@@ -40,5 +40,9 @@ public class MainActivity extends AppCompatActivity {
         tabManager.addFragment(new BankPage(dm), "Bank");
         viewPager.setAdapter(tabManager);
 
+    }
+
+    public DummyNetwork getDm() {
+        return dm;
     }
 }
