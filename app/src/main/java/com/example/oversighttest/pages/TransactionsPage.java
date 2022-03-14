@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.adapters.TransactionAdapter;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
 import com.github.mikephil.charting.charts.PieChart;
@@ -22,7 +24,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.renderer.PieChartRenderer;
 import com.github.mikephil.charting.renderer.Renderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -39,14 +40,25 @@ public class TransactionsPage extends Fragment {
     private DummyNetwork network;
     private ArrayList<Transaction> transactions;
     private Renderer r;
+    TransactionAdapter adapter;
+    //ArrayAdapter<String> arrayAdapter;
+
+    /*public TransactionsPage(Button addTransaction, ListView transactionList) {
+        mAddTransaction = addTransaction;
+        mTransactionList = transactionList;
+    }*/
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MainActivity a = (MainActivity) getActivity();
+
+
         network = a.getDm();
         transactions = network.getTransactions();
+
+
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_transactions_page, container, false);
@@ -60,6 +72,10 @@ public class TransactionsPage extends Fragment {
         r = pieChart.getRenderer();
         setupPieChart();
         loadPieChartData();
+
+        //adapter = new TransactionAdapter(getContext(), transactions);
+        mTransactionList = (ListView) v.findViewById(R.id.mTransactionList);
+        mTransactionList.setAdapter(new TransactionAdapter(getContext(), transactions));
 
     }
 

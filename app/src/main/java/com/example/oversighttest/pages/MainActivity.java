@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 //import com.example.overesighttest.databinding.ActivityMainBinding;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.network.DummyNetwork;
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Button addTransaction;
+    private ListView transactionList;
 
     private static DummyNetwork dm;
 
