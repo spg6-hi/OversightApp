@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.network.DummyNetwork;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private static DummyNetwork dm;
 
     //private ActivityMainBinding binding;
 
@@ -36,5 +39,11 @@ public class MainActivity extends AppCompatActivity {
         tabManager.addFragment(new SpendingPlanPage(), "Spending Plan");
         tabManager.addFragment(new BankPage(), "Bank");
         viewPager.setAdapter(tabManager);
+
+        this.dm = new DummyNetwork();
+    }
+
+    public DummyNetwork getDm() {
+        return dm;
     }
 }
