@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private DummyNetwork dm;
+    private static DummyNetwork dm;
 
     //private ActivityMainBinding binding;
 
