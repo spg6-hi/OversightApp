@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Stefan/StudioProjects/OversightApp/app/src/main/res/layout/activity_main.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/Stefan/StudioProjects/OversightApp/app/src/main/res/layout/activity_user.xml" value="0.35643115942028986" />
+        <entry key="..\:/Users/Stefan/StudioProjects/OversightApp/app/src/main/res/layout/createspendingplan_popup.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Stefan/StudioProjects/OversightApp/app/src/main/res/layout/fragment_spending_plan_page.xml" value="0.33" />
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout-land/activity_transaction.xml" value="0.31040564373897706" />
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/activity_spendingplan.xml" value="0.18206521739130435" />
