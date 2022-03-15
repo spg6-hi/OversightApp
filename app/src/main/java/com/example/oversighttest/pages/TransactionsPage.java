@@ -37,6 +37,7 @@ import java.util.Comparator;
 
 public class TransactionsPage extends Fragment {
 
+    //public static final String EXTRA_CONTACT = ;
     private PieChart pieChart;
     private Button mAddTransaction;
     //private RecyclerView mTransactionList;
@@ -69,12 +70,12 @@ public class TransactionsPage extends Fragment {
         // 2. set layoutManager
         recyclerView.setLayoutManager((new LinearLayoutManager(getContext()))); //getContext()
         // 3. create and set the adapter
-        recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
-        /*
+        //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(tPFA, transactions);
+                final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
                 tPFA.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -82,7 +83,7 @@ public class TransactionsPage extends Fragment {
                     }
                 });
             }
-        }).start();*/
+        }).start();
         // Inflate the layout for this fragment
         return rootView;
         //return inflater.inflate(R.layout.fragment_transactions_page, container, false);

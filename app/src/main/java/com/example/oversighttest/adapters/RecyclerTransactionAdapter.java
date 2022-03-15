@@ -1,6 +1,7 @@
 package com.example.oversighttest.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Transaction;
+import com.example.oversighttest.pages.TransactionsPage;
 
 import org.w3c.dom.Text;
 
@@ -33,10 +35,12 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         private final TextView tvAmount;
         private final TextView tvCategory;
         private final TextView tvDate;
+        private View parentView;
 
 
         public ViewHolder(@NonNull View view) {
             super(view);
+            this.parentView = view;
             // Define click listener for the ViewHolder's View
 
             //TextView textView = (TextView) view.findViewById(R.id.textView);
@@ -93,7 +97,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.setIsRecyclable(false);
         Log.d(TAG, "onBindViewHolder() position: " + position);
-        Transaction transaction = transactions.get(position);
+        final Transaction transaction = transactions.get(position);
         System.out.println("transactions[0]" + transactions.get(0));
         System.out.println("transactions[end]" + transactions.get(getItemCount()-1));
         System.out.println("onBindViewHolder : position: " + position);
@@ -110,6 +114,14 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         }else{
             notifyItemChanged( position );
         }
+        viewHolder.parentView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent intent = new Intent(context, TransactionsPage.class);
+                //intent.putExtra(TransactionsPage.EXTRA_CONTACT,transaction );
+            }
+        });
         /*
     if(viewHolder != null){
         viewHolder.tvAmount.setTextColor(Color.WHITE);
