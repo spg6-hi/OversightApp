@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,15 +57,35 @@ public class TransactionsPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MainActivity a = (MainActivity) getActivity();
-
+        final FragmentActivity tPFA = getActivity();
 
         network = a.getDm();
         transactions = network.getTransactions();
 
-
-
+        // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
+        final View rootView = inflater.inflate(R.layout.fragment_transactions_page,container, false);
+        // 1. get a reference to recyclerView
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
+        // 2. set layoutManager
+        recyclerView.setLayoutManager((new LinearLayoutManager(getContext()))); //getContext()
+        // 3. create and set the adapter
+        recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+        /*
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(tPFA, transactions);
+                tPFA.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
+            }
+        }).start();*/
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transactions_page, container, false);
+        return rootView;
+        //return inflater.inflate(R.layout.fragment_transactions_page, container, false);
     }
 
     @Override
@@ -75,10 +96,11 @@ public class TransactionsPage extends Fragment {
         r = pieChart.getRenderer();
         setupPieChart();
         loadPieChartData();
+        v = getView();
+        //RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.mTransactionList);
+        //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+        //recyclerView.setLayoutManager((new LinearLayoutManager(getContext())));
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.mTransactionList);
-        recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
-        recyclerView.setLayoutManager((new LinearLayoutManager(getContext())));
         //adapter = new RecyclerTransactionAdapter(getContext(), transactions);
         //mTransactionList = (RecyclerView) v.findViewById(R.id.mTransactionList);
         //mTransactionList.setAdapter(new RecyclerTransactionAdapter(getContext(),  transactions));

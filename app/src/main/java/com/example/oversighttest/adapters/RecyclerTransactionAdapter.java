@@ -2,6 +2,7 @@ package com.example.oversighttest.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTransactionAdapter.ViewHolder> {
-    private String[] localDataSet;
-
+    private static final String TAG = null;
+    //private String[] localDataSet;
+    private final Context context;
+    private ArrayList<Transaction> transactions = new ArrayList<>();
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
@@ -30,6 +33,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         private final TextView tvAmount;
         private final TextView tvCategory;
         private final TextView tvDate;
+
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -58,7 +62,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
     /**
      * Initialize the dataset of the Adapter.
      *
-     * @param dataSet String[] containing the data to populate views to be used
+     * @param //dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      *
      * public RecyclerTransactionAdapter(Context context, ArrayList<Transaction> transactions) {
@@ -67,11 +71,10 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
      *         this.transactions = transactions;
      *     }
      */
-        private Context context;
-        private ArrayList<Transaction> transactions = new ArrayList<>();
-    public RecyclerTransactionAdapter(Context context, ArrayList<Transaction> transactions) {
+
+    public RecyclerTransactionAdapter(Context contx, ArrayList<Transaction> transactions) {
         //localDataSet = dataSet;
-        this.context = context;
+        this.context = contx;
         this.transactions = transactions;
     }
 
@@ -79,7 +82,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_transaction, viewGroup, false);
 
         return new ViewHolder(view);
@@ -87,28 +90,46 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        viewHolder.setIsRecyclable(false);
+        Log.d(TAG, "onBindViewHolder() position: " + position);
         Transaction transaction = transactions.get(position);
-
+        System.out.println("transactions[0]" + transactions.get(0));
+        System.out.println("transactions[end]" + transactions.get(getItemCount()-1));
+        System.out.println("onBindViewHolder : position: " + position);
+        System.out.println("transactions[position]: " + transactions.get(position));
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTvAmount().setTextColor((Color.WHITE));
-        viewHolder.getTvCategory().setTextColor((Color.WHITE));
-        viewHolder.getTvDate().setTextColor((Color.WHITE));
-        viewHolder.getTvAmount().setText(Integer.toString(transaction.getAmount()));
-        viewHolder.getTvCategory().setText(transaction.getCategory().getDisplayName());
-        viewHolder.getTvDate().setText((transaction.getDate().toString()));
-
-        /*viewHolder.tvAmount.setTextColor(Color.WHITE);
+        if(viewHolder != null) {
+            viewHolder.getTvAmount().setTextColor((Color.WHITE));
+            viewHolder.getTvCategory().setTextColor((Color.WHITE));
+            viewHolder.getTvDate().setTextColor((Color.WHITE));
+            viewHolder.getTvAmount().setText(Integer.toString(transaction.getAmount()));
+            viewHolder.getTvCategory().setText(transaction.getCategory().getDisplayName());
+            viewHolder.getTvDate().setText((transaction.getDate().toString()));
+        }else{
+            notifyItemChanged( position );
+        }
+        /*
+    if(viewHolder != null){
+        viewHolder.tvAmount.setTextColor(Color.WHITE);
         viewHolder.tvCategory.setTextColor(Color.WHITE);
         viewHolder.tvDate.setTextColor(Color.WHITE);
         viewHolder.tvAmount.setText(Integer.toString(transaction.getAmount()));
         viewHolder.tvCategory.setText(transaction.getCategory().getDisplayName());
-        viewHolder.tvDate.setText((transaction.getDate().toString()));  */  }
+        viewHolder.tvDate.setText((transaction.getDate().toString()));
+    }else {
+        notifyItemChanged( position );
+    }*/
+    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return this.transactions.size();
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 }
