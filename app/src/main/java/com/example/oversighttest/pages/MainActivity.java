@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.dm = new DummyNetwork();
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(R.layout.activity_main);
@@ -41,10 +41,9 @@ public class MainActivity extends AppCompatActivity {
         PageAdapter tabManager = new PageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         tabManager.addFragment(new TransactionsPage(), "Transactions");
         tabManager.addFragment(new SpendingPlanPage(), "Spending Plan");
-        tabManager.addFragment(new BankPage(), "Bank");
+        tabManager.addFragment(new BankPage(dm), "Bank");
         viewPager.setAdapter(tabManager);
 
-        this.dm = new DummyNetwork();
     }
 
     public DummyNetwork getDm() {
