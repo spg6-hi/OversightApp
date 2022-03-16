@@ -6,13 +6,21 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
+import com.example.oversighttest.adapters.TransactionAdapter;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
 import com.github.mikephil.charting.charts.PieChart;
@@ -21,7 +29,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.renderer.PieChartRenderer;
 import com.github.mikephil.charting.renderer.Renderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -33,25 +40,59 @@ import java.util.List;
 
 public class TransactionsPage extends Fragment {
 
+    //public static final String EXTRA_CONTACT = ;
     private PieChart pieChart;
+    private Button mAddTransaction;
+    //private RecyclerView mTransactionList;
     private View v;
     private DummyNetwork network;
     private ArrayList<Transaction> transactions;
     private HashMap<String, Integer> pieEntries;
     private Renderer r;
     ArrayList<Integer> colors;
+    //TransactionAdapter adapter;
+    //ArrayAdapter<String> arrayAdapter;
+
+    /*public TransactionsPage(Button addTransaction, ListView transactionList) {
+        mAddTransaction = addTransaction;
+        mTransactionList = transactionList;
+    }*/
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MainActivity a = (MainActivity) getActivity();
+        final FragmentActivity tPFA = getActivity();
+
         network = a.getDm();
         transactions = network.getTransactions();
         pieEntries = new HashMap<>();
 
+        // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
+        final View rootView = inflater.inflate(R.layout.fragment_transactions_page,container, false);
+        // 1. get a reference to recyclerView
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
+        // 2. set layoutManager
+        recyclerView.setLayoutManager((new LinearLayoutManager(getContext()))); //getContext()
+        // 3. create and set the adapter
+        //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
+                tPFA.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
+            }
+        }).start();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transactions_page, container, false);
+        return rootView;
+        //return inflater.inflate(R.layout.fragment_transactions_page, container, false);
     }
 
     @Override
@@ -63,6 +104,15 @@ public class TransactionsPage extends Fragment {
         colors = new ArrayList<>();
         setupPieChart();
         loadPieChartData();
+        v = getView();
+        //RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.mTransactionList);
+        //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+        //recyclerView.setLayoutManager((new LinearLayoutManager(getContext())));
+
+        //adapter = new RecyclerTransactionAdapter(getContext(), transactions);
+        //mTransactionList = (RecyclerView) v.findViewById(R.id.mTransactionList);
+        //mTransactionList.setAdapter(new RecyclerTransactionAdapter(getContext(),  transactions));
+
     }
 
 
