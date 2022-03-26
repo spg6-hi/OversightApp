@@ -54,6 +54,7 @@ public class SpendingPlanPage extends Fragment {
         for ( Map.Entry<Category, Integer> entry : spendingPlan.entrySet()){
             listSpendingPlan.add(new Transaction(entry.getValue(), entry.getKey(), date));
         }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_spending_plan_page, container, false);
     }
@@ -80,6 +81,7 @@ public class SpendingPlanPage extends Fragment {
         pieChart.setCenterTextColor(Color.WHITE);
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(false);
+        pieChart.setDrawEntryLabels(false);
 
         Legend l = pieChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
