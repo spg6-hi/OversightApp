@@ -3,13 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
+        <entry key="..\:/Users/Andri/OneDrive/Documents/GitHub/OversightApp/app/src/main/res/layout/activity_transaction.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/Andri/OneDrive/Documents/GitHub/OversightApp/app/src/main/res/layout/fragment_bank_page.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/Andri/OneDrive/Documents/GitHub/OversightApp/app/src/main/res/layout/fragment_transactions_page.xml" value="0.22552083333333334" />
+=======
+>>>>>>> master
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout-land/activity_transaction.xml" value="0.31040564373897706" />
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/activity_spendingplan.xml" value="0.18206521739130435" />
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/activity_transaction.xml" value="0.33" />
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/activity_user.xml" value="0.20625" />
+<<<<<<< HEAD
+        <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/fragment_bank_page.xml" value="0.4375" />
+        <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/fragment_transactions_page.xml" value="0.5" />
+        <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/item_transaction.xml" value="0.5" />
+=======
         <entry key="..\:/Users/krist/StudioProjects/OversightApp/app/src/main/res/layout/fragment_transactions_page.xml" value="0.25" />
+<<<<<<< HEAD
+=======
         <entry key="..\:/Users/stull/AndroidStudioProjects/OversightApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+>>>>>>> master
+>>>>>>> master
         <entry key="..\:/Users/stull/AndroidStudioProjects/OversightApp/app/src/main/res/layout/activity_user.xml" value="0.259963768115942" />
         <entry key="..\:/Users/stull/AndroidStudioProjects/OversightApp/app/src/main/res/layout/fragment_bank_page.xml" value="0.2558876811594203" />
         <entry key="..\:/Users/stull/AndroidStudioProjects/OversightApp/app/src/main/res/layout/fragment_blank.xml" value="0.1213768115942029" />

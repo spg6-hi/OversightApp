@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 //import com.example.overesighttest.databinding.ActivityMainBinding;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.network.DummyNetwork;
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Button addTransaction;
+    private ListView transactionList;
 
     private static DummyNetwork dm;
 
@@ -24,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.dm = new DummyNetwork();
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(R.layout.activity_main);
@@ -37,10 +41,9 @@ public class MainActivity extends AppCompatActivity {
         PageAdapter tabManager = new PageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         tabManager.addFragment(new TransactionsPage(), "Transactions");
         tabManager.addFragment(new SpendingPlanPage(), "Spending Plan");
-        tabManager.addFragment(new BankPage(), "Bank");
+        tabManager.addFragment(new BankPage(dm), "Bank");
         viewPager.setAdapter(tabManager);
 
-        this.dm = new DummyNetwork();
     }
 
     public DummyNetwork getDm() {
