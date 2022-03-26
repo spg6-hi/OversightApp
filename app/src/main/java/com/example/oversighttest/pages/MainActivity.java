@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public DummyNetwork getDm() {
+    public static DummyNetwork getDm() {
         return dm;
     }
 }

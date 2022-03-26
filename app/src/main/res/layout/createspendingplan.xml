@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Background"
+    tools:context=".pages.CreateSpendingPlanPage">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/scrollViewDesc"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="50dp"
+            android:paddingTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/csptext"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="Create Spending Plan"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp1"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Cars \u0026 Transportation"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp2"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Children"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp3"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Education"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp4"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Fines \u0026 Fees"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp5"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+
+                android:ems="10"
+                android:hint="Food"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number"/>
+
+            <EditText
+                android:id="@+id/csp6"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Health \u0026 Beauty"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp7"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Home"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp8"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Insurance"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp9"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Investments \u0026 Savings"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp10"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Leisure Time"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp11"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Shopping \u0026 Services"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp12"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Uncategorized Expenses / Other"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/csp13"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="100dp"
+                android:ems="10"
+                android:hint="Vacation \u0026 Travel"
+                android:backgroundTint="@color/menuColor"
+                android:textColorHint="@color/menuColor"
+                android:textColor="@color/menuColor"
+                android:inputType="number" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spendingplan_save"
+        app:backgroundTint="@color/menuColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spendingplan_cancel"
+        app:backgroundTint="@color/menuColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+</androidx.constraintlayout.widget.ConstraintLayout>

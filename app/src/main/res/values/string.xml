@@ -5,8 +5,15 @@
     <string name="user_header">User</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scrollViewDesc">Scroll</string>
+    <string name="fab_three">Edit Spending Plan</string>
+    <string name="fab_two">Delete Spending Plan</string>
+    <string name="fab_one">Create Spending Plan</string>
     <string name="spinnerDescription">Drop down spinner of categories</string>
     <string name="mAddTransaction">Add Transaction</string>
     <string name="mAmountHint">Amount</string>
+    <string name="spendingplan_save">Save</string>
+    <string name="spendingplan_cancel">Cancel</string>
+    <string name="spendingplan_confirm">YES</string>
+    <string name="spendingplan_deny">NO</string>
 
 </resources>
