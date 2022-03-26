@@ -14,15 +14,15 @@ public class BankBalanceService {
         return dm.getBankBalance();
     }
 
-    public void addFunds(){
+    public void addFunds(int added){
         int balance = dm.getBankBalance();
-        balance += 1000;
+        balance += added;
         dm.setBankBalance(balance);
     }
 
-    public void removeFunds(){
+    public void removeFunds(int removed){
         int balance = dm.getBankBalance();
-        balance -= 1000;
+        balance -= removed;
         dm.setBankBalance(balance);
     }
 

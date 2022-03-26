@@ -114,7 +114,6 @@ public class DummyNetwork {
                 .toString();
 
         this.userName = generatedString;
-        System.out.println(this.userName);
     }
 
     /**

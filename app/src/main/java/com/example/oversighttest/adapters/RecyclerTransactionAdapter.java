@@ -96,12 +96,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.setIsRecyclable(false);
-        Log.d(TAG, "onBindViewHolder() position: " + position);
         final Transaction transaction = transactions.get(position);
-        System.out.println("transactions[0]" + transactions.get(0));
-        System.out.println("transactions[end]" + transactions.get(getItemCount()-1));
-        System.out.println("onBindViewHolder : position: " + position);
-        System.out.println("transactions[position]: " + transactions.get(position));
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         if(viewHolder != null) {
