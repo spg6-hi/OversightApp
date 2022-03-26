@@ -28,6 +28,10 @@ public enum Category {
         return displayName;
     }
 
+    public static Category[] getValues(){
+        return Category.values();
+    }
+
     public static Category getRandomCategory(){
         Category[] values = Category.values();
         int length = values.length;

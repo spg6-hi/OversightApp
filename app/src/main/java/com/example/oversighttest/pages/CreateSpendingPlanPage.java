@@ -13,6 +13,7 @@ import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.services.SpendingPlanService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CreateSpendingPlanPage extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class CreateSpendingPlanPage extends AppCompatActivity {
     private SpendingPlanService spendingPlanService = new SpendingPlanService(network);
 
     private HashMap<Category, Integer> spendingPlan;
+
+    private ArrayList<EditText> categories;
 
     private int parseInt = 1;
 
@@ -38,87 +41,61 @@ public class CreateSpendingPlanPage extends AppCompatActivity {
         saveButton = (Button)findViewById(R.id.saveButton);
         cancelButton = (Button)findViewById(R.id.cancelButton);
 
+        categories = new ArrayList<EditText>();
+        spendingPlan = new HashMap<Category, Integer>();
+
         carsandtransportation = (EditText)findViewById(R.id.csp1);
+        categories.add(carsandtransportation);
         children = (EditText)findViewById(R.id.csp2);
+        categories.add(children);
         education = (EditText)findViewById(R.id.csp3);
+        categories.add(education);
         finesandfees = (EditText)findViewById(R.id.csp4);
+        categories.add(finesandfees);
         food = (EditText)findViewById(R.id.csp5);
+        categories.add(food);
         healthandbeauty = (EditText)findViewById(R.id.csp6);
+        categories.add(healthandbeauty);
         home = (EditText)findViewById(R.id.csp7);
+        categories.add(home);
         insurance = (EditText)findViewById(R.id.csp8);
+        categories.add(insurance);
         investmentsandsavings = (EditText)findViewById(R.id.csp9);
+        categories.add(investmentsandsavings);
         leisuretime = (EditText)findViewById(R.id.csp10);
+        categories.add(leisuretime);
         shoppingandservices = (EditText)findViewById(R.id.csp11);
+        categories.add(shoppingandservices);
         other = (EditText)findViewById(R.id.csp12);
+        categories.add(other);
         vacationandtravel = (EditText)findViewById(R.id.csp13);
+        categories.add(vacationandtravel);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                /*
-                Category[] categories = Category.values();
-                for(Category c : categories) {
-                    if(parseInt == 1) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
+                int index = 0;
+                Category[] cats = Category.getValues();
+                for (EditText e : categories){
+                    try{
+                        Integer a = Integer.valueOf(e.getText().toString());
+                        spendingPlan.put(cats[index], a);
+                    }catch (Exception r){
                     }
-                    if(parseInt == 2) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 3) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 4) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 5) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 6) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 7) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 8) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 9) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 10) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 11) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 12) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    if(parseInt == 13) {
-                        spendingPlan.put(c, Integer.parseInt(carsandtransportation.getText().toString()));
-
-                    }
-                    parseInt++;
+                    index ++;
                 }
-                */
-                //spendingPlanService.setSpendingPlan(spendingPlan);
-                //spendingPlan.put()
-                Intent intent = new Intent(CreateSpendingPlanPage.this, MainActivity.class);
-
-                startActivity(intent);
+                try{
+                    Intent data = new Intent();
+                    data.putExtra("new spending plan", spendingPlan);
+                    setResult(RESULT_OK, data);
+                    finish();
+                }
+                catch (Exception e){
+                    Intent data = new Intent();
+                    setResult(RESULT_CANCELED, data);
+                    finish();
+                }
             }
         });
 

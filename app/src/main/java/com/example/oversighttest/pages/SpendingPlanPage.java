@@ -1,5 +1,7 @@
 package com.example.oversighttest.pages;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,6 +37,8 @@ import java.util.Map;
 
 
 public class SpendingPlanPage extends Fragment {
+
+    private static final int CREATE_SPENING_PLAN = 0;
 
     private static DummyNetwork network;
     private PieChart pieChart;
@@ -179,7 +183,7 @@ public class SpendingPlanPage extends Fragment {
                 else {
                     Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
 
-                    startActivity(intent);
+                    startActivityForResult(intent, CREATE_SPENING_PLAN);
                 }
             }
         });
@@ -214,33 +218,18 @@ public class SpendingPlanPage extends Fragment {
             }
         });
     }
-/*
-    public void createContactDialog() {
-        dialogBuilder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_DeviceDefault_NoActionBar);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.createspendingplan, null);
 
-        newcontantpopup_save = (Button) contactPopupView.findViewById(R.id.saveButton);
-        newcontantpopup_cancel = (Button) contactPopupView.findViewById(R.id.cancelButton);
-
-        dialogBuilder.setView(contactPopupView);
-        dialog = dialogBuilder.create();
-        dialog.show();
-
-        newcontantpopup_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Define save button
-                dialog.dismiss();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == CREATE_SPENING_PLAN){
+                if (data != null){
+                    HashMap<Category, Integer> spendingPlan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
+                    network.setSpendingPlan(spendingPlan);
+                    loadPieChartData(spendingPlan);
+                }
             }
-        });
-
-        newcontantpopup_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Define cancel button
-                dialog.dismiss();
-            }
-        });
-
-    }*/
+        }
+    }
 }
