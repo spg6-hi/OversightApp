@@ -1,19 +1,20 @@
 package com.example.oversighttest.pages;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
@@ -39,6 +40,7 @@ public class SpendingPlanPage extends Fragment {
     private PieChart pieChart;
     private View v;
     private HashMap<Category, Integer> spendingPlan;
+    private boolean spendingPlanExists = false;
 
     private FloatingActionButton fab;
     private ExtendedFloatingActionButton fabone, fabtwo, fabthree;
@@ -135,6 +137,19 @@ public class SpendingPlanPage extends Fragment {
         fabtwo.setTranslationY(translationYaxis);
         fabthree.setTranslationY(translationYaxis);
 
+        ConstraintLayout spendinglayout = (ConstraintLayout) v.findViewById(R.id.frameLayout);
+
+        spendinglayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    menuOpen = !menuOpen;
+                    fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                    fabone.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+                    fabtwo.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+                    fabthree.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,20 +166,58 @@ public class SpendingPlanPage extends Fragment {
                     fabtwo.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
                     fabthree.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
                 }
+
             }
         });
 
         fabone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createContactDialog();
+                if(spendingPlanExists) {
+                    Toast.makeText(getActivity(),"Spending Plan Already Exists",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
+
+                    startActivity(intent);
+                }
+            }
+        });
+
+        fabtwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(spendingPlanExists) {
+                    Intent intent = new Intent(getActivity(), DeleteSpendingPlanPage.class);
+
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getActivity(),"No Spending Plan To Delete",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        fabthree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(spendingPlanExists) {
+                    Intent intent = new Intent(getActivity(), EditSpendingPlanPage.class);
+
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
+
+                    startActivity(intent);
+                }
             }
         });
     }
-
+/*
     public void createContactDialog() {
         dialogBuilder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_DeviceDefault_NoActionBar);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.createspendingplan_popup, null);
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.createspendingplan, null);
 
         newcontantpopup_save = (Button) contactPopupView.findViewById(R.id.saveButton);
         newcontantpopup_cancel = (Button) contactPopupView.findViewById(R.id.cancelButton);
@@ -188,5 +241,6 @@ public class SpendingPlanPage extends Fragment {
                 dialog.dismiss();
             }
         });
-    }
+
+    }*/
 }

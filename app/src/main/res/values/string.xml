@@ -11,5 +11,9 @@
     <string name="spinnerDescription">Drop down spinner of categories</string>
     <string name="mAddTransaction">Add Transaction</string>
     <string name="mAmountHint">Amount</string>
+    <string name="spendingplan_save">Save</string>
+    <string name="spendingplan_cancel">Cancel</string>
+    <string name="spendingplan_confirm">YES</string>
+    <string name="spendingplan_deny">NO</string>
 
 </resources>
