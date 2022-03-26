@@ -1,5 +1,7 @@
 package com.example.oversighttest.pages;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import com.example.oversighttest.R;
 import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
 import com.example.oversighttest.adapters.TransactionAdapter;
+import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,11 +35,14 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.renderer.Renderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class TransactionsPage extends Fragment {
+
+    private static final int CREATE_TRANSACTION = 0;
 
     //public static final String EXTRA_CONTACT = ;
     private PieChart pieChart;
@@ -99,7 +105,7 @@ public class TransactionsPage extends Fragment {
             public void onClick(View view) {
                 //using Intent to bind the two activities TransactionPage and AddTransactionActivity. This intent starts the AddTransactionActivity.
                 Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, CREATE_TRANSACTION);
             }
         });
 
@@ -197,5 +203,24 @@ public class TransactionsPage extends Fragment {
         pieChart.setData(data);
         pieChart.invalidate();
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_OK){
+            if (requestCode == CREATE_TRANSACTION){
+                if (data != null){
+                    int amount = data.getIntExtra("amount", 0);
+                    Category cat = (Category)data.getExtras().getSerializable("category");
+                    LocalDate date = (LocalDate) data.getExtras().getSerializable("date");
+                    Transaction t = new Transaction(amount, cat, date);
+                    network.createTransaction(t);
+                    System.out.println("ASDFDSASDFDS");
+                    System.out.println(t);
+
+                }
+            }
+        }
     }
 }

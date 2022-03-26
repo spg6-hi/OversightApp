@@ -30,7 +30,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        Intent i = new Intent();
+        Intent data = new Intent();
 
 
     }
