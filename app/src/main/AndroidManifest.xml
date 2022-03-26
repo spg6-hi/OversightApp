@@ -55,6 +55,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".pages.AddBankActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".pages.RemoveBankActivity"
+            android:exported="true">
+</activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

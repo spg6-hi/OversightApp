@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/mRemoveFunds"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".pages.TransactionsPage">
@@ -22,17 +22,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="188dp"
-                android:contentDescription="TODO"
-                tools:src="@tools:sample/avatars" />
-
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
                 android:layout_width="match_parent"
-                android:layout_height="269dp"
+                android:layout_height="500dp"
                 tools:layout_editor_absoluteX="50dp"
                 tools:layout_editor_absoluteY="50dp">
 
