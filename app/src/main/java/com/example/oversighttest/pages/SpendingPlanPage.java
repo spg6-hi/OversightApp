@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -22,9 +23,11 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class SpendingPlanPage extends Fragment {
@@ -33,6 +36,7 @@ public class SpendingPlanPage extends Fragment {
     private PieChart pieChart;
     private View v;
     private HashMap<Category, Integer> spendingPlan;
+    private ArrayList<Transaction> listSpendingPlan = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +44,16 @@ public class SpendingPlanPage extends Fragment {
         MainActivity a = (MainActivity) getActivity();
         network = a.getDm();
         spendingPlan = network.getSpendingPlan();
+
+        //skítafix til að legend a piechart sjáist
+        long max = LocalDate.of(2022, 12, 31).toEpochDay();
+        long min = LocalDate.of(2021, 1, 1).toEpochDay();
+        long randomDay = ThreadLocalRandom.current().nextLong(min, max);
+        LocalDate date = LocalDate.ofEpochDay(randomDay);
+
+        for ( Map.Entry<Category, Integer> entry : spendingPlan.entrySet()){
+            listSpendingPlan.add(new Transaction(entry.getValue(), entry.getKey(), date));
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_spending_plan_page, container, false);
     }
@@ -78,9 +92,10 @@ public class SpendingPlanPage extends Fragment {
 
     private void  loadPieChartData(HashMap<Category, Integer> spendingPlan){
         ArrayList<PieEntry> entries = new ArrayList<>();
-        for ( Map.Entry<Category, Integer> entry : spendingPlan.entrySet()){
-            entries.add(new PieEntry(entry.getValue(), entry.getKey()));
+        for (Transaction t : listSpendingPlan) {
+            entries.add(new PieEntry(t.getAmount(), t.getCategory().getDisplayName()));
         }
+
 
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color: ColorTemplate.MATERIAL_COLORS){
@@ -100,7 +115,6 @@ public class SpendingPlanPage extends Fragment {
 
         pieChart.setData(data);
         pieChart.invalidate();
-
 
     }
 }
