@@ -86,8 +86,9 @@ public class DummyNetwork {
         this.bankBalance = bankBalance;
     }
 
-    public void createTransaction(Transaction t){
+    public Transaction createTransaction(Transaction t){
         this.transactions.add(t);
+        return t;
     }
 
     public void deleteTransaction(Transaction t){

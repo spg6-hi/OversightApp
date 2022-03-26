@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Background"
+    tools:context=".pages.AddTransactionActivity">
+
+
+    <LinearLayout
+        android:id="@+id/mAddTransactionLinearLayout"
+        android:layout_width="310dp"
+        android:layout_height="581dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/mTransactionValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/mAddTransactionValueHint"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="#0097A7"
+            android:textColor="@color/textColor"/>
+
+        <Button
+            android:id="@+id/mShowDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="showDatePickerDialog"
+            android:text="@string/mShowDate"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/mEditTextDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/mEditTextDateHint"
+            android:ems="10"
+            android:hint="@string/mEditTextDateHint"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

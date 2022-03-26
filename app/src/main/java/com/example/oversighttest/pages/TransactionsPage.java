@@ -1,5 +1,6 @@
 package com.example.oversighttest.pages;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -64,6 +65,9 @@ public class TransactionsPage extends Fragment {
         transactions = network.getTransactions();
 
         // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
+        /*
+            Using a RecyclerView and an Adapter class to display a list of Transactions in the fragment_transactions_page.xml
+         */
         final View rootView = inflater.inflate(R.layout.fragment_transactions_page,container, false);
         // 1. get a reference to recyclerView
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
@@ -71,6 +75,7 @@ public class TransactionsPage extends Fragment {
         recyclerView.setLayoutManager((new LinearLayoutManager(getContext()))); //getContext()
         // 3. create and set the adapter
         //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+
 
         new Thread(new Runnable() {
             @Override
@@ -84,6 +89,20 @@ public class TransactionsPage extends Fragment {
                 });
             }
         }).start();
+
+        /*
+            Defining what happens when the mAddTransaction button is pressed in fragment_transactions_page.xml
+         */
+        mAddTransaction = (Button) rootView.findViewById(R.id.mAddTransaction);
+        mAddTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //using Intent to bind the two activities TransactionPage and AddTransactionActivity. This intent starts the AddTransactionActivity.
+                Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Inflate the layout for this fragment
         return rootView;
         //return inflater.inflate(R.layout.fragment_transactions_page, container, false);
@@ -107,6 +126,7 @@ public class TransactionsPage extends Fragment {
         //mTransactionList.setAdapter(new RecyclerTransactionAdapter(getContext(),  transactions));
 
     }
+
 
 
     private void setupPieChart(){

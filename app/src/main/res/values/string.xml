@@ -8,5 +8,8 @@
     <string name="spinnerDescription">Drop down spinner of categories</string>
     <string name="mAddTransaction">Add Transaction</string>
     <string name="mAmountHint">Amount</string>
+    <string name="mAddTransactionValueHint">Enter transaction amount</string>
+    <string name="mShowDate">Click button to select Date</string>
+    <string name="mEditTextDateHint">Selected Date</string>
 
 </resources>

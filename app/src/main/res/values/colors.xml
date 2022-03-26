@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="menuColor">#009879</color>
     <color name="Background">#222222</color>
+    <color name="textColor">#009879</color>
 
 </resources>
