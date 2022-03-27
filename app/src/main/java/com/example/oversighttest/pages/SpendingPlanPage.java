@@ -262,7 +262,7 @@ public class SpendingPlanPage extends Fragment {
             }
         }
     }
-
+    //Closes floating action buttons
     private void closeFab(){
         menuOpen = !menuOpen;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
@@ -271,6 +271,7 @@ public class SpendingPlanPage extends Fragment {
         fabthree.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
     }
 
+    //Opens floating action buttons
     private void openFab(){
         menuOpen = !menuOpen;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);

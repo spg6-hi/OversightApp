@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     //this is the dummy network, other activities use this exact network, so that every activity uses the same data
     private static DummyNetwork dm;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
