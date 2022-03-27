@@ -28,8 +28,8 @@ public class DummyNetwork {
     private int userNameLength = 10;
 
     //amount of transactions
-    private int maxTransactions = 100;
-    private int minTransactions = 30;
+    private int maxTransactions = 10;
+    private int minTransactions = 2;
 
     //How much a transaction costs
     private int maxAmount = 10000;
@@ -86,8 +86,9 @@ public class DummyNetwork {
         this.bankBalance = bankBalance;
     }
 
-    public void createTransaction(Transaction t){
+    public Transaction createTransaction(Transaction t){
         this.transactions.add(t);
+        return t;
     }
 
     public void deleteTransaction(Transaction t){

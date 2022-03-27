@@ -1,5 +1,8 @@
 package com.example.oversighttest.pages;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -20,8 +23,10 @@ import android.widget.ListView;
 import com.example.oversighttest.R;
 import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
 import com.example.oversighttest.adapters.TransactionAdapter;
+import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.services.TransactionService;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -31,11 +36,14 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.renderer.Renderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class TransactionsPage extends Fragment {
+
+    private static final int CREATE_TRANSACTION = 0;
 
     //public static final String EXTRA_CONTACT = ;
     private PieChart pieChart;
@@ -43,6 +51,7 @@ public class TransactionsPage extends Fragment {
     //private RecyclerView mTransactionList;
     private View v;
     private DummyNetwork network;
+    private TransactionService ts;
     private ArrayList<Transaction> transactions;
     private Renderer r;
     //TransactionAdapter adapter;
@@ -60,10 +69,14 @@ public class TransactionsPage extends Fragment {
         MainActivity a = (MainActivity) getActivity();
         final FragmentActivity tPFA = getActivity();
 
-        network = a.getDm();
-        transactions = network.getTransactions();
+        ts = new TransactionService(a.getDm());
+
+        transactions = ts.seeTransactions();
 
         // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
+        /*
+            Using a RecyclerView and an Adapter class to display a list of Transactions in the fragment_transactions_page.xml
+         */
         final View rootView = inflater.inflate(R.layout.fragment_transactions_page,container, false);
         // 1. get a reference to recyclerView
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
@@ -71,6 +84,7 @@ public class TransactionsPage extends Fragment {
         recyclerView.setLayoutManager((new LinearLayoutManager(getContext()))); //getContext()
         // 3. create and set the adapter
         //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
+
 
         new Thread(new Runnable() {
             @Override
@@ -84,6 +98,20 @@ public class TransactionsPage extends Fragment {
                 });
             }
         }).start();
+
+        /*
+            Defining what happens when the mAddTransaction button is pressed in fragment_transactions_page.xml
+         */
+        mAddTransaction = (Button) rootView.findViewById(R.id.mAddTransaction);
+        mAddTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //using Intent to bind the two activities TransactionPage and AddTransactionActivity. This intent starts the AddTransactionActivity.
+                Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
+                startActivityForResult(intent, CREATE_TRANSACTION);
+            }
+        });
+
         // Inflate the layout for this fragment
         return rootView;
         //return inflater.inflate(R.layout.fragment_transactions_page, container, false);
@@ -109,12 +137,13 @@ public class TransactionsPage extends Fragment {
     }
 
 
+
     private void setupPieChart(){
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.rgb(34, 34, 34));
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
-        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setEntryLabelColor(Color.WHITE);
         pieChart.setCenterText("Spending by Category");
         pieChart.setCenterTextSize(24);
         pieChart.setCenterTextColor(Color.WHITE);
@@ -177,5 +206,23 @@ public class TransactionsPage extends Fragment {
         pieChart.setData(data);
         pieChart.invalidate();
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == CREATE_TRANSACTION){
+                if (data != null){
+                    int amount = data.getIntExtra("amount", 0);
+                    Category cat = (Category)data.getExtras().getSerializable("category");
+                    LocalDate date = (LocalDate) data.getExtras().getSerializable("date");
+                    Transaction t = new Transaction(amount, cat, date);
+
+                    ts.addTransaction(t);
+                    loadPieChartData();
+                }
+            }
+        }
     }
 }

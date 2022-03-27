@@ -27,6 +27,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".pages.AddTransactionActivity"
+            android:parentActivityName=".pages.TransactionsPage">
+        <!-- The meta-data tag is required if you support API level 15 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".pages.TransactionsPage" />
+        </activity>
+
         <activity
             android:name=".pages.CreateSpendingPlanPage"
             android:exported="true">
@@ -62,8 +70,7 @@
         <activity
             android:name=".pages.RemoveBankActivity"
             android:exported="true">
-</activity>
-
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

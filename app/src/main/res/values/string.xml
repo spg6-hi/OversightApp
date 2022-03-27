@@ -8,12 +8,20 @@
     <string name="fab_three">Edit Spending Plan</string>
     <string name="fab_two">Delete Spending Plan</string>
     <string name="fab_one">Create Spending Plan</string>
+
     <string name="spinnerDescription">Drop down spinner of categories</string>
     <string name="mAddTransaction">Add Transaction</string>
     <string name="mAmountHint">Amount</string>
+
+    <string name="mAddTransactionValueHint">Enter transaction amount</string>
+    <string name="mShowDate">Click button to select Date</string>
+    <string name="mEditTextDateHint">Selected Date</string>
+
     <string name="spendingplan_save">Save</string>
     <string name="spendingplan_cancel">Cancel</string>
     <string name="spendingplan_confirm">YES</string>
     <string name="spendingplan_deny">NO</string>
+
+
 
 </resources>
