@@ -6,6 +6,10 @@ import com.example.oversighttest.R;
 
 public class UserActivity extends AppCompatActivity {
 
+    /*
+    UNFINISHED KLASI
+    TODO: implement alla user virkni
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -50,10 +50,9 @@ public class TransactionsPage extends Fragment {
     public static final int SORT_BY_CATEGORY = 1;
     public static final int SORT_BY_DATE = 2;
 
-    //public static final String EXTRA_CONTACT = ;
     private PieChart pieChart;
     private Button mAddTransaction;
-    //private RecyclerView mTransactionList;
+
     private View v;
     private DummyNetwork network;
     private TransactionService ts;
@@ -66,13 +65,7 @@ public class TransactionsPage extends Fragment {
     private RecyclerView recyclerView;
 
     private Renderer r;
-    //TransactionAdapter adapter;
-    //ArrayAdapter<String> arrayAdapter;
 
-    /*public TransactionsPage(Button addTransaction, ListView transactionList) {
-        mAddTransaction = addTransaction;
-        mTransactionList = transactionList;
-    }*/
 
 
     @Override
@@ -155,6 +148,9 @@ public class TransactionsPage extends Fragment {
         v = getView();
     }
 
+    /**
+     * This function updates the list view
+     */
     private void setlist(){
         FragmentActivity tPFA = getActivity();
         final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
@@ -231,7 +227,7 @@ public class TransactionsPage extends Fragment {
             entries.add(new PieEntry(e.getValue(), e.getKey()));
         }
 
-
+        //set colours
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color: ColorTemplate.MATERIAL_COLORS){
             colors.add(color);
