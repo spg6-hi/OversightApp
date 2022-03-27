@@ -13,9 +13,6 @@ public class PageAdapter extends FragmentPagerAdapter {
     private final ArrayList<Fragment> fragmentList = new ArrayList<>();
     private final ArrayList<String> fragmentTitles = new ArrayList<>();
 
-
-
-
     public PageAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
@@ -39,8 +36,6 @@ public class PageAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-
-
         return fragmentTitles.get(position);
     }
 }

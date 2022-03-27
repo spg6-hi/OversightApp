@@ -11,14 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
 
-import java.security.cert.Extension;
-
 public class AddBankActivity extends AppCompatActivity {
 
     private EditText mFundsAdded;
     private Button confirmButton;
     private Button cancelButton;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -34,7 +31,7 @@ public class AddBankActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                try{
+                try {
                     /*
                     Get the value from the text field and return it to parent activity
                      */
@@ -44,7 +41,7 @@ public class AddBankActivity extends AppCompatActivity {
                     setResult(RESULT_OK, data);
                     finish();
                 }
-                catch (Exception e){
+                catch (Exception e) {
                     /*
                     Something went wrong, cancel
                      */
@@ -52,7 +49,6 @@ public class AddBankActivity extends AppCompatActivity {
                     setResult(RESULT_CANCELED, data);
                     finish();
                 }
-
             }
         });
 
@@ -74,5 +70,4 @@ public class AddBankActivity extends AppCompatActivity {
         Intent i = new Intent(packageContext, AddBankActivity.class);
         return i;
     }
-
 }

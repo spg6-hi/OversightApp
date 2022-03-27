@@ -126,14 +126,6 @@ public class TransactionsPage extends Fragment {
         setupPieChart();
         loadPieChartData();
         v = getView();
-        //RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.mTransactionList);
-        //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
-        //recyclerView.setLayoutManager((new LinearLayoutManager(getContext())));
-
-        //adapter = new RecyclerTransactionAdapter(getContext(), transactions);
-        //mTransactionList = (RecyclerView) v.findViewById(R.id.mTransactionList);
-        //mTransactionList.setAdapter(new RecyclerTransactionAdapter(getContext(),  transactions));
-
     }
 
 

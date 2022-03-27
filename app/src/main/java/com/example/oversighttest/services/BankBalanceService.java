@@ -25,5 +25,4 @@ public class BankBalanceService {
         balance -= removed;
         dm.setBankBalance(balance);
     }
-
 }

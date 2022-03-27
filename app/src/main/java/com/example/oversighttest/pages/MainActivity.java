@@ -3,10 +3,7 @@ package com.example.oversighttest.pages;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-//import com.example.overesighttest.databinding.ActivityMainBinding;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ListView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.network.DummyNetwork;
@@ -14,7 +11,6 @@ import com.google.android.material.tabs.TabLayout;
 
 
 public class MainActivity extends AppCompatActivity {
-
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -27,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.dm = new DummyNetwork();
-        //binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(R.layout.activity_main);
 

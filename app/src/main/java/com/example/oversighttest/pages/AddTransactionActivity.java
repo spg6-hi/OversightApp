@@ -3,7 +3,6 @@ package com.example.oversighttest.pages;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.net.LocalSocketAddress;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,7 +18,6 @@ import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,7 +52,6 @@ public class AddTransactionActivity extends AppCompatActivity {
         LocalDate today = LocalDate.now();
         dateButton.setText(today.getMonth() + " " + today.getDayOfMonth() + " " +today.getYear());
 
-
         //amount input
         transactionAmount = findViewById(R.id.mTransactionAmount);
 
@@ -87,7 +84,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 int amount = Integer.valueOf(text);
                 Category c = (Category)spinnerCategory.getSelectedItem();
 
-                try{
+                try {
                     /*
                     Return the input data back to parent activity
                      */
@@ -97,7 +94,8 @@ public class AddTransactionActivity extends AppCompatActivity {
                     intent.putExtra("category", c);
                     setResult(RESULT_OK, intent);
                     finish();
-                }catch (Exception e){
+                }
+                catch (Exception e){
                     /*
                     Something went wrong, cancel
                      */
@@ -149,5 +147,4 @@ public class AddTransactionActivity extends AppCompatActivity {
     public void openDatePicker(View view){
         datePickerDialog.show();
     }
-
 }

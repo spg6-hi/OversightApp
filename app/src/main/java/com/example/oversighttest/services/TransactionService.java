@@ -1,10 +1,9 @@
 package com.example.oversighttest.services;
+
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
-import com.example.oversighttest.entities.Category;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TransactionService {
