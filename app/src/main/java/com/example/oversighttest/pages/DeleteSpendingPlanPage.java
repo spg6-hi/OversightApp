@@ -25,9 +25,9 @@ public class DeleteSpendingPlanPage extends AppCompatActivity {
             public void onClick(View v)
             {
                 //Delete the spending plan
-                Intent intent = new Intent(DeleteSpendingPlanPage.this, MainActivity.class);
-
-                startActivity(intent);
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
@@ -35,9 +35,9 @@ public class DeleteSpendingPlanPage extends AppCompatActivity {
             public void onClick(View v)
             {
                 //Returns the user back
-                Intent intent = new Intent(DeleteSpendingPlanPage.this, MainActivity.class);
-
-                startActivity(intent);
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
+                finish();
             }
         });
     }
