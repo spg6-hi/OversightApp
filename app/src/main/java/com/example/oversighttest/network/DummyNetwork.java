@@ -29,8 +29,8 @@ public class DummyNetwork {
     private int userNameLength = 10;
 
     //amount of transactions
-    private int maxTransactions = 2;
-    private int minTransactions = 2;
+    private int maxTransactions = 50;
+    private int minTransactions = 30;
 
     //How much a transaction costs
     private int maxAmount = 10000;

@@ -26,6 +26,7 @@ import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.services.TransactionService;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -37,6 +38,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransactionsPage extends Fragment {
 
@@ -163,25 +166,30 @@ public class TransactionsPage extends Fragment {
             }
         });
         String currCategory = transactions.get(0).getCategory().getDisplayName();
-        int currValue = 0;
-        boolean hasAdded = false;
+
+        //Hash map that keeps track of int value for each category
+        HashMap<Category, Integer> values = new HashMap<>();
+
         //adds all Transactions from network to pieChart
         for (Transaction t : transactions) {
-            //makes single PieEntry for each category to prevent duplicates
-            if (!t.getCategory().getDisplayName().equals(currCategory)){
-                entries.add(new PieEntry(currValue, currCategory));
-                currValue = t.getAmount();
-                currCategory = t.getCategory().getDisplayName();
-                hasAdded = true;
-            } else{
-                currValue += t.getAmount();
-                hasAdded = false;
+            Category c = t.getCategory();
+            int v = t.getAmount();
+            if (values.containsKey(c)){
+                //the category is already defined, so we add the values together
+                int planVal = values.get(c);
+                values.put(c, v+planVal);
+            }
+            else{
+                //the category is not defined, so we put the value for that category in the map
+                values.put(c, v);
             }
         }
 
-        if (!hasAdded){
-            entries.add(new PieEntry(currValue, currCategory));
+        //loop through hash map and put in entries
+        for (Map.Entry<Category, Integer> e : values.entrySet()){
+            entries.add(new PieEntry(e.getValue(), e.getKey()));
         }
+
 
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color: ColorTemplate.MATERIAL_COLORS){
