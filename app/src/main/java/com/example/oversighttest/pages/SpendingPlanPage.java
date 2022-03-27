@@ -94,7 +94,7 @@ public class SpendingPlanPage extends Fragment {
         pieChart = v.findViewById(R.id.pieChart);
         ShowMenu();
         setupPieChart();
-        loadPieChartData(spendingPlan.getPlan());
+        loadPieChartData();
     }
 
     /**
@@ -124,9 +124,13 @@ public class SpendingPlanPage extends Fragment {
 
     /**
      * load data from spending plan for pie chart to display
-     * @param spendingPlan
      */
-    private void loadPieChartData(HashMap<Category, Integer> spendingPlan) {
+    private void loadPieChartData() {
+        LocalDate date = LocalDate.now();
+        listSpendingPlan = new ArrayList<Transaction>();
+        for ( Map.Entry<Category, Integer> entry : spendingPlan.getPlan().entrySet()){
+            listSpendingPlan.add(new Transaction(entry.getValue(), entry.getKey(), date));
+        }
 
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (Transaction t : listSpendingPlan) {
@@ -248,13 +252,15 @@ public class SpendingPlanPage extends Fragment {
                     HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
                     spendingPlan = new SpendingPlan(plan);
                     network.setSpendingPlan(spendingPlan);
-                    loadPieChartData(spendingPlan.getPlan());
+                    loadPieChartData();
                 }
             }
             else if(requestCode == DELETE_SPENDING_PLAN){
                 spendingPlanExists = false;
                 network.setSpendingPlan(new SpendingPlan(new HashMap<Category, Integer>()));
-                loadPieChartData(network.getSpendingPlan().getPlan());
+                spendingPlan = new SpendingPlan(new HashMap<Category, Integer>());
+                loadPieChartData();
+                System.out.println("okei ég eyddi því");
             }
         }
     }
