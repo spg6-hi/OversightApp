@@ -10,10 +10,10 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/scrollViewDesc"
         android:fillViewport="true"
-        android:paddingTop="60dp"
+        android:paddingTop="20dp"
 
         >
 
@@ -25,7 +25,8 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="600dp"
+                android:layout_gravity="top"
                 tools:layout_editor_absoluteX="50dp"
                 tools:layout_editor_absoluteY="50dp">
 
@@ -48,8 +49,9 @@
                     android:id="@+id/textView7"
                     android:layout_width="76dp"
                     android:layout_height="match_parent"
+                    android:layout_margin="20dp"
                     android:layout_weight="1"
-                    android:text="    Amount"
+                    android:text="Amount"
                     android:textAlignment="textStart"
                     android:textColor="@color/textColor"
                     android:textSize="20sp" />
@@ -58,8 +60,9 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
                     android:layout_weight="1"
-                    android:text="category"
+                    android:text="Category"
                     android:textColor="@color/textColor"
                     android:textSize="20sp" />
 
@@ -67,6 +70,7 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:text="Date"
                     android:textAlignment="center"
@@ -83,6 +87,12 @@
 
 
             </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

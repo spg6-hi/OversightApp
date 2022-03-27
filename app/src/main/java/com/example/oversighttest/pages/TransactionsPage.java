@@ -16,19 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
-import com.example.oversighttest.adapters.TransactionAdapter;
 import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.services.TransactionService;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -40,6 +38,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransactionsPage extends Fragment {
 
@@ -53,6 +53,9 @@ public class TransactionsPage extends Fragment {
     private DummyNetwork network;
     private TransactionService ts;
     private ArrayList<Transaction> transactions;
+
+    private RecyclerView recyclerView;
+
     private Renderer r;
     //TransactionAdapter adapter;
     //ArrayAdapter<String> arrayAdapter;
@@ -79,25 +82,13 @@ public class TransactionsPage extends Fragment {
          */
         final View rootView = inflater.inflate(R.layout.fragment_transactions_page,container, false);
         // 1. get a reference to recyclerView
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
         // 2. set layoutManager
         recyclerView.setLayoutManager((new LinearLayoutManager(getContext()))); //getContext()
         // 3. create and set the adapter
         //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
 
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
-                tPFA.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerView.setAdapter(adapter);
-                    }
-                });
-            }
-        }).start();
+        setlist();
 
         /*
             Defining what happens when the mAddTransaction button is pressed in fragment_transactions_page.xml
@@ -126,6 +117,18 @@ public class TransactionsPage extends Fragment {
         setupPieChart();
         loadPieChartData();
         v = getView();
+    }
+
+    private void setlist(){
+        FragmentActivity tPFA = getActivity();
+        final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
+        tPFA.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
     }
 
     /**
@@ -168,25 +171,30 @@ public class TransactionsPage extends Fragment {
             }
         });
         String currCategory = transactions.get(0).getCategory().getDisplayName();
-        int currValue = 0;
-        boolean hasAdded = false;
+
+        //Hash map that keeps track of int value for each category
+        HashMap<Category, Integer> values = new HashMap<>();
+
         //adds all Transactions from network to pieChart
         for (Transaction t : transactions) {
-            //makes single PieEntry for each category to prevent duplicates
-            if (!t.getCategory().getDisplayName().equals(currCategory)){
-                entries.add(new PieEntry(currValue, currCategory));
-                currValue = t.getAmount();
-                currCategory = t.getCategory().getDisplayName();
-                hasAdded = true;
-            } else{
-                currValue += t.getAmount();
-                hasAdded = false;
+            Category c = t.getCategory();
+            int v = t.getAmount();
+            if (values.containsKey(c)){
+                //the category is already defined, so we add the values together
+                int planVal = values.get(c);
+                values.put(c, v+planVal);
+            }
+            else{
+                //the category is not defined, so we put the value for that category in the map
+                values.put(c, v);
             }
         }
 
-        if (!hasAdded){
-            entries.add(new PieEntry(currValue, currCategory));
+        //loop through hash map and put in entries
+        for (Map.Entry<Category, Integer> e : values.entrySet()){
+            entries.add(new PieEntry(e.getValue(), e.getKey()));
         }
+
 
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color: ColorTemplate.MATERIAL_COLORS){
@@ -220,7 +228,7 @@ public class TransactionsPage extends Fragment {
                     Category cat = (Category)data.getExtras().getSerializable("category");
                     LocalDate date = (LocalDate) data.getExtras().getSerializable("date");
                     Transaction t = new Transaction(amount, cat, date);
-
+                    setlist();
                     ts.addTransaction(t);
                     loadPieChartData();
                 }

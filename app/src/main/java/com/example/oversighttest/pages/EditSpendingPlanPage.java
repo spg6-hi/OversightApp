@@ -128,8 +128,9 @@ public class EditSpendingPlanPage extends AppCompatActivity {
          */
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                HashMap<Category, Integer> plan = new HashMap<>();
+            public void onClick(View v)
+            {
+                HashMap<Category, Integer> plan = new HashMap<Category, Integer>();
                 int index = 0;
                 Category[] cats = Category.getValues();
                 for (EditText e : categories){
@@ -137,6 +138,8 @@ public class EditSpendingPlanPage extends AppCompatActivity {
                         //get value and add it to the plan
                         Integer a = Integer.valueOf(e.getText().toString());
                         plan.put(cats[index], a);
+                        System.out.println(a);
+                        System.out.println(cats[index]);
                     }
                     catch (Exception r){
                         //no value, so do nothing

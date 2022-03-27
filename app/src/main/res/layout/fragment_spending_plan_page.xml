@@ -7,7 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".pages.SpendingPlanPage">
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/scrollViewDesc"
+        android:fillViewport="true"
+        android:paddingTop="10dp"
 
+        >
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
@@ -17,6 +25,7 @@
         tools:layout_editor_absoluteX="50dp">
 
     </com.github.mikephil.charting.charts.PieChart>
+    </androidx.core.widget.NestedScrollView>
     <LinearLayout
         android:gravity="right"
         android:layout_width="wrap_content"

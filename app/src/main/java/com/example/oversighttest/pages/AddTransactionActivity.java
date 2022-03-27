@@ -81,13 +81,13 @@ public class AddTransactionActivity extends AppCompatActivity {
                     finish();
                 }
 
-                int amount = Integer.valueOf(text);
-                Category c = (Category)spinnerCategory.getSelectedItem();
 
                 try {
-                    /*
-                    Return the input data back to parent activity
-                     */
+                    //get data from inputs
+                    int amount = Integer.valueOf(text);
+                    Category c = (Category)spinnerCategory.getSelectedItem();
+
+                    //return data back to parent activity
                     Intent intent = new Intent();
                     intent.putExtra("date", date);
                     intent.putExtra("amount", amount);
@@ -96,9 +96,8 @@ public class AddTransactionActivity extends AppCompatActivity {
                     finish();
                 }
                 catch (Exception e){
-                    /*
-                    Something went wrong, cancel
-                     */
+
+                    //Something went wrong, cancel
                     Intent data = new Intent();
                     setResult(RESULT_CANCELED, data);
                     finish();

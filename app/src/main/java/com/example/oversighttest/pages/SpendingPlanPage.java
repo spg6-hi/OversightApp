@@ -40,7 +40,7 @@ import java.util.Map;
 public class SpendingPlanPage extends Fragment {
 
     //request codes
-    private static final int CREATE_SPENING_PLAN = 0;
+    private static final int CREATE_SPENDING_PLAN = 0;
     private static final int DELETE_SPENDING_PLAN = 1;
     private static final int CHANGE_SPENDING_PLAN = 2;
 
@@ -126,6 +126,7 @@ public class SpendingPlanPage extends Fragment {
      */
     private void loadPieChartData() {
         LocalDate date = LocalDate.now();
+        spendingPlan = network.getSpendingPlan();
         listSpendingPlan = new ArrayList<Transaction>();
         for ( Map.Entry<Category, Integer> entry : spendingPlan.getPlan().entrySet()){
             listSpendingPlan.add(new Transaction(entry.getValue(), entry.getKey(), date));
@@ -202,7 +203,7 @@ public class SpendingPlanPage extends Fragment {
                 else {
                     Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
 
-                    startActivityForResult(intent, CREATE_SPENING_PLAN);
+                    startActivityForResult(intent, CREATE_SPENDING_PLAN);
                 }
             }
         });
@@ -234,7 +235,7 @@ public class SpendingPlanPage extends Fragment {
                 else {
                     Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
 
-                    startActivityForResult(intent, CREATE_SPENING_PLAN);
+                    startActivityForResult(intent, CREATE_SPENDING_PLAN);
                 }
             }
         });
@@ -244,21 +245,32 @@ public class SpendingPlanPage extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
-            if (requestCode == CREATE_SPENING_PLAN || requestCode == CREATE_SPENING_PLAN){
+            if (requestCode == CREATE_SPENDING_PLAN){
                 if (data != null){
                     spendingPlanExists = true;
                     HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
+
                     spendingPlan = new SpendingPlan(plan);
                     network.setSpendingPlan(spendingPlan);
                     loadPieChartData();
                 }
+            }
+            else if(requestCode == CHANGE_SPENDING_PLAN){
+                if (data != null){
+                    spendingPlanExists = true;
+                    HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("edited spending plan");
+
+                    spendingPlan = new SpendingPlan(plan);
+                    network.setSpendingPlan(spendingPlan);
+                    loadPieChartData();
+                }
+
             }
             else if(requestCode == DELETE_SPENDING_PLAN){
                 spendingPlanExists = false;
                 network.setSpendingPlan(new SpendingPlan(new HashMap<Category, Integer>()));
                 spendingPlan = new SpendingPlan(new HashMap<Category, Integer>());
                 loadPieChartData();
-                System.out.println("okei ég eyddi því");
             }
         }
     }
