@@ -29,6 +29,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     private EditText transactionAmount;
     private Button dateButton;
     private Button confirmButton;
+    private Button cancelButton;
     private Spinner spinnerCategory;
 
     private LocalDate date;
@@ -79,6 +80,16 @@ public class AddTransactionActivity extends AppCompatActivity {
                 }
 
 
+            }
+
+        });
+        cancelButton = findViewById(R.id.cancelCreateTransaction);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
+                finish();
             }
         });
     }
