@@ -29,7 +29,7 @@ public class DummyNetwork {
 
     //amount of transactions
     private int maxTransactions = 10;
-    private int minTransactions = 1;
+    private int minTransactions = 2;
 
     //How much a transaction costs
     private int maxAmount = 10000;

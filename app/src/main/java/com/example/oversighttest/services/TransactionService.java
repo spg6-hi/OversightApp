@@ -2,14 +2,17 @@ package com.example.oversighttest.services;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.entities.Category;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AddTransactionService {
+public class TransactionService {
     DummyNetwork dm;
     private Transaction t;
     private List<Transaction> mTransactionList;
-    public AddTransactionService(DummyNetwork dm){
+
+    public TransactionService(DummyNetwork dm){
         this.dm = dm;
     }
 
@@ -17,7 +20,7 @@ public class AddTransactionService {
         return dm.createTransaction(t);
     }
     //todo seeTransactions(User user)
-    public List<Transaction> seeTransactions(){
+    public ArrayList<Transaction> seeTransactions(){
         return dm.getTransactions();
     }
     public void deleteTransaction(Transaction t){

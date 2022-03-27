@@ -6,36 +6,30 @@ import android.content.Intent;
 import android.net.LocalSocketAddress;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
-import com.example.oversighttest.entities.Transaction;
-import com.example.oversighttest.network.DummyNetwork;
-import com.example.oversighttest.services.AddTransactionService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 public class AddTransactionActivity extends AppCompatActivity {
-    /*
-    private DummyNetwork network = MainActivity.getDm();
-
-    private AddTransactionService addTransactionService = new AddTransactionService(network);
-     */
 
     private DatePickerDialog datePickerDialog;
     private EditText transactionAmount;
     private Button dateButton;
     private Button confirmButton;
+    private Spinner spinnerCategory;
 
     private LocalDate date;
 
@@ -44,17 +38,33 @@ public class AddTransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
         initDatePicker();
+        date = LocalDate.now();
         dateButton = findViewById(R.id.datePickerButton);
         LocalDate today = LocalDate.now();
-        dateButton.setText(today.getYear()+ " " + today.getMonth() + " " + today.getDayOfMonth());
+        dateButton.setText(today.getMonth() + " " + today.getDayOfMonth() + " " +today.getYear());
 
         transactionAmount = findViewById(R.id.mTransactionAmount);
+
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+        List<Category> categoryList = Category.getCategories();
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, categoryList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerCategory.setAdapter(adapter);
+
+
         confirmButton = findViewById(R.id.confirmCreateTransaction);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int amount = Integer.valueOf(transactionAmount.getText().toString());
-                Category c = Category.CARS;
+                String text = transactionAmount.getText().toString();
+                int amount = 0;
+                if(!text.matches("")){
+                    amount = Integer.valueOf(text);
+                }
+
+                Category c = (Category)spinnerCategory.getSelectedItem();
+
                 try{
                     Intent intent = new Intent();
                     intent.putExtra("date", date);
@@ -80,7 +90,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 month+=1;
                 LocalDate d = LocalDate.of(year, month, day);
                 date = d;
-                dateButton.setText(d.getYear()+ " " + d.getMonth() + " " + d.getDayOfMonth());
+                dateButton.setText(d.getMonth() + " " + d.getDayOfMonth() + " " + d.getYear());
             }
         };
 
@@ -98,10 +108,4 @@ public class AddTransactionActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    /*
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-     */
 }

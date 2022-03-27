@@ -26,6 +26,7 @@ import com.example.oversighttest.adapters.TransactionAdapter;
 import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.services.TransactionService;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -50,6 +51,7 @@ public class TransactionsPage extends Fragment {
     //private RecyclerView mTransactionList;
     private View v;
     private DummyNetwork network;
+    private TransactionService ts;
     private ArrayList<Transaction> transactions;
     private Renderer r;
     //TransactionAdapter adapter;
@@ -67,8 +69,9 @@ public class TransactionsPage extends Fragment {
         MainActivity a = (MainActivity) getActivity();
         final FragmentActivity tPFA = getActivity();
 
-        network = a.getDm();
-        transactions = network.getTransactions();
+        ts = new TransactionService(a.getDm());
+
+        transactions = ts.seeTransactions();
 
         // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
         /*
@@ -140,7 +143,7 @@ public class TransactionsPage extends Fragment {
         pieChart.setHoleColor(Color.rgb(34, 34, 34));
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
-        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setEntryLabelColor(Color.WHITE);
         pieChart.setCenterText("Spending by Category");
         pieChart.setCenterTextSize(24);
         pieChart.setCenterTextColor(Color.WHITE);
@@ -208,17 +211,16 @@ public class TransactionsPage extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_OK){
+        if (resultCode == RESULT_OK){
             if (requestCode == CREATE_TRANSACTION){
                 if (data != null){
                     int amount = data.getIntExtra("amount", 0);
                     Category cat = (Category)data.getExtras().getSerializable("category");
                     LocalDate date = (LocalDate) data.getExtras().getSerializable("date");
                     Transaction t = new Transaction(amount, cat, date);
-                    network.createTransaction(t);
-                    System.out.println("ASDFDSASDFDS");
-                    System.out.println(t);
 
+                    ts.addTransaction(t);
+                    loadPieChartData();
                 }
             }
         }

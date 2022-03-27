@@ -1,5 +1,6 @@
 package com.example.oversighttest.entities;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public enum Category {
@@ -33,6 +34,19 @@ public enum Category {
         int length = values.length;
         int randIndex = new Random().nextInt(length);
         return values[randIndex];
+    }
+
+    public static ArrayList<Category> getCategories(){
+        ArrayList<Category> cats = new ArrayList<>();
+        Category[] vals = Category.values();
+        for (int i = 0; i<vals.length; i++){
+            cats.add(vals[i]);
+        }
+        return cats;
+    }
+
+    public String toString(){
+        return this.displayName;
     }
 
 }
