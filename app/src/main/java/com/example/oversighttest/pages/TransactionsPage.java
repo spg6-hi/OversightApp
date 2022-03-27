@@ -16,13 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
-import com.example.oversighttest.adapters.TransactionAdapter;
 import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.DummyNetwork;
@@ -53,6 +50,9 @@ public class TransactionsPage extends Fragment {
     private DummyNetwork network;
     private TransactionService ts;
     private ArrayList<Transaction> transactions;
+
+    private RecyclerView recyclerView;
+
     private Renderer r;
     //TransactionAdapter adapter;
     //ArrayAdapter<String> arrayAdapter;
@@ -79,25 +79,13 @@ public class TransactionsPage extends Fragment {
          */
         final View rootView = inflater.inflate(R.layout.fragment_transactions_page,container, false);
         // 1. get a reference to recyclerView
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.mTransactionList);
         // 2. set layoutManager
         recyclerView.setLayoutManager((new LinearLayoutManager(getContext()))); //getContext()
         // 3. create and set the adapter
         //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
 
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
-                tPFA.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerView.setAdapter(adapter);
-                    }
-                });
-            }
-        }).start();
+        setlist();
 
         /*
             Defining what happens when the mAddTransaction button is pressed in fragment_transactions_page.xml
@@ -126,16 +114,19 @@ public class TransactionsPage extends Fragment {
         setupPieChart();
         loadPieChartData();
         v = getView();
-        //RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.mTransactionList);
-        //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
-        //recyclerView.setLayoutManager((new LinearLayoutManager(getContext())));
-
-        //adapter = new RecyclerTransactionAdapter(getContext(), transactions);
-        //mTransactionList = (RecyclerView) v.findViewById(R.id.mTransactionList);
-        //mTransactionList.setAdapter(new RecyclerTransactionAdapter(getContext(),  transactions));
-
     }
 
+    private void setlist(){
+        FragmentActivity tPFA = getActivity();
+        final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
+        tPFA.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
+    }
 
 
     private void setupPieChart(){
@@ -224,7 +215,7 @@ public class TransactionsPage extends Fragment {
                     Category cat = (Category)data.getExtras().getSerializable("category");
                     LocalDate date = (LocalDate) data.getExtras().getSerializable("date");
                     Transaction t = new Transaction(amount, cat, date);
-
+                    setlist();
                     ts.addTransaction(t);
                     loadPieChartData();
                 }

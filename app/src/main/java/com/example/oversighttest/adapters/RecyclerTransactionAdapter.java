@@ -69,13 +69,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
      * @param //dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      *
-     * public RecyclerTransactionAdapter(Context context, ArrayList<Transaction> transactions) {
-     *
-     *         this.context = context;
-     *         this.transactions = transactions;
-     *     }
      */
-
     public RecyclerTransactionAdapter(Context contx, ArrayList<Transaction> transactions) {
         //localDataSet = dataSet;
         this.context = contx;
