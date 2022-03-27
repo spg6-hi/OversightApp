@@ -199,7 +199,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/saveCreateSpendingPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spendingplan_save"
@@ -212,7 +212,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/cancelCreateSpendingPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spendingplan_cancel"

@@ -15,15 +15,16 @@ import java.security.cert.Extension;
 
 public class AddBankActivity extends AppCompatActivity {
     private EditText mFundsAdded;
-    private Button mConfirmButton;
+    private Button confirmButton;
+    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bank);
         mFundsAdded = (EditText) findViewById(R.id.mFundsRemoved);
-        mConfirmButton = (Button)findViewById(R.id.mConfirmRemoveFunds);
-        mConfirmButton.setOnClickListener(new View.OnClickListener(){
+        confirmButton = (Button)findViewById(R.id.mConfirmRemoveFunds);
+        confirmButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 try{
@@ -35,11 +36,20 @@ public class AddBankActivity extends AppCompatActivity {
                 }
                 catch (Exception e){
                     Intent data = new Intent();
-                    data.putExtra("funds added", 0);
-                    setResult(RESULT_OK, data);
+                    setResult(RESULT_CANCELED, data);
                     finish();
                 }
 
+            }
+        });
+
+        cancelButton = (Button) findViewById(R.id.cancelAddBalance);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
+                finish();
             }
         });
     }

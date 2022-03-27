@@ -39,17 +39,19 @@ import java.util.Map;
 public class SpendingPlanPage extends Fragment {
 
     private static final int CREATE_SPENING_PLAN = 0;
+    private static final int DELETE_SPENDING_PLAN = 1;
+    private static final int CHANGE_SPENDING_PLAN = 2;
 
     private static DummyNetwork network;
     private PieChart pieChart;
     private View v;
     private HashMap<Category, Integer> spendingPlan;
-    private boolean spendingPlanExists = false;
+    private boolean spendingPlanExists = true;
 
     private FloatingActionButton fab;
     private ExtendedFloatingActionButton fabone, fabtwo, fabthree;
     private Float translationYaxis = 100f;
-    private Boolean menuOpen = true;
+    private Boolean menuOpen = false;
     private OvershootInterpolator interpolator = new OvershootInterpolator();
 
     private AlertDialog.Builder dialogBuilder;
@@ -146,11 +148,7 @@ public class SpendingPlanPage extends Fragment {
         spendinglayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    menuOpen = !menuOpen;
-                    fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-                    fabone.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
-                    fabtwo.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
-                    fabthree.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+                closeFab();
             }
         });
 
@@ -158,17 +156,9 @@ public class SpendingPlanPage extends Fragment {
             @Override
             public void onClick(View view) {
                 if (menuOpen) {
-                    menuOpen = !menuOpen;
-                    fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
-                    fabone.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
-                    fabtwo.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
-                    fabthree.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+                    closeFab();
                 } else {
-                    menuOpen = !menuOpen;
-                    fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-                    fabone.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
-                    fabtwo.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
-                    fabthree.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+                    openFab();
                 }
 
             }
@@ -177,6 +167,7 @@ public class SpendingPlanPage extends Fragment {
         fabone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeFab();
                 if(spendingPlanExists) {
                     Toast.makeText(getActivity(),"Spending Plan Already Exists",Toast.LENGTH_SHORT).show();
                 }
@@ -191,10 +182,11 @@ public class SpendingPlanPage extends Fragment {
         fabtwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeFab();
                 if(spendingPlanExists) {
                     Intent intent = new Intent(getActivity(), DeleteSpendingPlanPage.class);
 
-                    startActivity(intent);
+                    startActivityForResult(intent, DELETE_SPENDING_PLAN);
                 }
                 else {
                     Toast.makeText(getActivity(),"No Spending Plan To Delete",Toast.LENGTH_SHORT).show();
@@ -205,15 +197,16 @@ public class SpendingPlanPage extends Fragment {
         fabthree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeFab();
                 if(spendingPlanExists) {
                     Intent intent = new Intent(getActivity(), EditSpendingPlanPage.class);
 
-                    startActivity(intent);
+                    startActivityForResult(intent, CHANGE_SPENDING_PLAN);
                 }
                 else {
                     Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
 
-                    startActivity(intent);
+                    startActivityForResult(intent, CREATE_SPENING_PLAN);
                 }
             }
         });
@@ -223,13 +216,35 @@ public class SpendingPlanPage extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
-            if (requestCode == CREATE_SPENING_PLAN){
+            if (requestCode == CREATE_SPENING_PLAN || requestCode == CREATE_SPENING_PLAN){
                 if (data != null){
+                    spendingPlanExists = true;
                     HashMap<Category, Integer> spendingPlan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
                     network.setSpendingPlan(spendingPlan);
                     loadPieChartData(spendingPlan);
                 }
             }
+            else if(requestCode == DELETE_SPENDING_PLAN){
+                spendingPlanExists = false;
+                network.setSpendingPlan(new HashMap<Category, Integer>());
+                loadPieChartData(network.getSpendingPlan());
+            }
         }
+    }
+
+    private void closeFab(){
+        menuOpen = !menuOpen;
+        fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+        fabone.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fabtwo.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fabthree.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+    }
+
+    private void openFab(){
+        menuOpen = !menuOpen;
+        fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+        fabone.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fabtwo.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fabthree.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
     }
 }

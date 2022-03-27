@@ -38,8 +38,8 @@ public class CreateSpendingPlanPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createspendingplan);
 
-        saveButton = (Button)findViewById(R.id.saveButton);
-        cancelButton = (Button)findViewById(R.id.cancelButton);
+        saveButton = (Button)findViewById(R.id.saveCreateSpendingPlan);
+        cancelButton = (Button)findViewById(R.id.cancelCreateSpendingPlan);
 
         categories = new ArrayList<EditText>();
         spendingPlan = new HashMap<Category, Integer>();
@@ -103,9 +103,9 @@ public class CreateSpendingPlanPage extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(CreateSpendingPlanPage.this, MainActivity.class);
-
-                startActivity(intent);
+                Intent data = new Intent();
+                setResult(RESULT_CANCELED, data);
+                finish();
             }
         });
     }

@@ -171,10 +171,9 @@ public class TransactionsPage extends Fragment {
                 return t1Cat.compareTo(t2Cat);
             }
         });
-
         String currCategory = transactions.get(0).getCategory().getDisplayName();
         int currValue = 0;
-
+        boolean hasAdded = false;
         //adds all Transactions from network to pieChart
         for (Transaction t : transactions) {
             //makes single PieEntry for each category to prevent duplicates
@@ -182,10 +181,17 @@ public class TransactionsPage extends Fragment {
                 entries.add(new PieEntry(currValue, currCategory));
                 currValue = t.getAmount();
                 currCategory = t.getCategory().getDisplayName();
+                hasAdded = true;
             } else{
                 currValue += t.getAmount();
+                hasAdded = false;
             }
         }
+
+        if (!hasAdded){
+            entries.add(new PieEntry(currValue, currCategory));
+        }
+
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color: ColorTemplate.MATERIAL_COLORS){
             colors.add(color);
