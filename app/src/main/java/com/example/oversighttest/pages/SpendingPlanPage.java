@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.network.DummyNetwork;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -38,15 +39,17 @@ import java.util.Map;
 
 public class SpendingPlanPage extends Fragment {
 
+    //request codes
     private static final int CREATE_SPENING_PLAN = 0;
     private static final int DELETE_SPENDING_PLAN = 1;
     private static final int CHANGE_SPENDING_PLAN = 2;
 
     private static DummyNetwork network;
+
     private PieChart pieChart;
     private View v;
-    private HashMap<Category, Integer> spendingPlan;
-    private boolean spendingPlanExists = true;
+    private SpendingPlan spendingPlan;
+    private boolean spendingPlanExists;
 
     private FloatingActionButton fab;
     private ExtendedFloatingActionButton fabone, fabtwo, fabthree;
@@ -61,9 +64,14 @@ public class SpendingPlanPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //get access to network
         MainActivity a = (MainActivity) getActivity();
         network = a.getDm();
+
+        //get spending plan
         spendingPlan = network.getSpendingPlan();
+        spendingPlanExists = (spendingPlan != null);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_spending_plan_page, container, false);
@@ -77,9 +85,12 @@ public class SpendingPlanPage extends Fragment {
         pieChart = v.findViewById(R.id.pieChart);
         ShowMenu();
         setupPieChart();
-        loadPieChartData(spendingPlan);
+        loadPieChartData(spendingPlan.getPlan());
     }
 
+    /**
+     * set up pie chart look
+     */
     private void setupPieChart() {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.rgb(34, 34, 34));
@@ -94,14 +105,19 @@ public class SpendingPlanPage extends Fragment {
 
         Legend l = pieChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(true);
 
     }
 
+    /**
+     * load data from spending plan for pie chart to display
+     * @param spendingPlan
+     */
     private void loadPieChartData(HashMap<Category, Integer> spendingPlan) {
+
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (Map.Entry<Category, Integer> entry : spendingPlan.entrySet()) {
             entries.add(new PieEntry(entry.getValue(), entry.getKey()));
@@ -125,8 +141,6 @@ public class SpendingPlanPage extends Fragment {
 
         pieChart.setData(data);
         pieChart.invalidate();
-
-
     }
 
     private void ShowMenu() {
@@ -219,15 +233,16 @@ public class SpendingPlanPage extends Fragment {
             if (requestCode == CREATE_SPENING_PLAN || requestCode == CREATE_SPENING_PLAN){
                 if (data != null){
                     spendingPlanExists = true;
-                    HashMap<Category, Integer> spendingPlan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
+                    HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
+                    spendingPlan = new SpendingPlan(plan);
                     network.setSpendingPlan(spendingPlan);
-                    loadPieChartData(spendingPlan);
+                    loadPieChartData(spendingPlan.getPlan());
                 }
             }
             else if(requestCode == DELETE_SPENDING_PLAN){
                 spendingPlanExists = false;
-                network.setSpendingPlan(new HashMap<Category, Integer>());
-                loadPieChartData(network.getSpendingPlan());
+                network.setSpendingPlan(new SpendingPlan(new HashMap<Category, Integer>()));
+                loadPieChartData(network.getSpendingPlan().getPlan());
             }
         }
     }

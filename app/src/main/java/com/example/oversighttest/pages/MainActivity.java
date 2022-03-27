@@ -18,12 +18,10 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private Button addTransaction;
-    private ListView transactionList;
 
+    //this is the dummy network, other activities use this exact network, so that every activity uses the same data
     private static DummyNetwork dm;
 
-    //private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
+        //Three main pages; transactions, spending plan, and bank account
         PageAdapter tabManager = new PageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         tabManager.addFragment(new TransactionsPage(), "Transactions");
         tabManager.addFragment(new SpendingPlanPage(), "Spending Plan");
@@ -46,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Allows any activity to access the dummy network
+     * @return the dummy network
+     */
     public static DummyNetwork getDm() {
         return dm;
     }

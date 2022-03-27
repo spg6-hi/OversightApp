@@ -18,9 +18,11 @@ public class DeleteSpendingPlanPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.deletespendingplan);
 
+
         confirmButton = (Button)findViewById(R.id.confirmButton);
         denyButton = (Button)findViewById(R.id.denyButton);
 
+        //confirm button, returns OK
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -31,6 +33,7 @@ public class DeleteSpendingPlanPage extends AppCompatActivity {
             }
         });
 
+        //cancel button, returns CANCELED
         denyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {

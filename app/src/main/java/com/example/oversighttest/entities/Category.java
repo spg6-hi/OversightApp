@@ -29,10 +29,18 @@ public enum Category {
         return displayName;
     }
 
+    /**
+     * skilar lista af öllum categories
+     * @return listi af öllum categories
+     */
     public static Category[] getValues(){
         return Category.values();
     }
 
+    /**
+     * gefur random category
+     * @return random category
+     */
     public static Category getRandomCategory(){
         Category[] values = Category.values();
         int length = values.length;
@@ -40,6 +48,10 @@ public enum Category {
         return values[randIndex];
     }
 
+    /**
+     * SKilar arraylist af categories
+     * @return
+     */
     public static ArrayList<Category> getCategories(){
         ArrayList<Category> cats = new ArrayList<>();
         Category[] vals = Category.values();
@@ -49,6 +61,10 @@ public enum Category {
         return cats;
     }
 
+    /**
+     * Bara til að prenta út nafnið aupveldlega
+     * @return
+     */
     public String toString(){
         return this.displayName;
     }
