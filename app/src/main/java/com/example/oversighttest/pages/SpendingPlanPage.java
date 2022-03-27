@@ -103,7 +103,7 @@ public class SpendingPlanPage extends Fragment {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.rgb(34, 34, 34));
         pieChart.setUsePercentValues(true);
-        pieChart.setEntryLabelTextSize(12);
+        pieChart.setEntryLabelTextSize(20);
         pieChart.setEntryLabelColor(Color.BLACK);
         pieChart.setCenterText("Budget by Category");
         pieChart.setCenterTextSize(24);
@@ -112,6 +112,9 @@ public class SpendingPlanPage extends Fragment {
         pieChart.setRotationEnabled(false);
         pieChart.setDrawEntryLabels(false);
 
+        /*
+        TODO: FIX legend
+         */
         Legend l = pieChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);

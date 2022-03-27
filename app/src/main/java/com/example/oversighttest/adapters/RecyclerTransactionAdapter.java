@@ -87,9 +87,6 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         final Transaction transaction = transactions.get(position);
 
         if(viewHolder != null) {
-            viewHolder.getTvAmount().setTextColor((Color.WHITE));
-            viewHolder.getTvCategory().setTextColor((Color.WHITE));
-            viewHolder.getTvDate().setTextColor((Color.WHITE));
             viewHolder.getTvAmount().setText(Integer.toString(transaction.getAmount()));
             viewHolder.getTvCategory().setText(transaction.getCategory().getDisplayName());
             viewHolder.getTvDate().setText((transaction.getDate().toString()));

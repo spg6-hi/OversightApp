@@ -25,7 +25,7 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="500dp"
                 android:layout_gravity="top"
                 tools:layout_editor_absoluteX="50dp"
                 tools:layout_editor_absoluteY="50dp">

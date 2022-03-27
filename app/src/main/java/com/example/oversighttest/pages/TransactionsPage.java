@@ -90,6 +90,9 @@ public class TransactionsPage extends Fragment {
         // 3. create and set the adapter
         //recyclerView.setAdapter(new RecyclerTransactionAdapter(getContext(), transactions));
 
+        /*
+        TODO: functionality to delete a transaction
+         */
         setlist();
 
         /*
@@ -179,12 +182,17 @@ public class TransactionsPage extends Fragment {
         pieChart.setRotationEnabled(false);
         pieChart.setDrawEntryLabels(false);
 
+        /*
+        TODO: Make pie chart legend work
+        TODO: Let user see value for each item in pie chart
+        */
         Legend l = pieChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
-        l.setEnabled(true);
+        l.setEnabled(false);
+
 
     }
 
