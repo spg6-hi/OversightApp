@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
@@ -45,6 +46,10 @@ public class TransactionsPage extends Fragment {
 
     private static final int CREATE_TRANSACTION = 0;
 
+    public static final int SORT_BY_AMOUNT = 0;
+    public static final int SORT_BY_CATEGORY = 1;
+    public static final int SORT_BY_DATE = 2;
+
     //public static final String EXTRA_CONTACT = ;
     private PieChart pieChart;
     private Button mAddTransaction;
@@ -53,6 +58,10 @@ public class TransactionsPage extends Fragment {
     private DummyNetwork network;
     private TransactionService ts;
     private ArrayList<Transaction> transactions;
+
+    private TextView amount;
+    private TextView category;
+    private TextView date;
 
     private RecyclerView recyclerView;
 
@@ -100,6 +109,33 @@ public class TransactionsPage extends Fragment {
                 //using Intent to bind the two activities TransactionPage and AddTransactionActivity. This intent starts the AddTransactionActivity.
                 Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
                 startActivityForResult(intent, CREATE_TRANSACTION);
+            }
+        });
+
+        amount = (TextView) rootView.findViewById(R.id.sortAmount);
+        amount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transactions = ts.seeSortedTransaction(SORT_BY_AMOUNT);
+                setlist();
+            }
+        });
+
+        category = (TextView) rootView.findViewById(R.id.sortCategory);
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transactions = ts.seeSortedTransaction(SORT_BY_CATEGORY);
+                setlist();
+            }
+        });
+
+        date = (TextView) rootView.findViewById(R.id.sortDate);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transactions = ts.seeSortedTransaction(SORT_BY_DATE);
+                setlist();
             }
         });
 
