@@ -27,6 +27,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".pages.AddTransactionActivity"
+            android:parentActivityName=".pages.TransactionsPage">
+        <!-- The meta-data tag is required if you support API level 15 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".pages.TransactionsPage" />
+        </activity>
+
+        <activity
+            android:name=".pages.CreateSpendingPlanPage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.CSP" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".pages.DeleteSpendingPlanPage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DSP" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".pages.EditSpendingPlanPage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ESP" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".pages.AddBankActivity"
             android:exported="true">
@@ -35,7 +71,6 @@
             android:name=".pages.RemoveBankActivity"
             android:exported="true">
         </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

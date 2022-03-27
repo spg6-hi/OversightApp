@@ -1,5 +1,6 @@
 package com.example.oversighttest.entities;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public enum Category {
@@ -28,11 +29,44 @@ public enum Category {
         return displayName;
     }
 
+    /**
+     * skilar lista af öllum categories
+     * @return listi af öllum categories
+     */
+    public static Category[] getValues(){
+        return Category.values();
+    }
+
+    /**
+     * gefur random category
+     * @return random category
+     */
     public static Category getRandomCategory(){
         Category[] values = Category.values();
         int length = values.length;
         int randIndex = new Random().nextInt(length);
         return values[randIndex];
+    }
+
+    /**
+     * SKilar arraylist af categories
+     * @return
+     */
+    public static ArrayList<Category> getCategories(){
+        ArrayList<Category> cats = new ArrayList<>();
+        Category[] vals = Category.values();
+        for (int i = 0; i<vals.length; i++){
+            cats.add(vals[i]);
+        }
+        return cats;
+    }
+
+    /**
+     * Bara til að prenta út nafnið aupveldlega
+     * @return
+     */
+    public String toString(){
+        return this.displayName;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.oversighttest.network;
 
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
 
 import java.nio.charset.Charset;
@@ -19,7 +20,7 @@ public class DummyNetwork {
 
     private String userName; //User is only represented as a username
     private ArrayList<Transaction> transactions; //Simply a list of all transactions
-    private HashMap<Category, Integer> spendingPlan; //Map each category to an integer value
+    private SpendingPlan spendingPlan; //The spending plan
     private int bankBalance;
 
     //Data for generating username
@@ -70,11 +71,11 @@ public class DummyNetwork {
         this.transactions = transactions;
     }
 
-    public HashMap<Category, Integer> getSpendingPlan() {
+    public SpendingPlan getSpendingPlan() {
         return spendingPlan;
     }
 
-    public void setSpendingPlan(HashMap<Category, Integer> spendingPlan) {
+    public void setSpendingPlan(SpendingPlan spendingPlan) {
         this.spendingPlan = spendingPlan;
     }
 
@@ -86,8 +87,9 @@ public class DummyNetwork {
         this.bankBalance = bankBalance;
     }
 
-    public void createTransaction(Transaction t){
+    public Transaction createTransaction(Transaction t){
         this.transactions.add(t);
+        return t;
     }
 
     public void deleteTransaction(Transaction t){
@@ -153,12 +155,13 @@ public class DummyNetwork {
      * Creates a random spending plan
      */
     private void generateSpendingPlan(){
-        this.spendingPlan = new HashMap<Category, Integer>();
+        HashMap<Category, Integer> plan = new HashMap<Category, Integer>();
         Category[] categories = Category.values();
         for (Category c : categories){
             int amount = (int)(Math.random()*(maxSpendingPlan-minSpendingPlan)+minSpendingPlan);
-            spendingPlan.put(c, amount);
+            plan.put(c, amount);
         }
+        this.spendingPlan = new SpendingPlan(plan);
     }
 
     /**

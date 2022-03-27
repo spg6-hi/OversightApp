@@ -31,33 +31,13 @@
 
             </com.github.mikephil.charting.charts.PieChart>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/mAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:ems="10"
-                    android:textColor="@color/white"
-                    android:hint="@string/mAmountHint"
-                    android:inputType="number" />
-
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/spinnerDescription" />
-            </LinearLayout>
-
             <Button
                 android:id="@+id/mAddTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="@string/mAddTransaction"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="TextContrastCheck" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mTransactionList"

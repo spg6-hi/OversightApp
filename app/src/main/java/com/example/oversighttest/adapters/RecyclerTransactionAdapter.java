@@ -97,8 +97,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.setIsRecyclable(false);
         final Transaction transaction = transactions.get(position);
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+
         if(viewHolder != null) {
             viewHolder.getTvAmount().setTextColor((Color.WHITE));
             viewHolder.getTvCategory().setTextColor((Color.WHITE));
@@ -109,13 +108,16 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         }else{
             notifyItemChanged( position );
         }
-        viewHolder.parentView.setOnClickListener(new View.OnClickListener(){
+        viewHolder.parentView.setOnLongClickListener(new View.OnLongClickListener(){
             @Override
-            public void onClick(View view){
-
+            public boolean onLongClick(View view) {
                 Intent intent = new Intent(context, TransactionsPage.class);
                 //intent.putExtra(TransactionsPage.EXTRA_CONTACT,transaction );
+                //intent.putExtra(TransactionsPage.EXTRA_CONTAClogT,transaction );
+                return false;
             }
+
+
         });
         /*
     if(viewHolder != null){
