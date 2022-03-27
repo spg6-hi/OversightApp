@@ -11,15 +11,14 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.network.DummyNetwork;
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,9 +31,11 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class SpendingPlanPage extends Fragment {
@@ -48,6 +49,7 @@ public class SpendingPlanPage extends Fragment {
 
     private PieChart pieChart;
     private View v;
+    private ArrayList<Transaction> listSpendingPlan = new ArrayList<>();
     private SpendingPlan spendingPlan;
     private boolean spendingPlanExists;
 
@@ -71,7 +73,14 @@ public class SpendingPlanPage extends Fragment {
 
         //get spending plan
         spendingPlan = network.getSpendingPlan();
-        spendingPlanExists = (spendingPlan != null);
+
+        //skítafix til að legend a piechart sjáist
+        LocalDate date = LocalDate.now();
+
+        for ( Map.Entry<Category, Integer> entry : spendingPlan.getPlan().entrySet()){
+            listSpendingPlan.add(new Transaction(entry.getValue(), entry.getKey(), date));
+        }
+        spendingPlanExists = (!spendingPlan.getPlan().isEmpty());
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_spending_plan_page, container, false);
@@ -102,10 +111,11 @@ public class SpendingPlanPage extends Fragment {
         pieChart.setCenterTextColor(Color.WHITE);
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(false);
+        pieChart.setDrawEntryLabels(false);
 
         Legend l = pieChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(true);
@@ -119,9 +129,11 @@ public class SpendingPlanPage extends Fragment {
     private void loadPieChartData(HashMap<Category, Integer> spendingPlan) {
 
         ArrayList<PieEntry> entries = new ArrayList<>();
-        for (Map.Entry<Category, Integer> entry : spendingPlan.entrySet()) {
-            entries.add(new PieEntry(entry.getValue(), entry.getKey()));
+        for (Transaction t : listSpendingPlan) {
+            entries.add(new PieEntry(t.getAmount(), t.getCategory().getDisplayName()));
+
         }
+
 
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color : ColorTemplate.MATERIAL_COLORS) {
