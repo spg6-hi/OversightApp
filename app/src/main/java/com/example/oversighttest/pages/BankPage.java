@@ -20,22 +20,29 @@ import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.services.BankBalanceService;
 
 public class BankPage extends Fragment {
-
-    private BankBalanceService bankService;
-
     private TextView mBankBalance;
     private Button mAddFunds;
     private Button mRemoveFunds;
+
+    private BankBalanceService bankService;
+
     private View v;
 
+    //request codes
     private static final int ADD_BANK_BALANCE = 0;
     private static final int REMOVE_BANK_BALANCE = 1;
 
+    //gets displayed when trying to remove more funds than you have
     private static final String INSUFFICIENT_FUNDS = "insufficient funds";
 
+    /**
+     * Constructor
+     * @param dm the dummy network we are using
+     */
     public BankPage(DummyNetwork dm){
         this.bankService = new BankBalanceService(dm);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,9 +57,12 @@ public class BankPage extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         v =  getView();
+
+        //get the bank balance and display it
         mBankBalance = (TextView) v.findViewById(R.id.mBankBalance);
         mBankBalance.setText("" + bankService.getBankBalance());
 
+        //add funds button, opens an activity to add funds
         mAddFunds = (Button) v.findViewById(R.id.mAddFunds);
         mAddFunds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +72,7 @@ public class BankPage extends Fragment {
             }
         });
 
+        //remove funds button, opens an activity to remove funds
         mRemoveFunds = (Button) v.findViewById(R.id.mRemoveFunds);
         mRemoveFunds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +84,18 @@ public class BankPage extends Fragment {
 
     }
 
+    /**
+     * This gets called when a child activity returns some result
+     * @param requestCode what kind of request was this, i.e. what activity is this
+     * @param resultCode what is the result of the call, i.e. OK, CANCELLED etc
+     * @param data the data return by the child activity
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if (requestCode == ADD_BANK_BALANCE){
+                //add funds
                 if (data != null){
                     int fundsAdded = data.getIntExtra("funds added", 0);
                     bankService.addFunds(fundsAdded);
@@ -85,6 +103,7 @@ public class BankPage extends Fragment {
                 }
             }
             else if (requestCode == REMOVE_BANK_BALANCE){
+                // remove funds
                 if (data != null){
                     int fundsRemoved = data.getIntExtra("funds removed", 0);
                     if (fundsRemoved > bankService.getBankBalance()){

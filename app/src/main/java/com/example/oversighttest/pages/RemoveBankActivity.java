@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.oversighttest.R;
 
 public class RemoveBankActivity extends AppCompatActivity {
+
     private EditText mFundsRemoved;
     private Button confirmButton;
     private Button cancelButton;
@@ -20,7 +21,11 @@ public class RemoveBankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remove_bank);
+
+        //text input for amount to be removed
         mFundsRemoved = (EditText) findViewById(R.id.mFundsRemoved);
+
+        //confirm button, tries to take value from text field and return it to parent activity
         confirmButton = (Button)findViewById(R.id.mConfirmRemoveFunds);
         confirmButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -33,12 +38,17 @@ public class RemoveBankActivity extends AppCompatActivity {
                     finish();
                 }
                 catch (Exception e){
+
+                    //something went wrong, cancel
+
                     Intent data = new Intent();
                     setResult(RESULT_CANCELED, data);
                     finish();
                 }
             }
         });
+
+        // cancel button, returns CANCELED to parent activity
         cancelButton = (Button) findViewById(R.id.cancelRemoveBalance);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override

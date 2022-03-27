@@ -28,6 +28,7 @@ public class CreateSpendingPlanPage extends AppCompatActivity {
 
     private int parseInt = 1;
 
+    //FXML objects
     private Button saveButton, cancelButton;
     private EditText carsandtransportation, children, education, finesandfees, food,
             healthandbeauty, home, insurance, investmentsandsavings, leisuretime,

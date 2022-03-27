@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.services.SpendingPlanService;
 
@@ -18,21 +19,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditSpendingPlanPage extends AppCompatActivity {
-
-    private static DummyNetwork network = MainActivity.getDm();
-
     private Button saveButton, cancelButton;
     private EditText carsandtransportation, children, education, finesandfees, food,
             healthandbeauty, home, insurance, investmentsandsavings, leisuretime,
             shoppingandservices, other, vacationandtravel;
 
+    private static DummyNetwork network = MainActivity.getDm(); //dummy network connection
+
     private SpendingPlanService spendingPlanService = new SpendingPlanService(network);
 
     private ArrayList<EditText> categories;
 
-    private int parseInt = 1;
+    private int parseInt = 1; //index for putting data in spending plan
 
-    private HashMap<Category, Integer> spendingPlan;
+    private SpendingPlan spendingPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,10 @@ public class EditSpendingPlanPage extends AppCompatActivity {
 
         categories = new ArrayList<EditText>();
 
+        /*
+        connect to views
+        also add each view to a list to loop through later
+         */
         carsandtransportation = (EditText)findViewById(R.id.esp1);
         categories.add(carsandtransportation);
         children = (EditText)findViewById(R.id.esp2);
@@ -73,7 +77,10 @@ public class EditSpendingPlanPage extends AppCompatActivity {
         vacationandtravel = (EditText)findViewById(R.id.esp13);
         categories.add(vacationandtravel);
 
-        for(Map.Entry<Category, Integer> plan : spendingPlan.entrySet()) {
+        /*
+        Set values of text fields
+         */
+        for(Map.Entry<Category, Integer> plan : spendingPlan.getPlan().entrySet()) {
             if(parseInt == 1) {
                 carsandtransportation.setText(Integer.toString(plan.getValue()));
             }
@@ -117,29 +124,36 @@ public class EditSpendingPlanPage extends AppCompatActivity {
         };
 
 
-        //Put values of spending plan into EditText boxes
 
+        /*
+        get each value and put in hash map to create a spending plan
+         */
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
+                HashMap<Category, Integer> plan = new HashMap<>();
                 int index = 0;
                 Category[] cats = Category.getValues();
                 for (EditText e : categories){
                     try{
+                        //get value and add it to the plan
                         Integer a = Integer.valueOf(e.getText().toString());
-                        spendingPlan.put(cats[index], a);
+                        plan.put(cats[index], a);
                     }catch (Exception r){
+                        //no value, so do nothing
                     }
                     index ++;
                 }
                 try{
+                    //return the plan
                     Intent data = new Intent();
-                    data.putExtra("edited spending plan", spendingPlan);
+                    data.putExtra("edited spending plan", plan);
                     setResult(RESULT_OK, data);
                     finish();
                 }
                 catch (Exception e){
+                    //return CANCELED
                     Intent data = new Intent();
                     setResult(RESULT_CANCELED, data);
                     finish();

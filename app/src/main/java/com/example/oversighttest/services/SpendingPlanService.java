@@ -1,6 +1,7 @@
 package com.example.oversighttest.services;
 
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.network.DummyNetwork;
 
 import java.util.HashMap;
@@ -13,11 +14,11 @@ public class SpendingPlanService {
         this.dm = dm;
     }
 
-    public HashMap<Category, Integer> getSpendingPlan(){
+    public SpendingPlan getSpendingPlan(){
         return dm.getSpendingPlan();
     }
 
-    public void setSpendingPlan(HashMap<Category, Integer> spendingPlan) {
+    public void setSpendingPlan(SpendingPlan spendingPlan) {
         dm.setSpendingPlan(spendingPlan);
     }
 }
