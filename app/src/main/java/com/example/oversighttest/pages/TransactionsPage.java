@@ -131,7 +131,9 @@ public class TransactionsPage extends Fragment {
 
     }
 
-
+    /**
+     * set up pie chart look
+     */
     private void setupPieChart(){
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.rgb(34, 34, 34));
@@ -154,6 +156,9 @@ public class TransactionsPage extends Fragment {
 
     }
 
+    /**
+     * load data from transaction for pie chart to display
+     */
     private void  loadPieChartData(){
         ArrayList<PieEntry> entries = new ArrayList<>();
 

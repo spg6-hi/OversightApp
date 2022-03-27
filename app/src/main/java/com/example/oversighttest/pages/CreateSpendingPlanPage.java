@@ -79,14 +79,15 @@ public class CreateSpendingPlanPage extends AppCompatActivity {
                 int index = 0;
                 Category[] cats = Category.getValues();
                 for (EditText e : categories){
-                    try{
+                    try {
                         Integer a = Integer.valueOf(e.getText().toString());
                         spendingPlan.put(cats[index], a);
-                    }catch (Exception r){
+                    }
+                    catch (Exception r) {
                     }
                     index ++;
                 }
-                try{
+                try {
                     Intent data = new Intent();
                     data.putExtra("new spending plan", spendingPlan);
                     setResult(RESULT_OK, data);
@@ -102,8 +103,7 @@ public class CreateSpendingPlanPage extends AppCompatActivity {
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent data = new Intent();
                 setResult(RESULT_CANCELED, data);
                 finish();

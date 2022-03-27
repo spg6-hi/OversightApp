@@ -35,7 +35,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class SpendingPlanPage extends Fragment {
@@ -159,7 +158,7 @@ public class SpendingPlanPage extends Fragment {
         pieChart.setData(data);
         pieChart.invalidate();
     }
-
+    //Floating action buttons
     private void ShowMenu() {
         fab = v.findViewById(R.id.fab);
         fabone = v.findViewById(R.id.fab_one);
@@ -174,9 +173,9 @@ public class SpendingPlanPage extends Fragment {
         fabtwo.setTranslationY(translationYaxis);
         fabthree.setTranslationY(translationYaxis);
 
-        ConstraintLayout spendinglayout = (ConstraintLayout) v.findViewById(R.id.frameLayout);
+        ConstraintLayout spendingLayout = (ConstraintLayout) v.findViewById(R.id.frameLayout);
 
-        spendinglayout.setOnClickListener(new View.OnClickListener() {
+        spendingLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 closeFab();
@@ -191,7 +190,6 @@ public class SpendingPlanPage extends Fragment {
                 } else {
                     openFab();
                 }
-
             }
         });
 
@@ -276,7 +274,7 @@ public class SpendingPlanPage extends Fragment {
             }
         }
     }
-
+    //Closes floating action buttons
     private void closeFab(){
         menuOpen = !menuOpen;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
@@ -285,6 +283,7 @@ public class SpendingPlanPage extends Fragment {
         fabthree.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
     }
 
+    //Opens floating action buttons
     private void openFab(){
         menuOpen = !menuOpen;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);

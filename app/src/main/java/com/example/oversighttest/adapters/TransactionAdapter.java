@@ -13,10 +13,9 @@ import androidx.annotation.Nullable;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Transaction;
-import com.example.oversighttest.pages.TransactionsPage;
 
 import java.util.ArrayList;
-import java.util.List;
+
 //https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
 //Not used. Using ReclyerTransactionAdapter instead.
 public class TransactionAdapter extends ArrayAdapter<Transaction> {

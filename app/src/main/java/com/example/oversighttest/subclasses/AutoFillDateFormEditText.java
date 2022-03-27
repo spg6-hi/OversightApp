@@ -7,7 +7,6 @@ import android.text.Spannable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.autofill.AutofillValue;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -74,8 +73,7 @@ public class AutoFillDateFormEditText extends androidx.appcompat.widget.AppCompa
 
     private final DateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
 
-    java.util.Date tryParse(String dateString)
-    {
+    java.util.Date tryParse(String dateString) {
         try
         {
             return dateFormat.parse(dateString);

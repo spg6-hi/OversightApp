@@ -4,12 +4,9 @@ import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
 
-import java.nio.charset.Charset;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -102,7 +99,6 @@ public class DummyNetwork {
         this.bankBalance += amount;
     }
 
-
     /**
      * Generates a random 8 character string that acts as the username
      */
@@ -171,5 +167,4 @@ public class DummyNetwork {
         int balance = (int)(Math.random()*(maxBankBalance-minBankBalance)+minBankBalance);
         this.bankBalance = balance;
     }
-
 }

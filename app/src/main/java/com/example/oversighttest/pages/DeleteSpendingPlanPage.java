@@ -24,8 +24,7 @@ public class DeleteSpendingPlanPage extends AppCompatActivity {
 
         //confirm button, returns OK
         confirmButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //Delete the spending plan
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
@@ -35,8 +34,7 @@ public class DeleteSpendingPlanPage extends AppCompatActivity {
 
         //cancel button, returns CANCELED
         denyButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //Returns the user back
                 Intent intent = new Intent();
                 setResult(RESULT_CANCELED, intent);

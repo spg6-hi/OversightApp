@@ -1,7 +1,6 @@
 package com.example.oversighttest.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Transaction {
 

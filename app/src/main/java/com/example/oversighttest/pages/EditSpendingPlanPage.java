@@ -123,8 +123,6 @@ public class EditSpendingPlanPage extends AppCompatActivity {
             parseInt++;
         };
 
-
-
         /*
         get each value and put in hash map to create a spending plan
          */
@@ -136,18 +134,19 @@ public class EditSpendingPlanPage extends AppCompatActivity {
                 int index = 0;
                 Category[] cats = Category.getValues();
                 for (EditText e : categories){
-                    try{
+                    try {
                         //get value and add it to the plan
                         Integer a = Integer.valueOf(e.getText().toString());
                         plan.put(cats[index], a);
                         System.out.println(a);
                         System.out.println(cats[index]);
-                    }catch (Exception r){
+                    }
+                    catch (Exception r){
                         //no value, so do nothing
                     }
                     index ++;
                 }
-                try{
+                try {
                     //return the plan
                     Intent data = new Intent();
                     data.putExtra("edited spending plan", plan);
@@ -164,8 +163,7 @@ public class EditSpendingPlanPage extends AppCompatActivity {
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent intent = new Intent();
                 setResult(RESULT_CANCELED, intent);
                 finish();

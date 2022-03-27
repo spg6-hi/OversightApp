@@ -3,7 +3,6 @@ package com.example.oversighttest.pages;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.net.LocalSocketAddress;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,7 +18,6 @@ import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,7 +52,6 @@ public class AddTransactionActivity extends AppCompatActivity {
         LocalDate today = LocalDate.now();
         dateButton.setText(today.getMonth() + " " + today.getDayOfMonth() + " " +today.getYear());
 
-
         //amount input
         transactionAmount = findViewById(R.id.mTransactionAmount);
 
@@ -84,23 +81,23 @@ public class AddTransactionActivity extends AppCompatActivity {
                     finish();
                 }
 
-                int amount = Integer.valueOf(text);
-                Category c = (Category)spinnerCategory.getSelectedItem();
 
-                try{
-                    /*
-                    Return the input data back to parent activity
-                     */
+                try {
+                    //get data from inputs
+                    int amount = Integer.valueOf(text);
+                    Category c = (Category)spinnerCategory.getSelectedItem();
+
+                    //return data back to parent activity
                     Intent intent = new Intent();
                     intent.putExtra("date", date);
                     intent.putExtra("amount", amount);
                     intent.putExtra("category", c);
                     setResult(RESULT_OK, intent);
                     finish();
-                }catch (Exception e){
-                    /*
-                    Something went wrong, cancel
-                     */
+                }
+                catch (Exception e){
+
+                    //Something went wrong, cancel
                     Intent data = new Intent();
                     setResult(RESULT_CANCELED, data);
                     finish();
@@ -149,5 +146,4 @@ public class AddTransactionActivity extends AppCompatActivity {
     public void openDatePicker(View view){
         datePickerDialog.show();
     }
-
 }

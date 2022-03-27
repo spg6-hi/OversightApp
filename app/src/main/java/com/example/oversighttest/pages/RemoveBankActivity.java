@@ -64,5 +64,4 @@ public class RemoveBankActivity extends AppCompatActivity {
         Intent i = new Intent(packageContext, RemoveBankActivity.class);
         return i;
     }
-
 }

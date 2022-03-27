@@ -43,15 +43,12 @@ public class BankPage extends Fragment {
         this.bankService = new BankBalanceService(dm);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bank_page, container, false);
     }
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -81,7 +78,6 @@ public class BankPage extends Fragment {
                 startActivityForResult(i, REMOVE_BANK_BALANCE);
             }
         });
-
     }
 
     /**
@@ -93,20 +89,20 @@ public class BankPage extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if (requestCode == ADD_BANK_BALANCE){
+        if(resultCode == RESULT_OK) {
+            if (requestCode == ADD_BANK_BALANCE) {
                 //add funds
-                if (data != null){
+                if (data != null) {
                     int fundsAdded = data.getIntExtra("funds added", 0);
                     bankService.addFunds(fundsAdded);
                     mBankBalance.setText(""+bankService.getBankBalance());
                 }
             }
-            else if (requestCode == REMOVE_BANK_BALANCE){
+            else if (requestCode == REMOVE_BANK_BALANCE) {
                 // remove funds
-                if (data != null){
+                if (data != null) {
                     int fundsRemoved = data.getIntExtra("funds removed", 0);
-                    if (fundsRemoved > bankService.getBankBalance()){
+                    if (fundsRemoved > bankService.getBankBalance()) {
                         Toast.makeText(getActivity(), INSUFFICIENT_FUNDS, Toast.LENGTH_SHORT).show();
                         return;
                     }

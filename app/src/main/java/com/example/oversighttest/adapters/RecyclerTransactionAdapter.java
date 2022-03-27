@@ -3,27 +3,22 @@ package com.example.oversighttest.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.pages.TransactionsPage;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTransactionAdapter.ViewHolder> {
     private static final String TAG = null;
-    //private String[] localDataSet;
     private final Context context;
     private ArrayList<Transaction> transactions = new ArrayList<>();
     /**
@@ -60,7 +55,6 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         public TextView getTvDate() {
             return tvDate;
         }
-
     }
 
     /**
@@ -106,24 +100,11 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
             @Override
             public boolean onLongClick(View view) {
                 Intent intent = new Intent(context, TransactionsPage.class);
-                //intent.putExtra(TransactionsPage.EXTRA_CONTACT,transaction );
-                //intent.putExtra(TransactionsPage.EXTRA_CONTAClogT,transaction );
                 return false;
             }
 
 
         });
-        /*
-    if(viewHolder != null){
-        viewHolder.tvAmount.setTextColor(Color.WHITE);
-        viewHolder.tvCategory.setTextColor(Color.WHITE);
-        viewHolder.tvDate.setTextColor(Color.WHITE);
-        viewHolder.tvAmount.setText(Integer.toString(transaction.getAmount()));
-        viewHolder.tvCategory.setText(transaction.getCategory().getDisplayName());
-        viewHolder.tvDate.setText((transaction.getDate().toString()));
-    }else {
-        notifyItemChanged( position );
-    }*/
     }
 
     // Return the size of your dataset (invoked by the layout manager)
