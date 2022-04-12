@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.entities.Session;
+import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
@@ -28,18 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.dm = new DummyNetwork();
 
-        NetworkManager networkManager = NetworkManager.getInstance(getApplicationContext());
-        networkManager.getUser(new NetworkCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                System.out.println(result);
-            }
-
-            @Override
-            public void onFailure(String errorString) {
-                System.out.println(errorString);
-            }
-        });
+        User loggedIn = Session.getLoggedIn();
+        System.out.println("Currently logged in: " + loggedIn.getUserName());
 
         setContentView(R.layout.activity_main);
 

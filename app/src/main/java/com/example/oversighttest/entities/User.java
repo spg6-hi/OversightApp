@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class User {
-    @SerializedName("username")
+    @SerializedName("userName")
     private String userName;
 
     @SerializedName("password")
@@ -17,6 +17,9 @@ public class User {
         this.password = password;
     }
 
+    public String toString(){
+        return userName + " / " + password;
+    }
 
     public String getUserName() {
         return userName;

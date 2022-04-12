@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mUserName;
     private EditText mPassword;
     private Button mConfirmLogin;
+    private Button mSignUp;
     private static final Base64.Encoder base64Encoder = Base64.getEncoder();
 
     @Override
@@ -32,24 +34,25 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mUserName = (EditText)findViewById(R.id.mUserName);
-        mPassword = (EditText)findViewById(R.id.mPassword);
+        mUserName = (EditText)findViewById(R.id.mNewUserName);
+        mPassword = (EditText)findViewById(R.id.mNewPassword);
 
-        mConfirmLogin = (Button)findViewById(R.id.mconfirmLogin);
+        mConfirmLogin = (Button)findViewById(R.id.mconfirmSignup);
         mConfirmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userName = mUserName.getText().toString();
                 String password = mPassword.getText().toString();
 
-                String userToken = generateUserToken(userName, password);
-                TokenSaver.setToken(getApplicationContext(), userToken);
+                String userToken = TokenSaver.generateUserToken(userName, password);
+                //TokenSaver.setToken(getApplicationContext(), userToken);
 
                 NetworkManager nm = NetworkManager.getInstance(getApplicationContext());
                 nm.loginUser(userToken, new NetworkCallback<User>(){
                     @Override
                     public void onSuccess(User result){
                         if (result != null){
+                            Session.setLoggedIn(result);
                             openMainActivity();
                         }
                         else{
@@ -65,6 +68,14 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+
+        mSignUp = (Button)findViewById(R.id.mLogIn);
+        mSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signUp();
+            }
+        });
     }
 
     public void openMainActivity() {
@@ -72,9 +83,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static String generateUserToken(String userEmail, String userPassword) {
-        String combined = userEmail + "%" + userPassword; // we can use "%" because "%" is an illegal character in an email
-        return base64Encoder.encodeToString(combined.getBytes(StandardCharsets.UTF_8));
+    public static Intent newIntent(Context packageContext){
+        Intent i = new Intent(packageContext, LoginActivity.class);
+        return i;
+    }
+
+    public void signUp(){
+        Intent intent = SignUpActivity.newIntent(this);
+        startActivity(intent);
     }
 
 }

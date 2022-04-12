@@ -43,22 +43,6 @@ public class NetworkManager {
         return mQueue;
     }
 
-    public void getUser(NetworkCallback<String> callback){
-        System.out.println("#########################################################################");
-        StringRequest request = new StringRequest(
-                Request.Method.GET, BASE_URL + "a", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                callback.onSuccess(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                callback.onFailure(error.toString());
-            }
-        });
-        mQueue.add(request);
-    }
     public void loginUser(String userToken, final NetworkCallback<User> callback) {
         String url = Uri.parse(BASE_URL)
                 .buildUpon()
@@ -70,8 +54,6 @@ public class NetworkManager {
                 Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("######################################################################");
-                System.out.println(response);
                 Gson gson = new Gson();
                 Type type = new TypeToken<User>() {
                 }.getType();
@@ -87,6 +69,35 @@ public class NetworkManager {
         }
         );
         mQueue.add(request);
+    }
+
+    public void createUser(String userToken, final NetworkCallback<User> callback) {
+        String url = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath("createAppUser")
+                .appendPath(userToken)
+                .build().toString();
+
+        StringRequest request = new StringRequest(
+                Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<User>() {
+                }.getType();
+                User user = gson.fromJson(response, type);
+                System.out.println(user);
+                callback.onSuccess(user);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailure(error.toString());
+            }
+        }
+        );
+        mQueue.add(request);
+
     }
 
 }
