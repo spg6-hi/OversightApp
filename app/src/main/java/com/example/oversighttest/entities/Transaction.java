@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Transaction {
 
+    private long ID;
     private int amount;
     private Category category;
     private LocalDate date;
@@ -13,6 +14,10 @@ public class Transaction {
         this.category = category;
         this.date = date;
     }
+
+    public void setId(long ID){this.ID = ID;}
+
+    public long getID(){return this.ID;}
 
     public int getAmount() {
         return amount;

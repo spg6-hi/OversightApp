@@ -3,10 +3,15 @@ package com.example.oversighttest.pages;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.network.NetworkCallback;
+import com.example.oversighttest.network.NetworkManager;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -23,6 +28,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.dm = new DummyNetwork();
 
+        NetworkManager networkManager = NetworkManager.getInstance(getApplicationContext());
+        networkManager.getUser(new NetworkCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println(result);
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+                System.out.println(errorString);
+            }
+        });
+
         setContentView(R.layout.activity_main);
 
         tabLayout = findViewById(R.id.tabs);
@@ -38,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(tabManager);
 
     }
+
+
+    public static Intent newIntent(Context packageContext){
+        Intent i = new Intent(packageContext, MainActivity.class);
+        return i;
+    }
+
 
     /**
      * Allows any activity to access the dummy network

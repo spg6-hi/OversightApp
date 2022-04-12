@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.BankBalanceService;
 
 public class BankPage extends Fragment {
@@ -40,6 +41,7 @@ public class BankPage extends Fragment {
      * @param dm the dummy network we are using
      */
     public BankPage(DummyNetwork dm){
+
         this.bankService = new BankBalanceService(dm);
     }
 
