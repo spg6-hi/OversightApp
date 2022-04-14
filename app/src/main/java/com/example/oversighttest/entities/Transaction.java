@@ -7,12 +7,16 @@ public class Transaction {
     private int amount;
     private Category category;
     private LocalDate date;
+    private long id;
 
     public Transaction(int amount, Category category, LocalDate date){
         this.amount = amount;
         this.category = category;
         this.date = date;
     }
+    public long getId(){return id;}
+
+    public void setId(long id){this.id = id;}
 
     public int getAmount() {
         return amount;
