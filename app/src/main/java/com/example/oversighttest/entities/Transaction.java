@@ -1,18 +1,42 @@
 package com.example.oversighttest.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDate;
 
 public class Transaction {
 
+    @SerializedName("id")
     private long ID;
+
+    @SerializedName("amount")
     private int amount;
+
+    @SerializedName("category")
     private Category category;
-    private LocalDate date;
+
+    @SerializedName("date")
+    private String dateString;
+
+    private LocalDate dateOfPurchase;
+
+
+
+    public Transaction(int amount, Category category, LocalDate date, Long id){
+        this.amount = amount;
+        this.category = category;
+        this.dateOfPurchase = date;
+        this.ID = id;
+    }
 
     public Transaction(int amount, Category category, LocalDate date){
         this.amount = amount;
         this.category = category;
-        this.date = date;
+        this.dateOfPurchase = date;
+    }
+
+    public void setData(){
+        this.dateOfPurchase = LocalDate.parse(this.dateString);
     }
 
     public void setId(long ID){this.ID = ID;}
@@ -36,14 +60,14 @@ public class Transaction {
     }
 
     public LocalDate getDate() {
-        return date;
+        return dateOfPurchase;
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.dateOfPurchase = date;
     }
 
     public String toString(){
-        return this.date + " : " + this.category + " : " + this.amount;
+        return this.dateOfPurchase + " : " + this.category + " : " + this.amount;
     }
 }

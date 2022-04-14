@@ -52,7 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(User result){
                         if (result != null){
-                            Session.setLoggedIn(result);
+                            Session s = Session.getInstance();
+                            s.setLoggedIn(result);
                             openMainActivity();
                         }
                         else{

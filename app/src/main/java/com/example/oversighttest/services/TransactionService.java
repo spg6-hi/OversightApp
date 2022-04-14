@@ -1,10 +1,21 @@
 package com.example.oversighttest.services;
 
-import com.example.oversighttest.entities.Category;
-import com.example.oversighttest.entities.Transaction;
-import com.example.oversighttest.network.DummyNetwork;
-import com.example.oversighttest.pages.TransactionsPage;
+import android.content.Context;
 
+import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.Session;
+import com.example.oversighttest.entities.Transaction;
+import com.example.oversighttest.entities.User;
+import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.network.NetworkCallback;
+import com.example.oversighttest.network.NetworkManager;
+import com.example.oversighttest.pages.TransactionsPage;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+
+import java.io.FileReader;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,21 +24,38 @@ import java.util.TreeMap;
 public class TransactionService {
     DummyNetwork dm;
     private Transaction t;
-    private List<Transaction> mTransactionList;
+    private ArrayList<Transaction> transactionList;
 
     public TransactionService(DummyNetwork dm){
         this.dm = dm;
     }
 
     public Transaction addTransaction(Transaction t){
-        return dm.createTransaction(t);
+        return t;
     }
-    //todo seeTransactions(User user)
+
+
     public ArrayList<Transaction> seeTransactions(){
         return dm.getTransactions();
     }
+
+    public void parseListResult(String result){
+        System.out.println("Hey");
+    }
+
     public void deleteTransaction(Transaction t){
         dm.deleteTransaction(t);
+    }
+
+    public void saveTransactions(List<Transaction> t){
+        for (Transaction transaction: t){
+            transaction.setData();
+        }
+
+        ArrayList<Transaction> transactions = new ArrayList<>(t);
+
+        Session s = Session.getInstance();
+        s.setTransactions(transactions);
     }
 
 
@@ -39,7 +67,8 @@ public class TransactionService {
     public ArrayList<Transaction> seeSortedTransaction(int code){
 
         //get all transactions
-        ArrayList<Transaction> transactions = dm.getTransactions();
+        Session s = Session.getInstance();
+        ArrayList<Transaction> transactions = s.getTransactions();
 
         //create a treemap, contains an key and the value is an arraylist og transactions
         TreeMap<Object, ArrayList<Transaction>> map = new TreeMap<>();

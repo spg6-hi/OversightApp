@@ -3,6 +3,7 @@ package com.example.oversighttest.entities;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     @SerializedName("userName")
@@ -10,7 +11,6 @@ public class User {
 
     @SerializedName("password")
     private String password;
-
 
     private User(String userName, String password){
         this.userName = userName;

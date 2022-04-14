@@ -18,7 +18,6 @@ public enum Category {
     SHOPPING("Shopping & Services"),
     TRAVEL("Vacation and Travel");
 
-
     private final String displayName;
 
     Category(final String displayName){
@@ -28,6 +27,11 @@ public enum Category {
     public String getDisplayName(){
         return displayName;
     }
+
+    public String getName(){
+        return this.name();
+    }
+
 
     /**
      * skilar lista af öllum categories

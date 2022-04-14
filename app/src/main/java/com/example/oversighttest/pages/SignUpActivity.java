@@ -71,13 +71,28 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void login(){
+        System.out.println("#############################################");
+        NetworkManager nm = NetworkManager.getInstance(this);
+        nm.testPost(new NetworkCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                System.out.println(result);
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+                System.out.println(errorString);
+            }
+        });
+
         Intent intent = LoginActivity.newIntent(this);
         startActivity(intent);
     }
 
     private void signupSuccess(User result){
         if (result != null){
-            Session.setLoggedIn(result);
+            Session session = Session.getInstance();
+            session.setLoggedIn(result);
             openMainActivity();
         }
         else{
