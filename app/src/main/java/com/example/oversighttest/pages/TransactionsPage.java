@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
@@ -183,7 +184,7 @@ public class TransactionsPage extends Fragment {
      */
     private void setlist(){
         FragmentActivity tPFA = getActivity();
-        final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions);
+        final RecyclerTransactionAdapter adapter = new RecyclerTransactionAdapter(getContext(), transactions, this);
         tPFA.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -192,6 +193,27 @@ public class TransactionsPage extends Fragment {
         });
 
     }
+
+    public void deleteTransaction(long id){
+        NetworkManager nm = NetworkManager.getInstance(this.getContext());
+        nm.deleteTransaction(id, Session.getInstance().getLoggedIn(), new NetworkCallback<List<Transaction>>() {
+            @Override
+            public void onSuccess(List<Transaction> result) {
+                ts.saveTransactions(result);
+                transactions = Session.getInstance().getTransactions();
+                setlist();
+                setupPieChart();
+                loadPieChartData();
+                Toast.makeText(getContext(), "Deleted Transaction", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+            }
+        });
+    }
+
 
     /**
      * set up pie chart look

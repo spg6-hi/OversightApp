@@ -1,9 +1,6 @@
 package com.example.oversighttest.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.util.JsonToken;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.pages.TransactionsPage;
 
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTransactionAdapter.ViewHolder> {
     private static final String TAG = null;
     private final Context context;
+    private TransactionsPage tp;
     private ArrayList<Transaction> transactions = new ArrayList<>();
     /**
      * Provide a reference to the type of views that you are using
@@ -31,16 +30,20 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         private final TextView tvAmount;
         private final TextView tvCategory;
         private final TextView tvDate;
+        private final TextView mtvId;
         private View parentView;
 
 
         public ViewHolder(@NonNull View view) {
             super(view);
             this.parentView = view;
+
             //from item_transaction.xml
             this.tvAmount = (TextView) view.findViewById(R.id.tvAmount);
             this.tvCategory = (TextView) view.findViewById(R.id.tvCategory);
             this.tvDate = (TextView) view.findViewById(R.id.tvDate);
+            this.mtvId = (TextView) view.findViewById(R.id.mtvId);
+
             // todo: Define click listener for the ViewHolder's View
         }
 
@@ -55,6 +58,8 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         public TextView getTvDate() {
             return tvDate;
         }
+
+        public TextView getTvId(){return mtvId;}
     }
 
     /**
@@ -64,9 +69,10 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
      * by RecyclerView.
      *
      */
-    public RecyclerTransactionAdapter(Context contx, ArrayList<Transaction> transactions) {
+    public RecyclerTransactionAdapter(Context contx, ArrayList<Transaction> transactions, TransactionsPage tp) {
         this.context = contx;
         this.transactions = transactions;
+        this.tp = tp;
     }
 
     // Create new views (invoked by the layout manager)
@@ -84,19 +90,24 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.setIsRecyclable(false);
         final Transaction transaction = transactions.get(position);
-
+        System.out.println(transaction);
         if(viewHolder != null) {
             viewHolder.getTvAmount().setText(Integer.toString(transaction.getAmount()));
             viewHolder.getTvCategory().setText(transaction.getCategory().getDisplayName());
             viewHolder.getTvDate().setText((transaction.getDate().toString()));
+            viewHolder.getTvId().setText(Long.toString(transaction.getID()));
+
         }else{
             notifyItemChanged( position );
         }
         viewHolder.parentView.setOnLongClickListener(new View.OnLongClickListener(){
             @Override
             public boolean onLongClick(View view) {
-
-                System.out.println("Hello world!");
+                ViewHolder v = new ViewHolder(view);
+                String s = v.getTvId().getText().toString();
+                int id = Integer.parseInt(s);
+                long ID = Integer.toUnsignedLong(id);
+                tp.deleteTransaction(ID);
                 return true;
             };
 

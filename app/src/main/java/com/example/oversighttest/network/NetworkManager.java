@@ -272,6 +272,40 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
+
+    public void deleteTransaction(long id, User user, NetworkCallback<List<Transaction>> callback){
+        String url = BASE_URL + "deleteTransaction";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<Transaction>>(){}.getType();
+                List<Transaction> transactions = gson.fromJson(response, listType);
+                callback.onSuccess(transactions);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", Long.toString(id));
+                params.put("userName", user.getUserName());
+                System.out.println(params);
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+
+
     //SPENDING PLAN STUFF
 
     /**
