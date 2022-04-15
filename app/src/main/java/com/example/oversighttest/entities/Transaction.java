@@ -68,6 +68,6 @@ public class Transaction {
     }
 
     public String toString(){
-        return this.dateOfPurchase + " : " + this.category + " : " + this.amount;
+        return this.dateOfPurchase + " : " + this.category + " : " + this.amount + " : " + this.ID;
     }
 }

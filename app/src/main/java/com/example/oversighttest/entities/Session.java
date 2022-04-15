@@ -21,6 +21,7 @@ public class Session {
     private static ArrayList<Transaction> transactions;
     private static SpendingPlan sp;
     private static BankAccount b;
+    private static long toDelete;
 
     public static synchronized Session getInstance() {
         if (instance == null) {
@@ -61,4 +62,11 @@ public class Session {
         loggedIn = user;
     }
 
+    public void setToDelete(long id){
+        this.toDelete = id;
+    }
+
+    public long getToDelete(){
+        return this.toDelete;
+    }
 }
