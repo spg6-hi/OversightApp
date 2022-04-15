@@ -10,8 +10,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.oversighttest.entities.BankAccount;
+import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.User;
+import com.example.oversighttest.pages.BankPage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,6 +23,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,22 +54,22 @@ public class NetworkManager {
         return mQueue;
     }
 
-    public void loginUser(String userToken, final NetworkCallback<User> callback) {
-        String url = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath("loginUser")
-                .appendPath(userToken)
-                .build().toString();
+    //USER STUFF
+
+    /**
+     * Logs in a user
+     */
+    public void loginUser(String userName, String password, final NetworkCallback<User> callback) {
+        String url = BASE_URL + "loginUser";
 
         StringRequest request = new StringRequest(
-                Request.Method.GET, url, new Response.Listener<String>() {
+                Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 Type type = new TypeToken<User>() {
                 }.getType();
                 User user = gson.fromJson(response, type);
-                System.out.println(user);
                 callback.onSuccess(user);
             }
         }, new Response.ErrorListener() {
@@ -73,19 +78,61 @@ public class NetworkManager {
                 callback.onFailure(error.toString());
             }
         }
-        );
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", userName);
+                params.put("password", password);
+                System.out.println(params);
+                return params;
+            }
+        };
         mQueue.add(request);
     }
 
-    public void createUser(String userToken, final NetworkCallback<User> callback) {
-        String url = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath("createAppUser")
-                .appendPath(userToken)
-                .build().toString();
+    /**
+     * creates a user
+     */
+    public void createUser(String userName, String password, final NetworkCallback<User> callback){
+            String url = BASE_URL + "createAppUser";
+
+            StringRequest request = new StringRequest(
+                    Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    System.out.println(response);
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<User>() {
+                    }.getType();
+                    User user = gson.fromJson(response, type);
+                    System.out.println(user);
+                    callback.onSuccess(user);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    callback.onFailure(error.toString());
+                }
+            }
+            ){
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("userName", userName);
+                    params.put("password", password);
+                    System.out.println(params);
+                    return params;
+                }
+            };
+        mQueue.add(request);
+    }
+
+    public void changePassword(String userName, String oldPass, String newPass, final NetworkCallback<User> callback){
+        String url = BASE_URL +  "changeAppPassword";
 
         StringRequest request = new StringRequest(
-                Request.Method.GET, url, new Response.Listener<String>() {
+                Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println(response);
@@ -102,11 +149,56 @@ public class NetworkManager {
                 callback.onFailure(error.toString());
             }
         }
-        );
+        ){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", userName);
+                params.put("oldPassword", oldPass);
+                params.put("newPassword", newPass);
+                System.out.println(params);
+                return params;
+            }
+        };
         mQueue.add(request);
     }
 
+    public void deleteUser(String userName, String pass, String confirmPass, final NetworkCallback<String> callback){
+        String url = BASE_URL +  "deleteAppUser";
 
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess("deleted");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailure(error.toString());
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", userName);
+                params.put("password", pass);
+                params.put("confirmPassword", confirmPass);
+                System.out.println(params);
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+    //TRANSACTION STUFF
+
+    /**
+     * get all transactions for logged in user
+     * @param user logged in user
+     * @param callback
+     */
     public void getTransactions(User user, NetworkCallback<List<Transaction>> callback){
         String url = BASE_URL + "getTransactions";
         System.out.println("CALLING URL " + url);
@@ -139,6 +231,12 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
+    /**
+     * Creates a new transaction for the logged in user
+     * @param user logged in user
+     * @param transaction transaction to be created
+     * @param callback
+     */
     public void createTransaction(User user, Transaction transaction, NetworkCallback<List<Transaction>> callback){
         String url = BASE_URL + "createTransaction";
         System.out.println("CALLING URL " + url);
@@ -174,36 +272,210 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
-
+    //SPENDING PLAN STUFF
 
     /**
-     * test function, useless
+     * Creates a new spendingplan for the logged in user
+     * @param user logged in user
+     * @param sp spending plan to be created
      * @param callback
      */
-    public void testPost(final NetworkCallback<Boolean> callback){
-        System.out.println("testPost");;
-        String url = BASE_URL + "testPost";
-        System.out.println(url);
-
+    public void createSpendingPlan(User user, SpendingPlan sp, NetworkCallback<SpendingPlan> callback){
+        String url = BASE_URL + "createAppSpendingPlan";
+        System.out.println("CALLING URL " + url);
         StringRequest request = new StringRequest(
                 Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("cool");
+                Gson gson = new Gson();
+                Type type = new TypeToken<SpendingPlan>() {
+                }.getType();
+                SpendingPlan sp = gson.fromJson(response, type);
+                callback.onSuccess(sp);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("fail");
+                System.out.println("ERROR");
             }
         }
         ) {
             @Override
-            protected Map<String, String> getParams(){
-                Map<String , String> params = new HashMap<>();
-                params.put("userName", "asdf");
-                params.put("password",  "asd");
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+
+                Iterator hm = sp.getPlan().entrySet().iterator();
+
+                while (hm.hasNext()){
+                    Map.Entry element = (Map.Entry)hm.next();
+                    Category c = (Category)element.getKey();
+                    String key = c.getName();
+                    int value = (int)element.getValue();
+                    String val = Integer.toString(value);
+                    params.put(key, val);
+                }
+
                 System.out.println(params);
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+    public void deleteSpendingPlan(User user, NetworkCallback<SpendingPlan> callback){
+        String url = BASE_URL + "deleteSpendingPlan";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(new SpendingPlan());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+                params.put("password", user.getPassword());
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+    /**
+     * gets spending plan of logged in user
+     * @param user logged in user
+     * @param callback
+     */
+    public void getSpendingPlan(User user, NetworkCallback<SpendingPlan> callback){
+        String url = BASE_URL + "getSpendingPlan";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<SpendingPlan>() {
+                }.getType();
+                SpendingPlan sp = gson.fromJson(response, type);
+                callback.onSuccess(sp);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+                params.put("password", user.getPassword());
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+
+    public void addBalance(int added, User user, NetworkCallback<BankAccount> callback){
+        String url = BASE_URL+"addFunds";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<BankAccount>() {
+                }.getType();
+                BankAccount b = gson.fromJson(response, type);
+                callback.onSuccess(b);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+                params.put("added", Integer.toString(added));
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+    public void getBalance(User user, NetworkCallback<BankAccount> callback){
+        String url = BASE_URL+"getBankAccount";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<BankAccount>() {
+                }.getType();
+                BankAccount b = gson.fromJson(response, type);
+                callback.onSuccess(b);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+
+    public void removeBalance(int removed, User user, NetworkCallback<BankAccount> callback){
+        String url = BASE_URL+"removeFunds";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<BankAccount>() {
+                }.getType();
+                BankAccount b = gson.fromJson(response, type);
+                callback.onSuccess(b);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+                params.put("removed", Integer.toString(removed));
                 return params;
             }
         };

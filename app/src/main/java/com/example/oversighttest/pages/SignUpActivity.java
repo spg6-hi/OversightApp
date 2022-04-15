@@ -16,6 +16,7 @@ import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.TokenSaver;
+import com.example.oversighttest.services.UserService;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -54,10 +55,11 @@ public class SignUpActivity extends AppCompatActivity {
         String userName = mNewUserName.getText().toString();
         String password = mNewPassword.getText().toString();
 
-        String userToken = TokenSaver.generateUserToken(userName, password);
+        String hashed = UserService.get_SHA_512(password);
+
 
         NetworkManager nm = NetworkManager.getInstance(this);
-        nm.createUser(userToken, new NetworkCallback<User>() {
+        nm.createUser(userName, hashed, new NetworkCallback<User>() {
             @Override
             public void onSuccess(User result) {
                 signupSuccess(result);
@@ -71,20 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void login(){
-        System.out.println("#############################################");
-        NetworkManager nm = NetworkManager.getInstance(this);
-        nm.testPost(new NetworkCallback<Boolean>() {
-            @Override
-            public void onSuccess(Boolean result) {
-                System.out.println(result);
-            }
-
-            @Override
-            public void onFailure(String errorString) {
-                System.out.println(errorString);
-            }
-        });
-
         Intent intent = LoginActivity.newIntent(this);
         startActivity(intent);
     }

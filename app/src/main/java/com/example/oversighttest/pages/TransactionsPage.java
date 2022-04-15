@@ -79,32 +79,10 @@ public class TransactionsPage extends Fragment {
         MainActivity a = (MainActivity) getActivity();
         final FragmentActivity tPFA = getActivity();
 
-        ts = new TransactionService(a.getDm());
+        ts = new TransactionService();
 
-        transactions = ts.seeTransactions();
+        transactions = new ArrayList<Transaction>();
 
-        Session s = Session.getInstance();
-        User loggedIn = s.getLoggedIn();
-
-        NetworkManager nm = NetworkManager.getInstance(this.getContext());
-        nm.getTransactions(loggedIn, new NetworkCallback<List<Transaction>>() {
-            @Override
-            public void onSuccess(List<Transaction> result) {
-                for (Transaction t : result){
-                    t.setData();
-                }
-                transactions =new ArrayList<Transaction>(result);
-                Session s = Session.getInstance();
-                s.setTransactions(transactions);
-                setlist();
-                setupPieChart();
-            }
-
-            @Override
-            public void onFailure(String errorString) {
-
-            }
-        });
 
         // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
         /*
@@ -135,6 +113,27 @@ public class TransactionsPage extends Fragment {
                 startActivityForResult(intent, CREATE_TRANSACTION);
             }
         });
+
+        Session s = Session.getInstance();
+        User loggedIn = s.getLoggedIn();
+
+        NetworkManager nm = NetworkManager.getInstance(this.getContext());
+        nm.getTransactions(loggedIn, new NetworkCallback<List<Transaction>>() {
+            @Override
+            public void onSuccess(List<Transaction> result) {
+                ts.saveTransactions(result);
+                transactions = Session.getInstance().getTransactions();
+                setlist();
+                setupPieChart();
+                loadPieChartData();
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+
+            }
+        });
+
 
         amount = (TextView) rootView.findViewById(R.id.sortAmount);
         amount.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +227,7 @@ public class TransactionsPage extends Fragment {
      * load data from transaction for pie chart to display
      */
     private void  loadPieChartData(){
+
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         Collections.sort(transactions, new Comparator<Transaction>() {
@@ -238,7 +238,6 @@ public class TransactionsPage extends Fragment {
                 return t1Cat.compareTo(t2Cat);
             }
         });
-        String currCategory = transactions.get(0).getCategory().getDisplayName();
 
         //Hash map that keeps track of int value for each category
         HashMap<Category, Integer> values = new HashMap<>();

@@ -16,6 +16,7 @@ import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.TokenSaver;
+import com.example.oversighttest.services.UserService;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -41,32 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         mConfirmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = mUserName.getText().toString();
-                String password = mPassword.getText().toString();
-
-                String userToken = TokenSaver.generateUserToken(userName, password);
-                //TokenSaver.setToken(getApplicationContext(), userToken);
-
-                NetworkManager nm = NetworkManager.getInstance(getApplicationContext());
-                nm.loginUser(userToken, new NetworkCallback<User>(){
-                    @Override
-                    public void onSuccess(User result){
-                        if (result != null){
-                            Session s = Session.getInstance();
-                            s.setLoggedIn(result);
-                            openMainActivity();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(String errorString){
-                        System.out.println(errorString);
-                        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                confirmLogin();
             }
         });
 
@@ -79,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //go to main screen
     public void openMainActivity() {
         Intent intent = MainActivity.newIntent(this);
         startActivity(intent);
@@ -87,6 +64,40 @@ public class LoginActivity extends AppCompatActivity {
     public static Intent newIntent(Context packageContext){
         Intent i = new Intent(packageContext, LoginActivity.class);
         return i;
+    }
+
+
+    public void confirmLogin(){
+        String userName = mUserName.getText().toString();
+        String password = mPassword.getText().toString();
+
+        String hashed = UserService.get_SHA_512(password);
+
+        NetworkManager nm = NetworkManager.getInstance(getApplicationContext());
+        nm.loginUser(userName, hashed, new NetworkCallback<User>(){
+            @Override
+            public void onSuccess(User result){
+                if (result != null){
+                    if (result.getPassword().equals("wrong password")){
+                        Toast.makeText(getApplicationContext(), "Check password", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Session s = Session.getInstance();
+                        s.setLoggedIn(result);
+                        openMainActivity();
+                    }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "This user does not exist", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(String errorString){
+                System.out.println(errorString);
+                Toast.makeText(getApplicationContext(), "this user does not exists", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void signUp(){

@@ -22,12 +22,10 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class TransactionService {
-    DummyNetwork dm;
     private Transaction t;
     private ArrayList<Transaction> transactionList;
 
-    public TransactionService(DummyNetwork dm){
-        this.dm = dm;
+    public TransactionService(){
     }
 
     public Transaction addTransaction(Transaction t){
@@ -36,7 +34,7 @@ public class TransactionService {
 
 
     public ArrayList<Transaction> seeTransactions(){
-        return dm.getTransactions();
+        return Session.getInstance().getTransactions();
     }
 
     public void parseListResult(String result){
@@ -44,7 +42,7 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Transaction t){
-        dm.deleteTransaction(t);
+        //TODO
     }
 
     public void saveTransactions(List<Transaction> t){

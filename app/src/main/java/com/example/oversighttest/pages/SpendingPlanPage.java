@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.SpendingPlan;
+import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.network.NetworkCallback;
+import com.example.oversighttest.network.NetworkManager;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -34,7 +39,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 public class SpendingPlanPage extends Fragment {
@@ -44,7 +51,7 @@ public class SpendingPlanPage extends Fragment {
     private static final int DELETE_SPENDING_PLAN = 1;
     private static final int CHANGE_SPENDING_PLAN = 2;
 
-    private static DummyNetwork network;
+    private NetworkManager nm;
 
     private PieChart pieChart;
     private View v;
@@ -66,19 +73,27 @@ public class SpendingPlanPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //get access to network
-        MainActivity a = (MainActivity) getActivity();
-        network = a.getDm();
+        spendingPlan = new SpendingPlan();
+        User loggedIn = Session.getInstance().getLoggedIn();
 
-        //get spending plan
-        spendingPlan = network.getSpendingPlan();
+        nm = NetworkManager.getInstance(this.getContext());
 
-        //skítafix til að legend a piechart sjáist
-        LocalDate date = LocalDate.now();
+        nm.getSpendingPlan(loggedIn, new NetworkCallback<SpendingPlan>() {
+            @Override
+            public void onSuccess(SpendingPlan result) {
+                Session.getInstance().setSpendingPlan(result);
+                spendingPlan = result;
+                spendingPlanExists = true;
+                setupPieChart();
+                loadPieChartData();
+            }
 
-        for ( Map.Entry<Category, Integer> entry : spendingPlan.getPlan().entrySet()){
-            listSpendingPlan.add(new Transaction(entry.getValue(), entry.getKey(), date));
-        }
+            @Override
+            public void onFailure(String errorString) {
+                System.out.println("Error: failed to load spending plan");
+            }
+        });
+
         spendingPlanExists = (!spendingPlan.getPlan().isEmpty());
 
         // Inflate the layout for this fragment
@@ -88,7 +103,6 @@ public class SpendingPlanPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         v = getView();
         pieChart = v.findViewById(R.id.pieChart);
         ShowMenu();
@@ -129,16 +143,24 @@ public class SpendingPlanPage extends Fragment {
      */
     private void loadPieChartData() {
         LocalDate date = LocalDate.now();
-        spendingPlan = network.getSpendingPlan();
+        //spendingPlan = network.getSpendingPlan();
         listSpendingPlan = new ArrayList<Transaction>();
+        /*
         for ( Map.Entry<Category, Integer> entry : spendingPlan.getPlan().entrySet()){
             listSpendingPlan.add(new Transaction(entry.getValue(), entry.getKey(), date));
         }
+         */
+
 
         ArrayList<PieEntry> entries = new ArrayList<>();
-        for (Transaction t : listSpendingPlan) {
-            entries.add(new PieEntry(t.getAmount(), t.getCategory().getDisplayName()));
-
+        Iterator map = spendingPlan.getPlan().entrySet().iterator();
+        while (map.hasNext()) {
+            Map.Entry entry = (Map.Entry)map.next();
+            int amount = (int)entry.getValue();
+            String cat = ((Category)entry.getKey()).getDisplayName();
+            if (amount != 0){
+                entries.add(new PieEntry(amount, cat));
+            }
         }
 
 
@@ -250,33 +272,75 @@ public class SpendingPlanPage extends Fragment {
         if (resultCode == RESULT_OK){
             if (requestCode == CREATE_SPENDING_PLAN){
                 if (data != null){
-                    spendingPlanExists = true;
-                    HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
-
-                    spendingPlan = new SpendingPlan(plan);
-                    network.setSpendingPlan(spendingPlan);
-                    loadPieChartData();
+                    createSpendingPlan(data);
                 }
             }
             else if(requestCode == CHANGE_SPENDING_PLAN){
                 if (data != null){
-                    spendingPlanExists = true;
-                    HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("edited spending plan");
-
-                    spendingPlan = new SpendingPlan(plan);
-                    network.setSpendingPlan(spendingPlan);
-                    loadPieChartData();
+                    changeSpendingPlan(data);
                 }
 
             }
             else if(requestCode == DELETE_SPENDING_PLAN){
-                spendingPlanExists = false;
-                network.setSpendingPlan(new SpendingPlan(new HashMap<Category, Integer>()));
-                spendingPlan = new SpendingPlan(new HashMap<Category, Integer>());
-                loadPieChartData();
+                deleteSpendingPlan();
             }
         }
     }
+
+    private void createSpendingPlan(Intent data){
+        spendingPlanExists = true;
+        HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
+
+        saveSpendingPlan(plan);
+    }
+
+    private void changeSpendingPlan(Intent data){
+        spendingPlanExists = true;
+        HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("edited spending plan");
+
+        saveSpendingPlan(plan);
+    }
+
+    private void deleteSpendingPlan(){
+        spendingPlanExists = false;
+
+        Session s = Session.getInstance();
+
+        s.setSpendingPlan(new SpendingPlan());
+        nm.deleteSpendingPlan(s.getLoggedIn(), new NetworkCallback<SpendingPlan>() {
+            @Override
+            public void onSuccess(SpendingPlan result) {
+                System.out.println("Spending plan successfully deleted");
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+                System.out.println("failed to delete spending plan");
+            }
+        });
+        spendingPlan = new SpendingPlan(new HashMap<Category, Integer>());
+        loadPieChartData();
+    }
+    
+    private void saveSpendingPlan(HashMap<Category, Integer> plan){
+        spendingPlan = new SpendingPlan(plan);
+        Session.getInstance().setSpendingPlan(spendingPlan);
+        nm.createSpendingPlan(Session.getInstance().getLoggedIn(), spendingPlan, new NetworkCallback<SpendingPlan>() {
+            @Override
+            public void onSuccess(SpendingPlan result) {
+                Session.getInstance().setSpendingPlan(result);
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+                System.out.println("error saving spending plan");
+            }
+        });
+
+        //network.setSpendingPlan(spendingPlan);
+        loadPieChartData();
+    }
+
     //Closes floating action buttons
     private void closeFab(){
         menuOpen = !menuOpen;
