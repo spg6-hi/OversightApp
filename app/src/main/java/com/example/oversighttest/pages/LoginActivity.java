@@ -15,10 +15,8 @@ import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
-import com.example.oversighttest.services.TokenSaver;
 import com.example.oversighttest.services.UserService;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class LoginActivity extends AppCompatActivity {
