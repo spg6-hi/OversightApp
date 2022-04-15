@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.services.SpendingPlanService;
@@ -24,9 +25,6 @@ public class EditSpendingPlanPage extends AppCompatActivity {
             healthandbeauty, home, insurance, investmentsandsavings, leisuretime,
             shoppingandservices, other, vacationandtravel;
 
-    private static DummyNetwork network = MainActivity.getDm(); //dummy network connection
-
-    private SpendingPlanService spendingPlanService = new SpendingPlanService(network);
 
     private ArrayList<EditText> categories;
 
@@ -39,7 +37,8 @@ public class EditSpendingPlanPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editspendingplan);
 
-        spendingPlan = spendingPlanService.getSpendingPlan();
+
+        spendingPlan = Session.getInstance().getSpendingPlan();
 
         saveButton = (Button)findViewById(R.id.saveCreateSpendingPlan);
         cancelButton = (Button)findViewById(R.id.cancelCreateSpendingPlan);

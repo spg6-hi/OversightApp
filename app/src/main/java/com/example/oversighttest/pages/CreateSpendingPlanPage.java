@@ -18,9 +18,7 @@ import java.util.HashMap;
 
 public class CreateSpendingPlanPage extends AppCompatActivity {
 
-    private static DummyNetwork network = MainActivity.getDm();
-
-    private SpendingPlanService spendingPlanService = new SpendingPlanService(network);
+    private SpendingPlanService spendingPlanService = new SpendingPlanService();
 
     private HashMap<Category, Integer> spendingPlan;
 

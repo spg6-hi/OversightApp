@@ -22,8 +22,12 @@ import android.widget.TextView;
 import com.example.oversighttest.R;
 import com.example.oversighttest.adapters.RecyclerTransactionAdapter;
 import com.example.oversighttest.entities.Category;
+import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.Transaction;
+import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.network.NetworkCallback;
+import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.TransactionService;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -40,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TransactionsPage extends Fragment {
@@ -74,9 +79,10 @@ public class TransactionsPage extends Fragment {
         MainActivity a = (MainActivity) getActivity();
         final FragmentActivity tPFA = getActivity();
 
-        ts = new TransactionService(a.getDm());
+        ts = new TransactionService();
 
-        transactions = ts.seeTransactions();
+        transactions = new ArrayList<Transaction>();
+
 
         // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
         /*
@@ -107,6 +113,27 @@ public class TransactionsPage extends Fragment {
                 startActivityForResult(intent, CREATE_TRANSACTION);
             }
         });
+
+        Session s = Session.getInstance();
+        User loggedIn = s.getLoggedIn();
+
+        NetworkManager nm = NetworkManager.getInstance(this.getContext());
+        nm.getTransactions(loggedIn, new NetworkCallback<List<Transaction>>() {
+            @Override
+            public void onSuccess(List<Transaction> result) {
+                ts.saveTransactions(result);
+                transactions = Session.getInstance().getTransactions();
+                setlist();
+                setupPieChart();
+                loadPieChartData();
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+
+            }
+        });
+
 
         amount = (TextView) rootView.findViewById(R.id.sortAmount);
         amount.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +227,7 @@ public class TransactionsPage extends Fragment {
      * load data from transaction for pie chart to display
      */
     private void  loadPieChartData(){
+
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         Collections.sort(transactions, new Comparator<Transaction>() {
@@ -210,7 +238,6 @@ public class TransactionsPage extends Fragment {
                 return t1Cat.compareTo(t2Cat);
             }
         });
-        String currCategory = transactions.get(0).getCategory().getDisplayName();
 
         //Hash map that keeps track of int value for each category
         HashMap<Category, Integer> values = new HashMap<>();
@@ -269,6 +296,20 @@ public class TransactionsPage extends Fragment {
                     LocalDate date = (LocalDate) data.getExtras().getSerializable("date");
                     Transaction t = new Transaction(amount, cat, date);
                     setlist();
+                    NetworkManager nm = NetworkManager.getInstance(this.getContext());
+                    nm.createTransaction(Session.getInstance().getLoggedIn(), t, new NetworkCallback<List<Transaction>>() {
+                        @Override
+                        public void onSuccess(List<Transaction> result) {
+                            ts.saveTransactions(result);
+                            setlist();
+                            setupPieChart();
+                        }
+
+                        @Override
+                        public void onFailure(String errorString) {
+
+                        }
+                    });
                     ts.addTransaction(t);
                     loadPieChartData();
                 }

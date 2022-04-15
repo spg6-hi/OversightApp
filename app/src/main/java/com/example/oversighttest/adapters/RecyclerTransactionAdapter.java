@@ -3,6 +3,7 @@ package com.example.oversighttest.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.JsonToken;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.pages.TransactionsPage;
 
 import java.util.ArrayList;
-
+//adapter that handles loading recycler view (similar to list) of transactions
 public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTransactionAdapter.ViewHolder> {
     private static final String TAG = null;
     private final Context context;
@@ -36,12 +37,11 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         public ViewHolder(@NonNull View view) {
             super(view);
             this.parentView = view;
-            // Define click listener for the ViewHolder's View
-
-            //TextView textView = (TextView) view.findViewById(R.id.textView);
+            //from item_transaction.xml
             this.tvAmount = (TextView) view.findViewById(R.id.tvAmount);
             this.tvCategory = (TextView) view.findViewById(R.id.tvCategory);
             this.tvDate = (TextView) view.findViewById(R.id.tvDate);
+            // todo: Define click listener for the ViewHolder's View
         }
 
         public TextView getTvAmount() {
@@ -65,7 +65,6 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
      *
      */
     public RecyclerTransactionAdapter(Context contx, ArrayList<Transaction> transactions) {
-        //localDataSet = dataSet;
         this.context = contx;
         this.transactions = transactions;
     }
@@ -96,9 +95,10 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         viewHolder.parentView.setOnLongClickListener(new View.OnLongClickListener(){
             @Override
             public boolean onLongClick(View view) {
-                Intent intent = new Intent(context, TransactionsPage.class);
-                return false;
-            }
+
+                System.out.println("Hello world!");
+                return true;
+            };
 
 
         });
