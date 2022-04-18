@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ import com.example.oversighttest.services.UserService;
 public class SignUpActivity extends AppCompatActivity {
     private Button mConfirmSignup, mLogIn;
     private EditText mNewUserName, mNewPassword;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +51,13 @@ public class SignUpActivity extends AppCompatActivity {
         String userName = mNewUserName.getText().toString();
         String password = mNewPassword.getText().toString();
 
+        boolean generateData = true;
+
         String hashed = UserService.get_SHA_512(password);
 
 
         NetworkManager nm = NetworkManager.getInstance(this);
-        nm.createUser(userName, hashed, new NetworkCallback<User>() {
+        nm.createUser(userName, hashed, generateData, new NetworkCallback<User>() {
             @Override
             public void onSuccess(User result) {
                 signupSuccess(result);
