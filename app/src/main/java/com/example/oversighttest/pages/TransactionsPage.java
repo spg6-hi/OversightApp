@@ -257,13 +257,13 @@ public class TransactionsPage extends Fragment {
         TODO: Let user see value for each item in pie chart
         */
         Legend l = pieChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setTextColor(Color.WHITE);
+        l.setTextSize(10f);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
-        l.setEnabled(false);
-
-
+        l.setEnabled(true);
     }
 
 
@@ -373,7 +373,7 @@ public class TransactionsPage extends Fragment {
 
         //loop through hash map and put in entries
         for (Map.Entry<Category, Integer> e : values.entrySet()){
-            entries.add(new PieEntry(e.getValue(), e.getKey()));
+            entries.add(new PieEntry(e.getValue(), e.getKey().getName()));
         }
 
         //set colours
@@ -383,6 +383,10 @@ public class TransactionsPage extends Fragment {
         }
 
         for (int color: ColorTemplate.VORDIPLOM_COLORS){
+            colors.add(color);
+        }
+
+        for (int color: ColorTemplate.COLORFUL_COLORS){
             colors.add(color);
         }
 

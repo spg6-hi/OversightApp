@@ -26,11 +26,20 @@ import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
+import com.example.oversighttest.services.SpendingPlanService;
+import com.example.oversighttest.services.TransactionService;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -58,6 +67,7 @@ public class SpendingPlanPage extends Fragment {
     private ArrayList<Transaction> listSpendingPlan = new ArrayList<>();
     private SpendingPlan spendingPlan;
     private boolean spendingPlanExists;
+    private SpendingPlanService ss;
 
     private FloatingActionButton fab;
     private ExtendedFloatingActionButton fabone, fabtwo, fabthree;
@@ -74,6 +84,7 @@ public class SpendingPlanPage extends Fragment {
                              Bundle savedInstanceState) {
 
         spendingPlan = new SpendingPlan();
+        ss = new SpendingPlanService();
         User loggedIn = Session.getInstance().getLoggedIn();
 
         nm = NetworkManager.getInstance(this.getContext());
@@ -125,13 +136,15 @@ public class SpendingPlanPage extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(false);
         pieChart.setDrawEntryLabels(false);
-
+        pieChart.animateXY(1000,1000);
         /*
         TODO: FIX legend
          */
         Legend l = pieChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setTextSize(10f);
+        l.setTextColor(Color.WHITE);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(true);
@@ -163,12 +176,17 @@ public class SpendingPlanPage extends Fragment {
             }
         }
 
-
+        //set colours
         ArrayList<Integer> colors = new ArrayList<>();
-        for (int color : ColorTemplate.MATERIAL_COLORS) {
+        for (int color: ColorTemplate.MATERIAL_COLORS){
             colors.add(color);
         }
-        for (int color : ColorTemplate.VORDIPLOM_COLORS) {
+
+        for (int color: ColorTemplate.VORDIPLOM_COLORS){
+            colors.add(color);
+        }
+
+        for (int color: ColorTemplate.COLORFUL_COLORS){
             colors.add(color);
         }
 
@@ -329,6 +347,7 @@ public class SpendingPlanPage extends Fragment {
             @Override
             public void onSuccess(SpendingPlan result) {
                 Session.getInstance().setSpendingPlan(result);
+                loadPieChartData();
             }
 
             @Override

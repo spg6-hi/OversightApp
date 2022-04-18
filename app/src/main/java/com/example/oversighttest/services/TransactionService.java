@@ -131,7 +131,7 @@ public class TransactionService {
         return sorted;
     }
 
-    public int[] getTransactionBarChartData(){
+    public static int[] getTransactionBarChartData(){
         int[] data = new int[Category.getListOfCategories().length-2];
         HashMap<Category, Integer> map = new HashMap<>();
         ArrayList<Transaction> list = Session.getInstance().getTransactions();
@@ -156,7 +156,7 @@ public class TransactionService {
         return data;
     }
 
-    public int[] getSpendingPlanBarChartData(){
+    public static int[] getSpendingPlanBarChartData(){
         int[] data = new int[Category.getListOfCategories().length-2];
         Category[] cats = Category.getValues();
         HashMap<Category, Integer> map = new HashMap<>();
