@@ -65,6 +65,17 @@ public enum Category {
         return cats;
     }
 
+    public static String[] getListOfCategories(){
+        String[] s = new String[Category.values().length+2];
+        s[0] = "";
+        s[Category.values().length+1] = "";
+        Category[] list = Category.values();
+        for (int i = 1; i<=Category.values().length; i++){
+            s[i] = list[i-1].displayName;
+        }
+        return s;
+    }
+
     /**
      * Bara til að prenta út nafnið aupveldlega
      * @return

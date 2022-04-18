@@ -32,6 +32,16 @@
 
             </com.github.mikephil.charting.charts.PieChart>
 
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="1000dp"
+                android:layout_gravity="top"
+                tools:layout_editor_absoluteX="50dp"
+                tools:layout_editor_absoluteY="50dp">
+
+            </com.github.mikephil.charting.charts.HorizontalBarChart>
+
             <Button
                 android:id="@+id/mAddTransaction"
                 android:layout_width="match_parent"
