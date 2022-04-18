@@ -59,7 +59,7 @@ public class SpendingPlanPage extends Fragment {
     private SpendingPlan spendingPlan;
     private boolean spendingPlanExists;
 
-    private FloatingActionButton fab;
+    private FloatingActionButton fab, mAccountButton;
     private ExtendedFloatingActionButton fabone, fabtwo, fabthree;
     private Float translationYaxis = 100f;
     private Boolean menuOpen = false;
@@ -108,6 +108,7 @@ public class SpendingPlanPage extends Fragment {
         ShowMenu();
         setupPieChart();
         loadPieChartData();
+        AccountButton();
     }
 
     /**
@@ -155,10 +156,10 @@ public class SpendingPlanPage extends Fragment {
         ArrayList<PieEntry> entries = new ArrayList<>();
         Iterator map = spendingPlan.getPlan().entrySet().iterator();
         while (map.hasNext()) {
-            Map.Entry entry = (Map.Entry)map.next();
-            int amount = (int)entry.getValue();
-            String cat = ((Category)entry.getKey()).getDisplayName();
-            if (amount != 0){
+            Map.Entry entry = (Map.Entry) map.next();
+            int amount = (int) entry.getValue();
+            String cat = ((Category) entry.getKey()).getDisplayName();
+            if (amount != 0) {
                 entries.add(new PieEntry(amount, cat));
             }
         }
@@ -183,6 +184,7 @@ public class SpendingPlanPage extends Fragment {
         pieChart.setData(data);
         pieChart.invalidate();
     }
+
     //Floating action buttons
     private void ShowMenu() {
         fab = v.findViewById(R.id.fab);
@@ -222,10 +224,9 @@ public class SpendingPlanPage extends Fragment {
             @Override
             public void onClick(View view) {
                 closeFab();
-                if(spendingPlanExists) {
-                    Toast.makeText(getActivity(),"Spending Plan Already Exists",Toast.LENGTH_SHORT).show();
-                }
-                else {
+                if (spendingPlanExists) {
+                    Toast.makeText(getActivity(), "Spending Plan Already Exists", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
 
                     startActivityForResult(intent, CREATE_SPENDING_PLAN);
@@ -237,13 +238,12 @@ public class SpendingPlanPage extends Fragment {
             @Override
             public void onClick(View view) {
                 closeFab();
-                if(spendingPlanExists) {
+                if (spendingPlanExists) {
                     Intent intent = new Intent(getActivity(), DeleteSpendingPlanPage.class);
 
                     startActivityForResult(intent, DELETE_SPENDING_PLAN);
-                }
-                else {
-                    Toast.makeText(getActivity(),"No Spending Plan To Delete",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "No Spending Plan To Delete", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -252,12 +252,11 @@ public class SpendingPlanPage extends Fragment {
             @Override
             public void onClick(View view) {
                 closeFab();
-                if(spendingPlanExists) {
+                if (spendingPlanExists) {
                     Intent intent = new Intent(getActivity(), EditSpendingPlanPage.class);
 
                     startActivityForResult(intent, CHANGE_SPENDING_PLAN);
-                }
-                else {
+                } else {
                     Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
 
                     startActivityForResult(intent, CREATE_SPENDING_PLAN);
@@ -269,39 +268,37 @@ public class SpendingPlanPage extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == CREATE_SPENDING_PLAN){
-                if (data != null){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CREATE_SPENDING_PLAN) {
+                if (data != null) {
                     createSpendingPlan(data);
                 }
-            }
-            else if(requestCode == CHANGE_SPENDING_PLAN){
-                if (data != null){
+            } else if (requestCode == CHANGE_SPENDING_PLAN) {
+                if (data != null) {
                     changeSpendingPlan(data);
                 }
 
-            }
-            else if(requestCode == DELETE_SPENDING_PLAN){
+            } else if (requestCode == DELETE_SPENDING_PLAN) {
                 deleteSpendingPlan();
             }
         }
     }
 
-    private void createSpendingPlan(Intent data){
+    private void createSpendingPlan(Intent data) {
         spendingPlanExists = true;
-        HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("new spending plan");
+        HashMap<Category, Integer> plan = (HashMap<Category, Integer>) data.getExtras().getSerializable("new spending plan");
 
         saveSpendingPlan(plan);
     }
 
-    private void changeSpendingPlan(Intent data){
+    private void changeSpendingPlan(Intent data) {
         spendingPlanExists = true;
-        HashMap<Category, Integer> plan = (HashMap<Category, Integer>)data.getExtras().getSerializable("edited spending plan");
+        HashMap<Category, Integer> plan = (HashMap<Category, Integer>) data.getExtras().getSerializable("edited spending plan");
 
         saveSpendingPlan(plan);
     }
 
-    private void deleteSpendingPlan(){
+    private void deleteSpendingPlan() {
         spendingPlanExists = false;
 
         Session s = Session.getInstance();
@@ -321,8 +318,8 @@ public class SpendingPlanPage extends Fragment {
         spendingPlan = new SpendingPlan(new HashMap<Category, Integer>());
         loadPieChartData();
     }
-    
-    private void saveSpendingPlan(HashMap<Category, Integer> plan){
+
+    private void saveSpendingPlan(HashMap<Category, Integer> plan) {
         spendingPlan = new SpendingPlan(plan);
         Session.getInstance().setSpendingPlan(spendingPlan);
         nm.createSpendingPlan(Session.getInstance().getLoggedIn(), spendingPlan, new NetworkCallback<SpendingPlan>() {
@@ -342,7 +339,7 @@ public class SpendingPlanPage extends Fragment {
     }
 
     //Closes floating action buttons
-    private void closeFab(){
+    private void closeFab() {
         menuOpen = !menuOpen;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
         fabone.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
@@ -351,11 +348,24 @@ public class SpendingPlanPage extends Fragment {
     }
 
     //Opens floating action buttons
-    private void openFab(){
+    private void openFab() {
         menuOpen = !menuOpen;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
         fabone.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         fabtwo.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         fabthree.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+    }
+
+    private void AccountButton() {
+        mAccountButton = v.findViewById(R.id.mAccountButton);
+
+        mAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+
+                startActivity(intent);
+            }
+        });
     }
 }

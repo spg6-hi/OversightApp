@@ -10,5 +10,6 @@
     <color name="menuColor">#009879</color>
     <color name="Background">#222222</color>
     <color name="textColor">#009879</color>
+    <color name="warning">#FF0000</color>
 
 </resources>

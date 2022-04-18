@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/Background">>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="253dp"
         android:layout_height="51dp"
+        android:textColorHint="@color/menuColor"
+        android:textColor="@color/menuColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,13 +21,18 @@
             android:id="@+id/mNewUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+            android:hint="@string/mLogInSignUpUsernameHint"
+            android:backgroundTint="@color/Background"
+            android:textColorHint="@color/menuColor"
+            android:textColor="@color/menuColor"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="255dp"
         android:layout_height="57dp"
+        android:textColorHint="@color/menuColor"
+        android:textColor="@color/menuColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,14 +42,18 @@
             android:id="@+id/mNewPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+            android:hint="@string/mLogInSignUpPasswordHint"
+            android:backgroundTint="@color/Background"
+            android:textColorHint="@color/menuColor"
+            android:textColor="@color/menuColor"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/mconfirmSignup"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="confirm"
+        android:text="@string/mLogInSignUpConfirm"
+        android:backgroundTint="@color/menuColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +62,9 @@
 
     <Button
         android:id="@+id/mLogIn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="sign up"
+        android:text="@string/mSignUp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -21,6 +21,26 @@
     <string name="spendingplan_cancel">Cancel</string>
     <string name="spendingplan_confirm">YES</string>
     <string name="spendingplan_deny">NO</string>
+    <string name="mDeleteSpendingPlan">Delete the spending plan?</string>
+
+    <string name="mAccountDetails">Account Information</string>
+    <string name="mAccountDelete">Delete Account</string>
+    <string name="mAccountChangePassword">Change Password</string>
+    <string name="mAccountGoBack">Back</string>
+
+    <string name="mAccountConfirmDeletion">Delete Account?</string>
+
+    <string name="mLogInSignUpUsernameHint">Username</string>
+    <string name="mLogInSignUpPasswordHint">Password</string>
+    <string name="mLogInSignUpConfirm">Confirm</string>
+    <string name="mSignUp">Sign Up</string>
+    <string name="mLogIn">Log In</string>
+
+    <string name="mChangePassword">Change Password</string>
+    <string name="mChangePasswordHintOld">Old Password</string>
+    <string name="mChangePasswordHintNew">New Password</string>
+    <string name="mChangePasswordConfirm">Confirm</string>
+    <string name="mChangePasswordCancel">Cancel</string>
 
 
 
