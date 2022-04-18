@@ -7,10 +7,10 @@
     android:background="@color/Background">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/mAddFundsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add funds to you bank account"
+        android:text="@string/add_funds_to_you_bank_account"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,9 +23,12 @@
         android:id="@+id/mFundsRemoved"
         android:layout_width="272dp"
         android:layout_height="81dp"
+        android:autofillHints="@string/mAmountHint"
         android:ems="10"
+        android:hint="@string/mBankBalanceHint"
         android:inputType="number"
         android:textColor="@color/textColor"
+        android:textColorHint="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -35,29 +38,95 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_width="401dp"
+        android:layout_height="256dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7">
+        app:layout_constraintTop_toBottomOf="@+id/mFundsRemoved">
 
-        <Button
-            android:id="@+id/cancelAddBalance"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:text="cancel" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="372dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/mConfirmRemoveFunds"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
-            android:text="Confirm" />
+            <Button
+                android:id="@+id/mCancelAddBalance"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="@string/mCancelAddBalance"
+                android:textColor="@color/black"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/mConfirmRemoveFunds"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:text="@string/mConfirmRemoveFunds"
+                android:textColor="@color/black"
+                tools:ignore="TextContrastCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:orientation="horizontal">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/activity_add_bank_linechart"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" />
+        </LinearLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/activity_add_bank_period_radiogroup">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mPeriod"
+                android:textSize="18sp"
+                android:textColor="@color/textColor"/>
+
+            <RadioButton
+                android:id="@+id/activity_add_bank_period1d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mRadio1"
+                android:textColor="@color/textColor" />
+
+            <RadioButton
+                android:id="@+id/activity_add_bank_period30d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mRadio2"
+                android:textColor="@color/textColor"
+                />
+
+            <RadioButton
+                android:id="@+id/activity_add_bank_period90d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mRadio3"
+                android:textColor="@color/textColor"/>
+
+            <RadioButton
+                android:id="@+id/activity_add_bank_period12m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mRadio4"
+                android:textColor="@color/textColor"/>
+        </RadioGroup>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
