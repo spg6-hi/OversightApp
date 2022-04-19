@@ -19,7 +19,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabBackground="@color/Background"
-        app:tabIndicator="@color/menuColor">
+        app:tabIndicator="@color/menuColor"
+        app:tabTextColor="@color/overSightGreen"
+        app:tabSelectedTextColor="@color/overSightOrange">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"

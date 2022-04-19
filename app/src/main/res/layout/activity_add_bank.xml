@@ -73,60 +73,8 @@
                 tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="76dp"
-            android:orientation="horizontal">
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/activity_add_bank_linechart"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent" />
-        </LinearLayout>
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/activity_add_bank_period_radiogroup">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mPeriod"
-                android:textSize="18sp"
-                android:textColor="@color/textColor"/>
-
-            <RadioButton
-                android:id="@+id/activity_add_bank_period1d"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mRadio1"
-                android:textColor="@color/textColor" />
-
-            <RadioButton
-                android:id="@+id/activity_add_bank_period30d"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mRadio2"
-                android:textColor="@color/textColor"
-                />
-
-            <RadioButton
-                android:id="@+id/activity_add_bank_period90d"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mRadio3"
-                android:textColor="@color/textColor"/>
-
-            <RadioButton
-                android:id="@+id/activity_add_bank_period12m"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mRadio4"
-                android:textColor="@color/textColor"/>
-        </RadioGroup>
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
