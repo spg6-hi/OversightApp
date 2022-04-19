@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private TransactionsPage tp;
+    private SpendingPlanPage sp;
+    private BankPage bp;
 
     //this is the dummy network, other activities use this exact network, so that every activity uses the same data
     private static DummyNetwork dm;
@@ -49,12 +52,39 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         //Three main pages; transactions, spending plan, and bank account
+        tp = new TransactionsPage();
+        sp = new SpendingPlanPage();
+        bp = new BankPage();
         PageAdapter tabManager = new PageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        tabManager.addFragment(new TransactionsPage(), "Transactions");
-        tabManager.addFragment(new SpendingPlanPage(), "Spending Plan");
-        tabManager.addFragment(new BankPage(), "Bank");
+        tabManager.addFragment(tp, "Transactions");
+        tabManager.addFragment(sp, "Spending Plan");
+        tabManager.addFragment(bp, "Bank");
         viewPager.setAdapter(tabManager);
 
+        NetworkManager nm = NetworkManager.getInstance(this.getApplicationContext());
+        nm.getTransactions(loggedIn, new NetworkCallback<List<Transaction>>() {
+            @Override
+            public void onSuccess(List<Transaction> result) {
+                session.setTransactions(new ArrayList<>(result));
+                tp.loadData();
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+            }
+        });
+        nm.getSpendingPlan(loggedIn, new NetworkCallback<SpendingPlan>() {
+            @Override
+            public void onSuccess(SpendingPlan result) {
+                session.setSpendingPlan(result);
+                tp.loadData();
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+
+            }
+        });
     }
 
 
