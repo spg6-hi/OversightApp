@@ -14,6 +14,7 @@ import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.pages.TransactionsPage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 //adapter that handles loading recycler view (similar to list) of transactions
 public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTransactionAdapter.ViewHolder> {
@@ -94,7 +95,12 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
         if(viewHolder != null) {
             viewHolder.getTvAmount().setText(Integer.toString(transaction.getAmount()));
             viewHolder.getTvCategory().setText(transaction.getCategory().getDisplayName());
-            viewHolder.getTvDate().setText((transaction.getDate().toString()));
+            if(transaction.getDate() != null) {
+                viewHolder.getTvDate().setText((transaction.getDate().toString()));
+            }
+            else {
+                viewHolder.getTvDate().setText(LocalDate.now().toString());
+            }
             viewHolder.getTvId().setText(Long.toString(transaction.getID()));
 
         }else{

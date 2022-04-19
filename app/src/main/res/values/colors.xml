@@ -11,5 +11,8 @@
     <color name="Background">#222222</color>
     <color name="textColor">#009879</color>
     <color name="warning">#FF0000</color>
+    <color name="softOrange">#F5CA7B</color>
+    <color name="overSightOrange">#BE440C</color>
+    <color name="overSightGreen">#009879</color>
 
 </resources>

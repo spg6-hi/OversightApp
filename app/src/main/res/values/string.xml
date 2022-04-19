@@ -42,6 +42,17 @@
     <string name="mChangePasswordConfirm">Confirm</string>
     <string name="mChangePasswordCancel">Cancel</string>
 
+    <string name="mLineChart">Bank Balance</string>
+    <string name="mLineChartDescription">Bank Balance LineChart</string>
+    <string name="mPeriod">Period</string>
+    <string name="mRadio1">7 Days</string>
+    <string name="mRadio2">30 Days</string>
+    <string name="mRadio3">90 Days</string>
+    <string name="mRadio4">1 Year</string>
 
+    <string name="add_funds_to_you_bank_account">Add funds to your bank account</string>
+    <string name="mCancelAddBalance">Cancel</string>
+    <string name="mConfirmRemoveFunds">Confirm</string>
+    <string name="mBankBalanceHint">1000</string>
 
 </resources>

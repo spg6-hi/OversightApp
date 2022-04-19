@@ -157,7 +157,10 @@ public class SpendingPlanPage extends Fragment {
      */
     private void loadPieChartData() {
         LocalDate date = LocalDate.now();
-        //spendingPlan = network.getSpendingPlan();
+        spendingPlan = Session.getInstance().getSpendingPlan();
+        if(spendingPlan == null) {
+            spendingPlan = new SpendingPlan();
+        }
         listSpendingPlan = new ArrayList<Transaction>();
         /*
         for ( Map.Entry<Category, Integer> entry : spendingPlan.getPlan().entrySet()){
