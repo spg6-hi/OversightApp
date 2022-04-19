@@ -34,6 +34,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import com.example.oversighttest.services.BankBalanceService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,7 +45,7 @@ public class BankPage extends Fragment {
     private Button mRemoveFunds;
     private FloatingActionButton mAccountButton;
     private NetworkManager nm;
-
+    private int[] bankBalanceHistory;
     private View v;
 
     //request codes
@@ -62,6 +63,7 @@ public class BankPage extends Fragment {
      * Constructor
      */
     public BankPage(){
+        this.bankBalanceHistory = new int[10];
         this.nm = NetworkManager.getInstance(this.getContext());
     }
 
@@ -115,6 +117,8 @@ public class BankPage extends Fragment {
             public void onSuccess(BankAccount result) {
                 Session.getInstance().setBankAccount(result);
                 mBankBalance.setText("" + Session.getInstance().getBankAccount().getBalance());
+                configureLineChart();
+                setLineChartData();
             }
             @Override
             public void onFailure(String errorString) {
@@ -141,6 +145,30 @@ public class BankPage extends Fragment {
                 startActivityForResult(i, REMOVE_BANK_BALANCE);
             }
         });
+
+        nm.getTransactionsForDays(Session.getInstance().getLoggedIn(), 365, new NetworkCallback<List<Integer>>() {
+            @Override
+            public void onSuccess(List<Integer> result) {
+                int balance = Session.getInstance().getBankAccount().getBalance();
+
+                if (result != null){
+                    System.out.println(result);
+                    bankBalanceHistory = new int[result.size()];
+                    int index = 0;
+                    for (Integer i: result){
+                        bankBalanceHistory[index++] = i+balance;
+                    }
+                    configureLineChart();
+                    setLineChartData();
+                }
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+
+            }
+        });
+
     }
 
     /**
@@ -185,6 +213,7 @@ public class BankPage extends Fragment {
             public void onSuccess(BankAccount result) {
                 Session.getInstance().setBankAccount(result);
                 mBankBalance.setText(""+result.getBalance());
+                setLineChartData();
             }
             @Override
             public void onFailure(String errorString) {
@@ -215,6 +244,7 @@ public class BankPage extends Fragment {
             public void onSuccess(BankAccount result) {
                 Session.getInstance().setBankAccount(result);
                 mBankBalance.setText(""+result.getBalance());
+                setLineChartData();
             }
 
             @Override
@@ -288,32 +318,33 @@ public class BankPage extends Fragment {
         mLineChart.getLegend().setTextColor(Color.WHITE);
         mLineChart.getLegend().setTextSize(12f);
 
-        int[] valOne = {0,100,90,120,200,130,55,69,42,55};//ts.getTransactionBarChartData();
-        int[] valTwo = {0,150,100,150,150,100,90,20,80,70};//ts.getSpendingPlanBarChartData();
+        int[] valOne = bankBalanceHistory;
+        //ts.getTransactionBarChartData();
+        //int[] valTwo = {0,150,100,150,150,100,90,20,80,70};//ts.getSpendingPlanBarChartData();
 
         ArrayList<Entry> lineOne = new ArrayList<>();
-        ArrayList<Entry> lineTwo = new ArrayList<>();
+        //ArrayList<Entry> lineTwo = new ArrayList<>();
         for (int i = 0; i < valOne.length; i++) {
             lineOne.add(new Entry(i, valOne[i]));
-            lineTwo.add(new Entry(i, valTwo[i]));
-            System.out.println(i);
+            //lineTwo.add(new Entry(i, valTwo[i]));
+            //System.out.println(i);
         }
 
         LineDataSet set1 = new LineDataSet(lineOne, "Your spending");
         set1.setColor(getResources().getColor(R.color.overSightOrange));
-        LineDataSet set2 = new LineDataSet(lineTwo, "spending plan");
-        set2.setColor(getResources().getColor(R.color.overSightGreen));
+        //LineDataSet set2 = new LineDataSet(lineTwo, "spending plan");
+        //set2.setColor(getResources().getColor(R.color.overSightGreen));
 
         set1.setHighlightEnabled(false);
-        set2.setHighlightEnabled(false);
+        //set2.setHighlightEnabled(false);
         set1.setDrawCircles(false);
-        set2.setDrawCircles(false);
+        //set2.setDrawCircles(false);
         set1.setLineWidth(3);
-        set2.setLineWidth(3);
+        //set2.setLineWidth(3);
         set1.setDrawValues(false);
-        set2.setDrawValues(false);
+        //set2.setDrawValues(false);
 
-        LineData data = new LineData(set1, set2);
+        LineData data = new LineData(set1);
 
         // so that the entire chart is shown when scrolled from right to left
         xAxis.setAxisMaximum(valOne.length);
