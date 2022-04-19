@@ -219,11 +219,7 @@ public class TransactionsPage extends Fragment {
             @Override
             public void onSuccess(List<Transaction> result) {
                 ts.saveTransactions(result);
-                transactions = Session.getInstance().getTransactions();
-                setlist();
-                setupPieChart();
-                loadPieChartData();
-                GroupBarChart();
+                loadData();
                 Toast.makeText(getContext(), "Deleted Transaction", Toast.LENGTH_SHORT).show();
 
             }
@@ -234,6 +230,13 @@ public class TransactionsPage extends Fragment {
         });
     }
 
+    public void loadData(){
+        transactions = Session.getInstance().getTransactions();
+        setlist();
+        setupPieChart();
+        loadPieChartData();
+        GroupBarChart();
+    }
 
     /**
      * set up pie chart look
@@ -312,9 +315,9 @@ public class TransactionsPage extends Fragment {
         }
 
         BarDataSet set1 = new BarDataSet(barOne, "Your spending");
-        set1.setColor(Color.BLUE);
+        set1.setColor(Color.parseColor("#be440c"));
         BarDataSet set2 = new BarDataSet(barTwo, "spending plan");
-        set2.setColor(Color.GREEN);
+        set2.setColor(Color.parseColor("#009879"));
 
         set1.setHighlightEnabled(false);
         set2.setHighlightEnabled(false);
@@ -341,6 +344,9 @@ public class TransactionsPage extends Fragment {
      * load data from transaction for pie chart to display
      */
     private void  loadPieChartData(){
+        if (transactions == null){
+            transactions = new ArrayList<>();
+        }
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
@@ -419,9 +425,7 @@ public class TransactionsPage extends Fragment {
                         @Override
                         public void onSuccess(List<Transaction> result) {
                             ts.saveTransactions(result);
-                            setlist();
-                            setupPieChart();
-                            GroupBarChart();
+                            loadData();
                         }
 
                         @Override
