@@ -1,17 +1,20 @@
 package com.example.oversighttest.services;
 
+import android.net.Network;
+
+import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.network.NetworkManager;
 
 public class BankBalanceService {
 
     DummyNetwork dm;
+    NetworkManager nm;
 
-    public BankBalanceService(DummyNetwork dm){
-        this.dm = dm;
-    }
+    public BankBalanceService(){}
 
     public int getBankBalance(){
-        return dm.getBankBalance();
+        return Session.getInstance().getBankAccount().getBalance();
     }
 
     public void addFunds(int added){

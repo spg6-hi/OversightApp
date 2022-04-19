@@ -230,13 +230,49 @@ public class NetworkManager {
                 Map<String, String> params = new HashMap<>();
                 params.put("userName", user.getUserName());
                 params.put("password", user.getPassword());
-                System.out.println(params);
+                //System.out.println(params);
                 return params;
             }
         };
         mQueue.add(request);
     }
+    /**
+     * get all transactions for logged in user for specific time range
+     * @param user logged in user
+     * @param callback
+     */
+    public void getTransactionsForDays(User user,int days, NetworkCallback<List<Transaction>> callback){
+        String url = BASE_URL + "getTransactionsForDays";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<Transaction>>(){}.getType();
+                List<Transaction> transactions = gson.fromJson(response, listType);
+                callback.onSuccess(transactions);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+                params.put("password", user.getPassword());
+                params.put("days", Integer.toString(days));
+                //System.out.println(params);
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
     /**
      * Creates a new transaction for the logged in user
      * @param user logged in user

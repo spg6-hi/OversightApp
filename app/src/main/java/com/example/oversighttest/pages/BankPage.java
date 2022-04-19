@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.BankAccount;
 import com.example.oversighttest.entities.Session;
+import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.github.mikephil.charting.charts.LineChart;
@@ -52,8 +53,10 @@ public class BankPage extends Fragment {
     //gets displayed when trying to remove more funds than you have
     private static final String INSUFFICIENT_FUNDS = "insufficient funds";
 
+    //Linechart with radiobuttons that displays bank balance over time period according to radiobutton.
     private LineChart mLineChart;
     private RadioGroup mPeriodRadioGroup;
+    private ArrayList<Transaction> mBankBalanceList;
 
 
     /**
@@ -66,8 +69,6 @@ public class BankPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bank_page, container, false);
@@ -118,6 +119,8 @@ public class BankPage extends Fragment {
                 System.out.println("failed to fetch bank account");
             }
         });
+
+        //nm.getTransactions();
 
         //add funds button, opens an activity to add funds
         mAddFunds = (Button) v.findViewById(R.id.mAddFunds);
@@ -271,6 +274,7 @@ public class BankPage extends Fragment {
         mLineChart.getLegend().setEnabled(true);
         mLineChart.getLegend().setTextColor(Color.WHITE);
         mLineChart.getLegend().setTextSize(12f);
+
 
         int[] valOne = {0,100,90,120,200,130,55,69,42,55};//ts.getTransactionBarChartData();
         int[] valTwo = {0,150,100,150,150,100,90,20,80,70};//ts.getSpendingPlanBarChartData();
