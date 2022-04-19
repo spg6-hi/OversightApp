@@ -200,6 +200,12 @@ public class TransactionsPage extends Fragment {
         v = getView();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        GroupBarChart();
+    }
+
     /**
      * This function updates the list view
      */
