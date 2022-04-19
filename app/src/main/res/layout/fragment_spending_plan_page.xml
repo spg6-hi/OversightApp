@@ -15,7 +15,8 @@
         android:fillViewport="true"
         android:paddingTop="10dp"
 
-        >
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-16dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -33,6 +34,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
+
     <LinearLayout
         android:gravity="right"
         android:layout_width="wrap_content"
@@ -118,6 +120,24 @@
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mAccountButton"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_account_circle_24"
+        app:backgroundTint="@color/menuColor"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.946"
+        app:maxImageSize="68dp"
+        tools:ignore="SpeakableTextPresentCheck">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

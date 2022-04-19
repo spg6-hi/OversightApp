@@ -48,6 +48,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.Renderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.time.LocalDate;
@@ -87,6 +88,7 @@ public class TransactionsPage extends Fragment {
 
     private Renderer r;
 
+    private FloatingActionButton mAccountButton;
 
 
     @Override
@@ -192,7 +194,7 @@ public class TransactionsPage extends Fragment {
         r = pieChart.getRenderer();
         setupPieChart();
         loadPieChartData();
-
+        AccountButton();
         GroupBarChart();
 
         v = getView();
@@ -232,6 +234,9 @@ public class TransactionsPage extends Fragment {
 
     public void loadData(){
         transactions = Session.getInstance().getTransactions();
+        if(transactions == null) {
+            return;
+        }
         setlist();
         setupPieChart();
         loadPieChartData();
@@ -438,5 +443,18 @@ public class TransactionsPage extends Fragment {
                 }
             }
         }
+    }
+
+    private void AccountButton() {
+        mAccountButton = v.findViewById(R.id.mAccountButton);
+
+        mAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+
+                startActivity(intent);
+            }
+        });
     }
 }

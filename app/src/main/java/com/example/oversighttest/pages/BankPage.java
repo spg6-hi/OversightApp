@@ -35,12 +35,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import com.example.oversighttest.services.BankBalanceService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class BankPage extends Fragment {
     private TextView mBankBalance;
     private Button mAddFunds;
     private Button mRemoveFunds;
-
+    private FloatingActionButton mAccountButton;
     private NetworkManager nm;
 
     private View v;
@@ -77,6 +79,7 @@ public class BankPage extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         v =  getView();
+        AccountButton();
 
         System.out.println("v: " + v);
         //Linechart that displays bank balance over time
@@ -220,6 +223,19 @@ public class BankPage extends Fragment {
             }
         });
         mBankBalance.setText(""+current.getBalance());
+    }
+
+    private void AccountButton() {
+        mAccountButton = v.findViewById(R.id.mAccountButton);
+
+        mAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+
+                startActivity(intent);
+            }
+        });
     }
 
     private void configureLineChart() {

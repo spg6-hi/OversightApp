@@ -9,11 +9,11 @@
     tools:context=".pages.DeleteSpendingPlanPage">
 
     <Button
-        android:id="@+id/confirmButton"
+        android:id="@+id/mAccountDeleteConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spendingplan_confirm"
-        app:backgroundTint="@color/menuColor"
+        app:backgroundTint="@color/warning"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -22,11 +22,10 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <Button
-        android:id="@+id/denyButton"
+        android:id="@+id/mAccountDeleteDenyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spendingplan_deny"
-        app:backgroundTint="@color/menuColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.949"
@@ -35,10 +34,10 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/mAccountDeleteConfirmation"
         android:layout_width="313dp"
         android:layout_height="73dp"
-        android:text="@string/mDeleteSpendingPlan"
+        android:text="@string/mAccountConfirmDeletion"
         android:textSize="27sp"
         android:gravity="center"
         android:textColor="@color/menuColor"
@@ -46,4 +45,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/mAccountDeletePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/mLogInSignUpPasswordHint"
+        android:backgroundTint="@color/menuColor"
+        android:textColorHint="@color/menuColor"
+        android:textColor="@color/menuColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mAccountDeleteConfirmation"
+        app:layout_constraintVertical_bias="0.302" />
 </androidx.constraintlayout.widget.ConstraintLayout>

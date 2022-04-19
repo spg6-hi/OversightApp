@@ -13,6 +13,7 @@ import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.network.DummyNetwork;
+import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.SpendingPlanService;
 
 import java.util.ArrayList;
@@ -79,45 +80,47 @@ public class EditSpendingPlanPage extends AppCompatActivity {
         /*
         Set values of text fields
          */
-        for(Map.Entry<Category, Integer> plan : spendingPlan.getPlan().entrySet()) {
+        ArrayList<Category> cats = Category.getCategories();
+        HashMap<Category, Integer> plan = spendingPlan.getPlan();
+        for(Category c : cats) {
             if(parseInt == 1) {
-                carsandtransportation.setText(Integer.toString(plan.getValue()));
+                carsandtransportation.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 2) {
-                children.setText(Integer.toString(plan.getValue()));
+                children.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 3) {
-                education.setText(Integer.toString(plan.getValue()));
+                education.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 4) {
-                finesandfees.setText(Integer.toString(plan.getValue()));
+                finesandfees.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 5) {
-                food.setText(Integer.toString(plan.getValue()));
+                food.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 13) {
-                healthandbeauty.setText(Integer.toString(plan.getValue()));
+                healthandbeauty.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 6) {
-                home.setText(Integer.toString(plan.getValue()));
+                home.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 7) {
-                insurance.setText(Integer.toString(plan.getValue()));
+                insurance.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 8) {
-                investmentsandsavings.setText(Integer.toString(plan.getValue()));
+                investmentsandsavings.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 9) {
-                leisuretime.setText(Integer.toString(plan.getValue()));
+                leisuretime.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 10) {
-                shoppingandservices.setText(Integer.toString(plan.getValue()));
+                shoppingandservices.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 11) {
-                other.setText(Integer.toString(plan.getValue()));
+                other.setText(Integer.toString(plan.get(c)));
             }
             if(parseInt == 12) {
-                vacationandtravel.setText(Integer.toString(plan.getValue()));
+                vacationandtravel.setText(Integer.toString(plan.get(c)));
             }
             parseInt++;
         };

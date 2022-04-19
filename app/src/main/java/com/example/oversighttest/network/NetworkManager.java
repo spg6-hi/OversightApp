@@ -147,7 +147,12 @@ public class NetworkManager {
                 }.getType();
                 User user = gson.fromJson(response, type);
                 System.out.println(user);
-                callback.onSuccess(user);
+                if(user != null) {
+                    callback.onSuccess(user);
+                }
+                else {
+                    callback.onFailure("fail");
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -176,7 +181,12 @@ public class NetworkManager {
                 Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                callback.onSuccess("deleted");
+                if(response.equals("true")) {
+                    callback.onSuccess("deleted");
+                }
+                else {
+                    callback.onFailure("fail");
+                }
             }
         }, new Response.ErrorListener() {
             @Override

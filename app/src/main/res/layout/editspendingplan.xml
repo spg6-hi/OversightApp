@@ -21,7 +21,9 @@
             android:orientation="vertical"
             android:paddingLeft="50dp"
             android:paddingTop="20dp"
+            android:paddingBottom="80dp"
             >
+
 
             <TextView
                 android:id="@+id/esptext"
@@ -37,163 +39,279 @@
                 android:textColor="@color/menuColor"
                 android:inputType="number" />
 
-            <EditText
-                android:id="@+id/esp1"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout1"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Cars \u0026 Transportation"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp2"
+                <EditText
+                    android:id="@+id/esp1"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Cars \u0026 Transportation" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout2"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Children"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp3"
+                <EditText
+                    android:id="@+id/esp2"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Children" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout3"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Education"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp4"
+                <EditText
+                    android:id="@+id/esp3"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Education" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout4"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Fines \u0026 Fees"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp5"
+                <EditText
+                    android:id="@+id/esp4"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Fines \u0026 Fees" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout5"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-
-                android:ems="10"
-                android:hint="Food"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number"/>
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp6"
+                <EditText
+                    android:id="@+id/esp5"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Food" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout6"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Health \u0026 Beauty"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp7"
+                <EditText
+                    android:id="@+id/esp6"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Health \u0026 Beauty" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout7"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Home"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp8"
+                <EditText
+                    android:id="@+id/esp7"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Home" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout8"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Insurance"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp9"
+                <EditText
+                    android:id="@+id/esp8"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Insurance" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout9"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Investments \u0026 Savings"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp10"
+                <EditText
+                    android:id="@+id/esp9"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Investments \u0026 Savings" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout10"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Leisure Time"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp11"
+                <EditText
+                    android:id="@+id/esp10"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Leisure Time" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout11"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Shopping \u0026 Services"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp12"
+                <EditText
+                    android:id="@+id/esp11"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Shopping \u0026 Services" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout12"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Uncategorized Expenses / Other"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
 
-            <EditText
-                android:id="@+id/esp13"
+                <EditText
+                    android:id="@+id/esp12"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Uncategorized Expenses / Other" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_text_input_layout13"
                 android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="100dp"
-                android:ems="10"
-                android:hint="Vacation \u0026 Travel"
+                android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
                 android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
-                android:inputType="number" />
+                android:textColor="@color/menuColor">
+
+                <EditText
+                    android:id="@+id/esp13"
+                    android:layout_width="300dp"
+                    android:layout_height="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/Background"
+                    android:textColorHint="@color/menuColor"
+                    android:textColor="@color/menuColor"
+                    android:ems="10"
+                    android:hint="Vacation \u0026 Travel" />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

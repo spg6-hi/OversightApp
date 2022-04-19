@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         tabManager.addFragment(sp, "Spending Plan");
         tabManager.addFragment(bp, "Bank");
         viewPager.setAdapter(tabManager);
-
         NetworkManager nm = NetworkManager.getInstance(this.getApplicationContext());
         nm.getTransactions(loggedIn, new NetworkCallback<List<Transaction>>() {
             @Override
@@ -92,4 +91,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(packageContext, MainActivity.class);
         return i;
     }
+
+
 }
