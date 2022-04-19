@@ -30,15 +30,26 @@ import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.TransactionService;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.Renderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -57,6 +68,11 @@ public class TransactionsPage extends Fragment {
     public static final int SORT_BY_DATE = 2;
 
     private PieChart pieChart;
+    private HorizontalBarChart barChart;
+    private BarData barData;
+    private BarDataSet barDataSet;
+    private ArrayList<BarEntry> barEntries;
+
     private Button mAddTransaction;
 
     private View v;
@@ -72,6 +88,7 @@ public class TransactionsPage extends Fragment {
 
     private Renderer r;
 
+    private FloatingActionButton mAccountButton;
 
 
     @Override
@@ -126,6 +143,7 @@ public class TransactionsPage extends Fragment {
                 transactions = Session.getInstance().getTransactions();
                 setlist();
                 setupPieChart();
+                GroupBarChart();
                 loadPieChartData();
             }
 
@@ -176,6 +194,9 @@ public class TransactionsPage extends Fragment {
         r = pieChart.getRenderer();
         setupPieChart();
         loadPieChartData();
+        AccountButton();
+        GroupBarChart();
+
         v = getView();
     }
 
@@ -204,6 +225,7 @@ public class TransactionsPage extends Fragment {
                 setlist();
                 setupPieChart();
                 loadPieChartData();
+                GroupBarChart();
                 Toast.makeText(getContext(), "Deleted Transaction", Toast.LENGTH_SHORT).show();
 
             }
@@ -230,18 +252,90 @@ public class TransactionsPage extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(false);
         pieChart.setDrawEntryLabels(false);
+        pieChart.animateXY(1000,1000);
 
         /*
         TODO: Make pie chart legend work
         TODO: Let user see value for each item in pie chart
         */
         Legend l = pieChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setTextColor(Color.WHITE);
+        l.setTextSize(10f);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
-        l.setEnabled(false);
+        l.setEnabled(true);
+    }
 
+
+
+    public void GroupBarChart(){
+        barChart = (HorizontalBarChart) v.findViewById(R.id.barChart);
+        barChart.setDrawBarShadow(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.setPinchZoom(false);
+        barChart.setDrawGridBackground(false);
+        // empty labels so that the names are spread evenly
+        String[] labels = Category.getListOfCategories();
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextSize(15);
+        xAxis.setAxisLineColor(Color.BLACK);
+        xAxis.setAxisMinimum(1f);
+        xAxis.setLabelCount(labels.length-2);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setTextColor(Color.WHITE);
+        leftAxis.setTextSize(12);
+        leftAxis.setAxisLineColor(Color.WHITE);
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getLegend().setEnabled(true);
+        barChart.getLegend().setTextColor(Color.WHITE);
+        barChart.getLegend().setTextSize(12f);
+
+        int[] valOne = ts.getTransactionBarChartData();
+        int[] valTwo = ts.getSpendingPlanBarChartData();
+
+        ArrayList<BarEntry> barOne = new ArrayList<>();
+        ArrayList<BarEntry> barTwo = new ArrayList<>();
+        for (int i = 0; i < 13; i++) {
+            barOne.add(new BarEntry(i, valOne[i]));
+            barTwo.add(new BarEntry(i, valTwo[i]));
+            System.out.println(i);
+        }
+
+        BarDataSet set1 = new BarDataSet(barOne, "Your spending");
+        set1.setColor(Color.parseColor("#be4407"));
+        BarDataSet set2 = new BarDataSet(barTwo, "spending plan");
+        set2.setColor(Color.parseColor("#009879"));
+
+        set1.setHighlightEnabled(false);
+        set2.setHighlightEnabled(false);
+        set1.setDrawValues(false);
+        set2.setDrawValues(false);
+
+        BarData data = new BarData(set1, set2);
+        float groupSpace = 0.4f;
+        float barSpace = 0f;
+        float barWidth = 0.3f;
+        // (barSpace + barWidth) * 2 + groupSpace = 1
+        data.setBarWidth(barWidth);
+        // so that the entire chart is shown when scrolled from right to left
+        xAxis.setAxisMaximum(labels.length - 1.1f);
+        barChart.setData(data);
+        barChart.setScaleEnabled(false);
+        barChart.animateY(1000);
+        barChart.groupBars(1f, groupSpace, barSpace);
+        barChart.invalidate();
 
     }
 
@@ -281,7 +375,7 @@ public class TransactionsPage extends Fragment {
 
         //loop through hash map and put in entries
         for (Map.Entry<Category, Integer> e : values.entrySet()){
-            entries.add(new PieEntry(e.getValue(), e.getKey()));
+            entries.add(new PieEntry(e.getValue(), e.getKey().getName()));
         }
 
         //set colours
@@ -291,6 +385,10 @@ public class TransactionsPage extends Fragment {
         }
 
         for (int color: ColorTemplate.VORDIPLOM_COLORS){
+            colors.add(color);
+        }
+
+        for (int color: ColorTemplate.COLORFUL_COLORS){
             colors.add(color);
         }
 
@@ -325,6 +423,7 @@ public class TransactionsPage extends Fragment {
                             ts.saveTransactions(result);
                             setlist();
                             setupPieChart();
+                            GroupBarChart();
                         }
 
                         @Override
@@ -337,5 +436,18 @@ public class TransactionsPage extends Fragment {
                 }
             }
         }
+    }
+
+    private void AccountButton() {
+        mAccountButton = v.findViewById(R.id.mAccountButton);
+
+        mAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -24,7 +24,8 @@
             android:hint="@string/mLogInSignUpUsernameHint"
             android:backgroundTint="@color/Background"
             android:textColorHint="@color/menuColor"
-            android:textColor="@color/menuColor"/>
+            android:textColor="@color/menuColor"
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +46,8 @@
             android:hint="@string/mLogInSignUpPasswordHint"
             android:backgroundTint="@color/Background"
             android:textColorHint="@color/menuColor"
-            android:textColor="@color/menuColor"/>
+            android:textColor="@color/menuColor"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

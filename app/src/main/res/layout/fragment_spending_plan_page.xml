@@ -5,8 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.SpendingPlanPage"
-    android:background="@color/Background">
+    tools:context=".pages.SpendingPlanPage">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
@@ -19,15 +18,21 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-16dp">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChart"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="50dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="50dp">
 
-        </com.github.mikephil.charting.charts.PieChart>
+    </com.github.mikephil.charting.charts.PieChart>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout

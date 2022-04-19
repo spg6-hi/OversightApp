@@ -22,12 +22,13 @@ import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.BankBalanceService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class BankPage extends Fragment {
     private TextView mBankBalance;
     private Button mAddFunds;
     private Button mRemoveFunds;
-
+    private FloatingActionButton mAccountButton;
     private NetworkManager nm;
 
     private View v;
@@ -59,7 +60,7 @@ public class BankPage extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         v =  getView();
-
+        AccountButton();
 
         //get temporary fake bank balance and display it
         Session.getInstance().setBankAccount(new BankAccount(0,0));
@@ -180,5 +181,18 @@ public class BankPage extends Fragment {
             }
         });
         mBankBalance.setText(""+current.getBalance());
+    }
+
+    private void AccountButton() {
+        mAccountButton = v.findViewById(R.id.mAccountButton);
+
+        mAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+
+                startActivity(intent);
+            }
+        });
     }
 }

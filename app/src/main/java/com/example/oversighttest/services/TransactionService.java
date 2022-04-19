@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Session;
+import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.DummyNetwork;
@@ -128,5 +129,49 @@ public class TransactionService {
             }
         }
         return sorted;
+    }
+
+    public static int[] getTransactionBarChartData(){
+        int[] data = new int[Category.getListOfCategories().length-2];
+        HashMap<Category, Integer> map = new HashMap<>();
+        ArrayList<Transaction> list = Session.getInstance().getTransactions();
+        Category[] cats = Category.getValues();
+        if (list == null) return data;
+
+        for (Transaction t : list){
+            int val = t.getAmount();
+            Category c = t.getCategory();
+            if (map.containsKey(c)){
+                val+=map.get(c);
+            }
+            map.put(c, val);
+        }
+
+        for (int i = 0; i <data.length; i++){
+            Category current = cats[i];
+            if (map.containsKey(current)){
+                data[i] = map.get(current);
+            }
+        }
+        return data;
+    }
+
+    public static int[] getSpendingPlanBarChartData(){
+        int[] data = new int[Category.getListOfCategories().length-2];
+        Category[] cats = Category.getValues();
+        HashMap<Category, Integer> map = new HashMap<>();
+        SpendingPlan sp = Session.getInstance().getSpendingPlan();
+        if (sp != null){
+            map = sp.getPlan();
+        }
+        for (int i = 0; i<data.length; i++){
+            Category c = cats[i];
+            int val = 0;
+            if (map.containsKey(c)){
+                val = map.get(c);
+            }
+            data[i] = val;
+        }
+        return data;
     }
 }

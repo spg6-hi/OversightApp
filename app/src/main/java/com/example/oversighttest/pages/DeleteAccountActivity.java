@@ -4,14 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.entities.Session;
+import com.example.oversighttest.entities.User;
+import com.example.oversighttest.network.NetworkCallback;
+import com.example.oversighttest.network.NetworkManager;
+import com.example.oversighttest.services.UserService;
 
 public class DeleteAccountActivity extends AppCompatActivity {
 
-    private Button AccountDeleteConfirmButton, AccountDeleteDenyButton;
+    private Button mAccountDeleteConfirmButton, mAccountDeleteDenyButton;
+    private EditText mAccountDeletePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,22 +27,20 @@ public class DeleteAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_delete);
 
 
-        AccountDeleteConfirmButton = (Button)findViewById(R.id.mAccountDeleteConfirmButton);
-        AccountDeleteDenyButton = (Button)findViewById(R.id.mAccountDeleteDenyButton);
+        mAccountDeleteConfirmButton = (Button)findViewById(R.id.mAccountDeleteConfirmButton);
+        mAccountDeleteDenyButton = (Button)findViewById(R.id.mAccountDeleteDenyButton);
+
+        mAccountDeletePassword = (EditText)findViewById(R.id.mAccountDeletePassword);
 
         //confirm button, returns OK
-        AccountDeleteConfirmButton.setOnClickListener(new View.OnClickListener() {
+        mAccountDeleteConfirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Bæta við
-                //Delete the user
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
+                deleteAccount();
             }
         });
 
         //cancel button, returns CANCELED
-        AccountDeleteDenyButton.setOnClickListener(new View.OnClickListener() {
+        mAccountDeleteDenyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Bæta við
                 //Returns the user back
@@ -43,5 +49,33 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void deleteAccount() {
+        NetworkManager nm = NetworkManager.getInstance(this.getApplicationContext());
+        Session session = Session.getInstance();
+        User user = session.getLoggedIn();
+        nm.deleteUser(user.getUserName(), user.getPassword(), UserService.get_SHA_512(mAccountDeletePassword.getText().toString()), new NetworkCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                deleteAccountAgain();
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+                makeToast();
+            }
+        });
+    }
+
+    public void deleteAccountAgain() {
+        Intent intent = LoginActivity.newIntent(this);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+    }
+
+    public void makeToast() {
+        Toast.makeText(this, "Wrong Password", Toast.LENGTH_SHORT).show();
     }
 }

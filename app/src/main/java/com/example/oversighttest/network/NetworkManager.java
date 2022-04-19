@@ -94,7 +94,7 @@ public class NetworkManager {
     /**
      * creates a user
      */
-    public void createUser(String userName, String password, final NetworkCallback<User> callback){
+    public void createUser(String userName, String password, boolean generateData,final NetworkCallback<User> callback){
             String url = BASE_URL + "createAppUser";
 
             StringRequest request = new StringRequest(
@@ -121,6 +121,12 @@ public class NetworkManager {
                     Map<String, String> params = new HashMap<>();
                     params.put("userName", userName);
                     params.put("password", password);
+                    if (generateData){
+                        params.put("generate", "yes");
+                    }
+                    else{
+                        params.put("generate", "no");
+                    }
                     System.out.println(params);
                     return params;
                 }
@@ -141,7 +147,12 @@ public class NetworkManager {
                 }.getType();
                 User user = gson.fromJson(response, type);
                 System.out.println(user);
-                callback.onSuccess(user);
+                if(user != null) {
+                    callback.onSuccess(user);
+                }
+                else {
+                    callback.onFailure("fail");
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -170,7 +181,12 @@ public class NetworkManager {
                 Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                callback.onSuccess("deleted");
+                if(response.equals("true")) {
+                    callback.onSuccess("deleted");
+                }
+                else {
+                    callback.onFailure("fail");
+                }
             }
         }, new Response.ErrorListener() {
             @Override
