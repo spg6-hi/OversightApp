@@ -7,9 +7,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.oversighttest.R;
-import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
@@ -17,11 +17,11 @@ import com.example.oversighttest.entities.User;
 import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private TransactionsPage tp;
     private SpendingPlanPage sp;
     private BankPage bp;
+    private FloatingActionButton mAccountButton;
 
     //this is the dummy network, other activities use this exact network, so that every activity uses the same data
     private static DummyNetwork dm;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
 
         tabLayout.setupWithViewPager(viewPager);
-
+        AccountButton();
         //Three main pages; transactions, spending plan, and bank account
         tp = new TransactionsPage();
         sp = new SpendingPlanPage();
@@ -83,6 +84,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(String errorString) {
 
+            }
+        });
+    }
+
+    private void AccountButton() {
+        mAccountButton = findViewById(R.id.mAccount);
+        System.out.println(mAccountButton);
+        mAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplication(), AccountActivity.class);
+                startActivity(i);
             }
         });
     }

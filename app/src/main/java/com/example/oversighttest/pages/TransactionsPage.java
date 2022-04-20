@@ -95,7 +95,6 @@ public class TransactionsPage extends Fragment {
 
     private Renderer r;
 
-    private FloatingActionButton mAccountButton;
 
     private YearMonth selectedMonth;
 
@@ -217,7 +216,6 @@ public class TransactionsPage extends Fragment {
         r = pieChart.getRenderer();
         setupPieChart();
         loadPieChartData();
-        AccountButton();
         GroupBarChart();
 
         v = getView();
@@ -473,18 +471,6 @@ public class TransactionsPage extends Fragment {
         }
     }
 
-    private void AccountButton() {
-        mAccountButton = v.findViewById(R.id.mAccountButton);
-
-        mAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
-
-                startActivity(intent);
-            }
-        });
-    }
 
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {

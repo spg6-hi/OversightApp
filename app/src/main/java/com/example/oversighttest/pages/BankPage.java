@@ -52,7 +52,6 @@ public class BankPage extends Fragment {
     private TextView mBankBalance;
     private Button mAddFunds;
     private Button mRemoveFunds;
-    private FloatingActionButton mAccountButton;
     private NetworkManager nm;
     private int[] bankBalanceHistory;
     private View v;
@@ -97,7 +96,6 @@ public class BankPage extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         v =  getView();
-        AccountButton();
 
         System.out.println("v: " + v);
         //Linechart that displays bank balance over time
@@ -248,18 +246,6 @@ public class BankPage extends Fragment {
         mBankBalance.setText(""+current.getBalance());
     }
 
-    private void AccountButton() {
-        mAccountButton = v.findViewById(R.id.mAccountButton);
-
-        mAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
-
-                startActivity(intent);
-            }
-        });
-    }
 
     private void configureLineChart() {
         Description desc = new Description();
