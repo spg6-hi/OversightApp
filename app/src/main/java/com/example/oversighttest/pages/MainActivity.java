@@ -19,6 +19,7 @@ import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.google.android.material.tabs.TabLayout;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         tabManager.addFragment(bp, "Bank");
         viewPager.setAdapter(tabManager);
         NetworkManager nm = NetworkManager.getInstance(this.getApplicationContext());
-        nm.getTransactions(loggedIn, new NetworkCallback<List<Transaction>>() {
+        nm.getTransactionsForMonth(loggedIn, YearMonth.now(),new NetworkCallback<List<Transaction>>() {
             @Override
             public void onSuccess(List<Transaction> result) {
                 session.setTransactions(new ArrayList<>(result));
