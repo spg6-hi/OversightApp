@@ -69,7 +69,7 @@ public class SpendingPlanPage extends Fragment {
     private boolean spendingPlanExists;
     private SpendingPlanService ss;
 
-    private FloatingActionButton fab, mAccountButton;
+    private FloatingActionButton fab;
     private ExtendedFloatingActionButton fabone, fabtwo, fabthree;
     private Float translationYaxis = 100f;
     private Boolean menuOpen = false;
@@ -119,7 +119,6 @@ public class SpendingPlanPage extends Fragment {
         ShowMenu();
         setupPieChart();
         loadPieChartData();
-        AccountButton();
     }
 
     /**
@@ -378,16 +377,4 @@ public class SpendingPlanPage extends Fragment {
         fabthree.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
     }
 
-    private void AccountButton() {
-        mAccountButton = v.findViewById(R.id.mAccountButton);
-
-        mAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
-
-                startActivity(intent);
-            }
-        });
-    }
 }
