@@ -86,7 +86,6 @@ public class NetworkManager {
                 Map<String, String> params = new HashMap<>();
                 params.put("userName", userName);
                 params.put("password", password);
-                System.out.println(params);
                 return params;
             }
         };
@@ -103,12 +102,10 @@ public class NetworkManager {
                     Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    System.out.println(response);
                     Gson gson = new Gson();
                     Type type = new TypeToken<User>() {
                     }.getType();
                     User user = gson.fromJson(response, type);
-                    System.out.println(user);
                     user.setData();
                     callback.onSuccess(user);
                 }
@@ -130,7 +127,6 @@ public class NetworkManager {
                     else{
                         params.put("generate", "no");
                     }
-                    System.out.println(params);
                     return params;
                 }
             };
@@ -144,12 +140,10 @@ public class NetworkManager {
                 Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println(response);
                 Gson gson = new Gson();
                 Type type = new TypeToken<User>() {
                 }.getType();
                 User user = gson.fromJson(response, type);
-                System.out.println(user);
                 if(user != null) {
                     callback.onSuccess(user);
                 }
@@ -170,7 +164,6 @@ public class NetworkManager {
                 params.put("userName", userName);
                 params.put("oldPassword", oldPass);
                 params.put("newPassword", newPass);
-                System.out.println(params);
                 return params;
             }
         };
@@ -204,7 +197,6 @@ public class NetworkManager {
                 params.put("userName", userName);
                 params.put("password", pass);
                 params.put("confirmPassword", confirmPass);
-                System.out.println(params);
                 return params;
             }
         };
@@ -243,7 +235,6 @@ public class NetworkManager {
                 Map<String, String> params = new HashMap<>();
                 params.put("userName", user.getUserName());
                 params.put("password", user.getPassword());
-                System.out.println(params);
                 return params;
             }
         };
@@ -282,7 +273,6 @@ public class NetworkManager {
                 params.put("password", user.getPassword());
                 params.put("year", Integer.toString(month.getYear()));
                 params.put("month", Integer.toString(month.getMonth().getValue()));
-                System.out.println(params);
                 return params;
             }
         };
@@ -352,7 +342,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }
         ) {
@@ -368,7 +357,6 @@ public class NetworkManager {
                 if (transaction.getCategory() != null){
                     params.put("category", transaction.getCategory().getName());
                 }
-                System.out.println(params);
                 return params;
             }
         };
@@ -378,7 +366,6 @@ public class NetworkManager {
 
     public void deleteTransaction(long id, YearMonth month, User user, NetworkCallback<List<Transaction>> callback){
         String url = BASE_URL + "deleteTransaction";
-        System.out.println("CALLING URL " + url);
         StringRequest request = new StringRequest(
                 Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -391,7 +378,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }
         ) {
@@ -402,7 +388,6 @@ public class NetworkManager {
                 params.put("userName", user.getUserName());
                 params.put("year", Integer.toString(month.getYear()));
                 params.put("month", Integer.toString(month.getMonth().getValue()));
-                System.out.println(params);
                 return params;
             }
         };
@@ -435,7 +420,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }
         ) {
@@ -455,7 +439,6 @@ public class NetworkManager {
                     params.put(key, val);
                 }
 
-                System.out.println(params);
                 return params;
             }
         };
@@ -473,7 +456,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }) {
             @Override
@@ -509,7 +491,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }
         ) {
@@ -542,7 +523,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }
         ) {
@@ -574,7 +554,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }
         ) {
@@ -606,7 +585,6 @@ public class NetworkManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR");
             }
         }
         ) {

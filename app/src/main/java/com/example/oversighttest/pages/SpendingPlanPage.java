@@ -5,16 +5,13 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import com.example.oversighttest.R;
@@ -23,23 +20,14 @@ import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.User;
-import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.SpendingPlanService;
-import com.example.oversighttest.services.TransactionService;
-import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -50,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
 
 
 public class SpendingPlanPage extends Fragment {
@@ -75,9 +62,6 @@ public class SpendingPlanPage extends Fragment {
     private Boolean menuOpen = false;
     private OvershootInterpolator interpolator = new OvershootInterpolator();
 
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-    private Button newcontantpopup_cancel, newcontantpopup_save;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,7 +85,6 @@ public class SpendingPlanPage extends Fragment {
 
             @Override
             public void onFailure(String errorString) {
-                System.out.println("Error: failed to load spending plan");
             }
         });
 
@@ -207,10 +190,10 @@ public class SpendingPlanPage extends Fragment {
 
     //Floating action buttons
     private void ShowMenu() {
-        fab = v.findViewById(R.id.fab);
-        fabone = v.findViewById(R.id.fab_one);
-        fabtwo = v.findViewById(R.id.fab_two);
-        fabthree = v.findViewById(R.id.fab_three);
+        fab = v.findViewById(R.id.mAccountFab);
+        fabone = v.findViewById(R.id.mDeleteAccount);
+        fabtwo = v.findViewById(R.id.mChangePassword);
+        fabthree = v.findViewById(R.id.mLogOut);
 
         fabone.setAlpha(0f);
         fabtwo.setAlpha(0f);
@@ -327,12 +310,10 @@ public class SpendingPlanPage extends Fragment {
         nm.deleteSpendingPlan(s.getLoggedIn(), new NetworkCallback<SpendingPlan>() {
             @Override
             public void onSuccess(SpendingPlan result) {
-                System.out.println("Spending plan successfully deleted");
             }
 
             @Override
             public void onFailure(String errorString) {
-                System.out.println("failed to delete spending plan");
             }
         });
         spendingPlan = new SpendingPlan(new HashMap<Category, Integer>());
@@ -351,7 +332,6 @@ public class SpendingPlanPage extends Fragment {
 
             @Override
             public void onFailure(String errorString) {
-                System.out.println("error saving spending plan");
             }
         });
 

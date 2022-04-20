@@ -29,7 +29,6 @@ import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.User;
-import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.TransactionService;
@@ -38,21 +37,16 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.Renderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -83,7 +77,6 @@ public class TransactionsPage extends Fragment {
     private DatePickerDialog datePickerDialog; //the date picker
 
     private View v;
-    private DummyNetwork network;
     private TransactionService ts;
     private ArrayList<Transaction> transactions;
 
@@ -342,7 +335,6 @@ public class TransactionsPage extends Fragment {
         for (int i = 0; i < 13; i++) {
             barOne.add(new BarEntry(i, valOne[i]));
             barTwo.add(new BarEntry(i, valTwo[i]));
-            System.out.println(i);
         }
 
         BarDataSet set1 = new BarDataSet(barOne, "Your spending");

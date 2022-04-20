@@ -12,13 +12,9 @@ import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
-import com.example.oversighttest.network.DummyNetwork;
-import com.example.oversighttest.network.NetworkManager;
-import com.example.oversighttest.services.SpendingPlanService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class EditSpendingPlanPage extends AppCompatActivity {
     private Button saveButton, cancelButton;
@@ -140,8 +136,6 @@ public class EditSpendingPlanPage extends AppCompatActivity {
                         //get value and add it to the plan
                         Integer a = Integer.valueOf(e.getText().toString());
                         plan.put(cats[index], a);
-                        System.out.println(a);
-                        System.out.println(cats[index]);
                     }
                     catch (Exception r){
                         //no value, so do nothing

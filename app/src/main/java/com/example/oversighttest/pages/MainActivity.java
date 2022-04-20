@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,7 +15,6 @@ import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.User;
-import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,17 +34,17 @@ public class MainActivity extends AppCompatActivity {
     private BankPage bp;
     private FloatingActionButton mAccountButton;
 
-    //this is the dummy network, other activities use this exact network, so that every activity uses the same data
-    private static DummyNetwork dm;
+    public static final String SHARED_PREFS = "Shared preferences";
+    public static final String USER = "userName";
+    public static final String PASSWORD = "password";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.dm = new DummyNetwork();
 
         Session session = Session.getInstance();
         User loggedIn = session.getLoggedIn();
-        System.out.println("Currently logged in: " + loggedIn);
 
         setContentView(R.layout.activity_main);
 
@@ -88,9 +88,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Session s = Session.getInstance();
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER, s.getLoggedIn().getUserName());
+        editor.putString(PASSWORD, s.getLoggedIn().getPassword());
+        editor.apply();
+    }
+
     private void AccountButton() {
         mAccountButton = findViewById(R.id.mAccount);
-        System.out.println(mAccountButton);
         mAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
