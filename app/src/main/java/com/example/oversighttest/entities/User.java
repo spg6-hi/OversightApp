@@ -16,27 +16,27 @@ public class User {
     @SerializedName("created")
     private String created;
 
+    @SerializedName("amountOfTransactions")
+    private int amountOfTransactions;
+
     private LocalDate dateCreated;
 
-    private User(String userName, String password, String created){
-        this.userName = userName;
-        this.password = password;
-        this.created = created;
-    }
-
-    private User(String userName, String password){
-        this.userName = userName;
-        this.password = password;
-        this.dateCreated = LocalDate.now();
-    }
 
     public void setData(){
         if(this.dateCreated != null) return;
         this.dateCreated = LocalDate.parse(this.created);
     }
 
+    public int getAmountOfTransactions() {
+        return amountOfTransactions;
+    }
+
+    public void setAmountOfTransactions(int amountOfTransactions) {
+        this.amountOfTransactions = amountOfTransactions;
+    }
+
     public String toString(){
-        return userName + " / " + password +  "/ " + created;
+        return userName + " / " + password +  "/ " + created + " / " +  amountOfTransactions;
     }
 
     public String getUserName() {

@@ -21,6 +21,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -248,6 +250,46 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
+    /**
+     * get all transactions for logged in user
+     * @param user logged in user
+     * @param callback
+     */
+    public void getTransactionsForMonth(User user, YearMonth month, NetworkCallback<List<Transaction>> callback){
+        String url = BASE_URL + "getTransactionsForMonth";
+        System.out.println("CALLING URL " + url);
+        StringRequest request = new StringRequest(
+                Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<Transaction>>(){}.getType();
+                List<Transaction> transactions = gson.fromJson(response, listType);
+                callback.onSuccess(transactions);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR");
+            }
+        }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userName", user.getUserName());
+                params.put("password", user.getPassword());
+                params.put("year", Integer.toString(month.getYear()));
+                params.put("month", Integer.toString(month.getMonth().getValue()));
+                System.out.println(params);
+                return params;
+            }
+        };
+        mQueue.add(request);
+    }
+
+
 
     /**
      * get all transactions for logged in user
@@ -294,7 +336,7 @@ public class NetworkManager {
      * @param transaction transaction to be created
      * @param callback
      */
-    public void createTransaction(User user, Transaction transaction, NetworkCallback<List<Transaction>> callback){
+    public void createTransaction(User user, Transaction transaction, YearMonth month, NetworkCallback<List<Transaction>> callback){
         String url = BASE_URL + "createTransaction";
         System.out.println("CALLING URL " + url);
         StringRequest request = new StringRequest(
@@ -321,6 +363,8 @@ public class NetworkManager {
                 params.put("password", user.getPassword());
                 params.put("amount", Integer.toString(transaction.getAmount()));
                 params.put("date", transaction.getDate().toString());
+                params.put("year", Integer.toString(month.getYear()));
+                params.put("month", Integer.toString(month.getMonth().getValue()));
                 if (transaction.getCategory() != null){
                     params.put("category", transaction.getCategory().getName());
                 }
@@ -332,7 +376,7 @@ public class NetworkManager {
     }
 
 
-    public void deleteTransaction(long id, User user, NetworkCallback<List<Transaction>> callback){
+    public void deleteTransaction(long id, YearMonth month, User user, NetworkCallback<List<Transaction>> callback){
         String url = BASE_URL + "deleteTransaction";
         System.out.println("CALLING URL " + url);
         StringRequest request = new StringRequest(
@@ -356,6 +400,8 @@ public class NetworkManager {
                 Map<String, String> params = new HashMap<>();
                 params.put("id", Long.toString(id));
                 params.put("userName", user.getUserName());
+                params.put("year", Integer.toString(month.getYear()));
+                params.put("month", Integer.toString(month.getMonth().getValue()));
                 System.out.println(params);
                 return params;
             }

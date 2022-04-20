@@ -2,6 +2,8 @@ package com.example.oversighttest.pages;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +55,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -73,7 +79,8 @@ public class TransactionsPage extends Fragment {
     private BarDataSet barDataSet;
     private ArrayList<BarEntry> barEntries;
 
-    private Button mAddTransaction;
+    private Button mAddTransaction, mMonthButton;
+    private DatePickerDialog datePickerDialog; //the date picker
 
     private View v;
     private DummyNetwork network;
@@ -90,6 +97,8 @@ public class TransactionsPage extends Fragment {
 
     private FloatingActionButton mAccountButton;
 
+    private YearMonth selectedMonth;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,6 +110,7 @@ public class TransactionsPage extends Fragment {
 
         transactions = new ArrayList<Transaction>();
 
+        selectedMonth = YearMonth.now();
 
         // https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
         /*
@@ -136,7 +146,7 @@ public class TransactionsPage extends Fragment {
         User loggedIn = s.getLoggedIn();
 
         NetworkManager nm = NetworkManager.getInstance(this.getContext());
-        nm.getTransactions(loggedIn, new NetworkCallback<List<Transaction>>() {
+        nm.getTransactionsForMonth(loggedIn, selectedMonth,new NetworkCallback<List<Transaction>>() {
             @Override
             public void onSuccess(List<Transaction> result) {
                 ts.saveTransactions(result);
@@ -181,6 +191,19 @@ public class TransactionsPage extends Fragment {
             }
         });
 
+        mMonthButton = (Button) rootView.findViewById(R.id.mMonthPicker);
+
+        //The base value should be today´s date
+        LocalDate today = LocalDate.now();
+        mMonthButton.setText(today.getMonth() + " " +today.getYear());
+        initDatePicker();
+        mMonthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMonthPicker(view);
+            }
+        });
+
         // Inflate the layout for this fragment
         return rootView;
         //return inflater.inflate(R.layout.fragment_transactions_page, container, false);
@@ -217,13 +240,12 @@ public class TransactionsPage extends Fragment {
 
     public void deleteTransaction(long id){
         NetworkManager nm = NetworkManager.getInstance(this.getContext());
-        nm.deleteTransaction(id, Session.getInstance().getLoggedIn(), new NetworkCallback<List<Transaction>>() {
+        nm.deleteTransaction(id,selectedMonth, Session.getInstance().getLoggedIn(), new NetworkCallback<List<Transaction>>() {
             @Override
             public void onSuccess(List<Transaction> result) {
                 ts.saveTransactions(result);
                 loadData();
                 Toast.makeText(getContext(), "Deleted Transaction", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -426,7 +448,7 @@ public class TransactionsPage extends Fragment {
                     Transaction t = new Transaction(amount, cat, date);
                     setlist();
                     NetworkManager nm = NetworkManager.getInstance(this.getContext());
-                    nm.createTransaction(Session.getInstance().getLoggedIn(), t, new NetworkCallback<List<Transaction>>() {
+                    nm.createTransaction(Session.getInstance().getLoggedIn(), t, selectedMonth, new NetworkCallback<List<Transaction>>() {
                         @Override
                         public void onSuccess(List<Transaction> result) {
                             ts.saveTransactions(result);
@@ -457,4 +479,47 @@ public class TransactionsPage extends Fragment {
             }
         });
     }
+
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month+=1; //For some reason you need to do this to get the correct month
+                selectedMonth = YearMonth.of(year, month);
+                mMonthButton.setText(Month.of(month) + " " + year);
+                setNewMonth();
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        int style = AlertDialog.THEME_HOLO_DARK;
+
+        datePickerDialog = new DatePickerDialog(this.getContext(),style, dateSetListener, year, month, day);
+    }
+
+    public void openMonthPicker(View view){
+        datePickerDialog.show();
+    }
+
+
+    public void setNewMonth(){
+        NetworkManager nm = NetworkManager.getInstance(this.getContext());
+        nm.getTransactionsForMonth(Session.getInstance().getLoggedIn(), selectedMonth, new NetworkCallback<List<Transaction>>() {
+            @Override
+            public void onSuccess(List<Transaction> result) {
+                ts.saveTransactions(result);
+                loadData();
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+
+            }
+        });
+    }
+
 }

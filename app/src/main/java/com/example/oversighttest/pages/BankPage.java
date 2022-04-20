@@ -36,6 +36,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.nio.channels.NonWritableChannelException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -199,7 +200,7 @@ public class BankPage extends Fragment {
 
         Transaction t = new Transaction(-fundsAdded, null, LocalDate.now());
         //Call network to update the real spending plan
-        nm.createTransaction(s.getLoggedIn(), t, new NetworkCallback<List<Transaction>>() {
+        nm.createTransaction(s.getLoggedIn(), t, YearMonth.now(), new NetworkCallback<List<Transaction>>() {
             @Override
             public void onSuccess(List<Transaction> result) {
                 System.out.println("It works");
@@ -232,7 +233,7 @@ public class BankPage extends Fragment {
         Transaction t = new Transaction(fundsRemoved, null, LocalDate.now());
         System.out.println(t);
         //call network and update session with real data
-        nm.createTransaction(s.getLoggedIn(), t, new NetworkCallback<List<Transaction>>() {
+        nm.createTransaction(s.getLoggedIn(), t, YearMonth.now(),new NetworkCallback<List<Transaction>>() {
             @Override
             public void onSuccess(List<Transaction> result) {
                 mBankBalance.setText(""+current.getBalance());

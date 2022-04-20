@@ -39,16 +39,14 @@ public class AccountActivity extends AppCompatActivity {
             if (user.getDateCreated() != null){
                 created = user.getDateCreated().toString();
             }
+
             else{
                 created = "no date available";
             }
         }
         mAccountCreated.setText(created);
 
-        String totalTransactions = "";
-        if (Session.getInstance().getTransactions() != null){
-            totalTransactions = Integer.toString(Session.getInstance().getTransactions().size());
-        }
+        String totalTransactions = Integer.toString(user.getAmountOfTransactions());
 
         mAccountTransactions.setText(totalTransactions);
 
