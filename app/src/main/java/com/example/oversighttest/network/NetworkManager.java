@@ -107,6 +107,7 @@ public class NetworkManager {
                     }.getType();
                     User user = gson.fromJson(response, type);
                     System.out.println(user);
+                    user.setData();
                     callback.onSuccess(user);
                 }
             }, new Response.ErrorListener() {

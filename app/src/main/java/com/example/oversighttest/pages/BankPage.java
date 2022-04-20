@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import com.example.oversighttest.services.BankBalanceService;
@@ -64,6 +65,8 @@ public class BankPage extends Fragment {
 
     private LineChart mLineChart;
     private RadioGroup mPeriodRadioGroup;
+    private HashMap<Integer, Integer> map;
+    private int selectdDays = 2;
 
 
     /**
@@ -72,6 +75,11 @@ public class BankPage extends Fragment {
     public BankPage(){
         this.bankBalanceHistory = new int[10];
         this.nm = NetworkManager.getInstance(this.getContext());
+        this.map = new HashMap<>();
+        map.put(1, 7);
+        map.put(2, 30);
+        map.put(3, 90);
+        map.put(4, 365);
     }
 
     @Override
@@ -104,9 +112,8 @@ public class BankPage extends Fragment {
                 int index = mPeriodRadioGroup.indexOfChild(radioButton);
 
                 // Add logic here
-                Toast.makeText(getContext(), "Selected button number " + index, Toast.LENGTH_LONG).show();
-                System.out.println("radio id: " + checkedId + " " +index);
-
+                selectdDays = index;
+                setBankHistory();
 
             }
         });
@@ -272,7 +279,8 @@ public class BankPage extends Fragment {
     }
 
     private void setBankHistory(){
-        nm.getTransactionsForDays(Session.getInstance().getLoggedIn(), 31, new NetworkCallback<List<Integer>>() {
+        int days = map.get(this.selectdDays);
+        nm.getTransactionsForDays(Session.getInstance().getLoggedIn(), days, new NetworkCallback<List<Integer>>() {
             @Override
             public void onSuccess(List<Integer> result) {
                 int balance = Session.getInstance().getBankAccount().getBalance();
@@ -367,7 +375,7 @@ public class BankPage extends Fragment {
 
         mLineChart.setData(data);
         mLineChart.setScaleEnabled(false);
-        mLineChart.animateX(1500);
+        mLineChart.animateX(500);
 
         mLineChart.setDescription(new Description());
         mLineChart.getDescription().setText(getResources().getString(R.string.mLineChartDescription));

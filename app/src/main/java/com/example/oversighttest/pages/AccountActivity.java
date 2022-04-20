@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +14,7 @@ import com.example.oversighttest.entities.User;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private TextView mAccountUserName, mAccountPassword;
+    private TextView mAccountUserName, mAccountCreated, mAccountTransactions;
     private Button mAccountChangePasswordButton, mAccountDeleteAccountButton, mAccountGoBack;
 
     @Override
@@ -26,11 +25,32 @@ public class AccountActivity extends AppCompatActivity {
         Session session = Session.getInstance();
         User user = session.getLoggedIn();
 
+        System.out.println(user);
+
         mAccountUserName = (TextView)findViewById(R.id.mAccountUserName);
-        mAccountPassword = (TextView) findViewById(R.id.mAccountPassword);
+        mAccountCreated = (TextView) findViewById(R.id.mAccountCreated);
+        mAccountTransactions = (TextView) findViewById(R.id.mAccountTransactions);
 
         //Sækja username og password og setja það hér
         mAccountUserName.setText(user.getUserName());
+
+        String created = user.getCreated();
+        if (created == null){
+            if (user.getDateCreated() != null){
+                created = user.getDateCreated().toString();
+            }
+            else{
+                created = "no date available";
+            }
+        }
+        mAccountCreated.setText(created);
+
+        String totalTransactions = "";
+        if (Session.getInstance().getTransactions() != null){
+            totalTransactions = Integer.toString(Session.getInstance().getTransactions().size());
+        }
+
+        mAccountTransactions.setText(totalTransactions);
 
         mAccountChangePasswordButton = findViewById(R.id.mChangePasswordButton);
 

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         Session session = Session.getInstance();
         User loggedIn = session.getLoggedIn();
-        System.out.println("Currently logged in: " + loggedIn.getUserName());
+        System.out.println("Currently logged in: " + loggedIn);
 
         setContentView(R.layout.activity_main);
 
