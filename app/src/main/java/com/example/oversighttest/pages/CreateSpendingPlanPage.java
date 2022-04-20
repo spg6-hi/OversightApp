@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Category;
-import com.example.oversighttest.network.DummyNetwork;
 import com.example.oversighttest.services.SpendingPlanService;
 
 import java.util.ArrayList;

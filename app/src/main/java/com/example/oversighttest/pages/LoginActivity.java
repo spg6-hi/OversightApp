@@ -2,6 +2,7 @@ package com.example.oversighttest.pages;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        if (loadData()){
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         mUserName = (EditText)findViewById(R.id.mNewUserName);
@@ -51,6 +57,39 @@ public class LoginActivity extends AppCompatActivity {
                 signUp();
             }
         });
+    }
+
+
+    public boolean loadData(){
+        System.out.println("LOADING DATA...");
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS, MODE_PRIVATE);
+        String userName = sharedPreferences.getString(MainActivity.USER, "");
+        String password = sharedPreferences.getString(MainActivity.PASSWORD, "");
+        System.out.println("current user: "+ userName);
+        //Check if there is a user logged in
+        if (!userName.equals("")){
+            NetworkManager nm = NetworkManager.getInstance(getApplicationContext());
+            nm.loginUser(userName, password, new NetworkCallback<User>(){
+                @Override
+                public void onSuccess(User result){
+                    if (result != null){
+                        Session s = Session.getInstance();
+                        s.setLoggedIn(result);
+                        openMainActivity();
+
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "This user does not exist", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(String errorString){
+                }
+            });
+            return true;
+        }
+        return false;
     }
 
     //go to main screen

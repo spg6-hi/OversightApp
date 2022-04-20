@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,7 +32,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.nio.channels.NonWritableChannelException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -42,11 +40,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import com.example.oversighttest.services.BankBalanceService;
+
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class BankPage extends Fragment {
     private TextView mBankBalance;
@@ -97,7 +94,6 @@ public class BankPage extends Fragment {
         super.onActivityCreated(savedInstanceState);
         v =  getView();
 
-        System.out.println("v: " + v);
         //Linechart that displays bank balance over time
         mLineChart = v.findViewById(R.id.mLineChart);
         //Radio Buttons to select time interval for the line chart (1 day, 30 days,...)
@@ -134,7 +130,6 @@ public class BankPage extends Fragment {
             }
             @Override
             public void onFailure(String errorString) {
-                System.out.println("failed to fetch bank account");
             }
         });
 
@@ -201,7 +196,6 @@ public class BankPage extends Fragment {
         nm.createTransaction(s.getLoggedIn(), t, YearMonth.now(), new NetworkCallback<List<Transaction>>() {
             @Override
             public void onSuccess(List<Transaction> result) {
-                System.out.println("It works");
                 mBankBalance.setText(""+current.getBalance());
                 setBankHistory();
             }
@@ -229,7 +223,6 @@ public class BankPage extends Fragment {
         current.setBalance(current.getBalance() - fundsRemoved);
         s.setBankAccount(current);
         Transaction t = new Transaction(fundsRemoved, null, LocalDate.now());
-        System.out.println(t);
         //call network and update session with real data
         nm.createTransaction(s.getLoggedIn(), t, YearMonth.now(),new NetworkCallback<List<Transaction>>() {
             @Override
@@ -271,7 +264,6 @@ public class BankPage extends Fragment {
             @Override
             public void onSuccess(List<Integer> result) {
                 int balance = Session.getInstance().getBankAccount().getBalance();
-                System.out.println(balance);
                 if (result != null){
                     bankBalanceHistory = new int[result.size()];
                     int index = 0;
@@ -332,7 +324,6 @@ public class BankPage extends Fragment {
         for (int i = 0; i < valOne.length; i++) {
             lineOne.add(new Entry(i, valOne[i]));
             //lineTwo.add(new Entry(i, valTwo[i]));
-            //System.out.println(i);
         }
 
         LineDataSet set1 = new LineDataSet(lineOne, "Your spending");

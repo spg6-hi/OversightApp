@@ -91,7 +91,6 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.setIsRecyclable(false);
         final Transaction transaction = transactions.get(position);
-        System.out.println(transaction);
         if(viewHolder != null) {
             viewHolder.getTvAmount().setText(Integer.toString(transaction.getAmount()));
             viewHolder.getTvCategory().setText(transaction.getCategory().getDisplayName());

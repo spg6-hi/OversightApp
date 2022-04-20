@@ -1,22 +1,11 @@
 package com.example.oversighttest.services;
 
-import android.content.Context;
-
 import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
-import com.example.oversighttest.entities.User;
-import com.example.oversighttest.network.DummyNetwork;
-import com.example.oversighttest.network.NetworkCallback;
-import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.pages.TransactionsPage;
-import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-
-import java.io.FileReader;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,14 +25,6 @@ public class TransactionService {
 
     public ArrayList<Transaction> seeTransactions(){
         return Session.getInstance().getTransactions();
-    }
-
-    public void parseListResult(String result){
-        System.out.println("Hey");
-    }
-
-    public void deleteTransaction(Transaction t){
-        //TODO
     }
 
     public void saveTransactions(List<Transaction> t){

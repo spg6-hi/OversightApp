@@ -87,7 +87,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signupFailure(String errorString){
-        System.out.println(errorString);
     }
 
     public void openMainActivity() {

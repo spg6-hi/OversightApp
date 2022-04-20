@@ -25,6 +25,7 @@
 
     <string name="mAccountDetails">Account Information</string>
     <string name="mAccountDelete">Delete Account</string>
+    <string name="mAccountLogOut">Log Out</string>
     <string name="mAccountChangePassword">Change Password</string>
     <string name="mAccountGoBack">Back</string>
 
