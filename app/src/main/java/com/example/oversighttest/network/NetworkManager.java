@@ -107,6 +107,7 @@ public class NetworkManager {
                     }.getType();
                     User user = gson.fromJson(response, type);
                     System.out.println(user);
+                    user.setData();
                     callback.onSuccess(user);
                 }
             }, new Response.ErrorListener() {
@@ -320,7 +321,9 @@ public class NetworkManager {
                 params.put("password", user.getPassword());
                 params.put("amount", Integer.toString(transaction.getAmount()));
                 params.put("date", transaction.getDate().toString());
-                params.put("category", transaction.getCategory().getName());
+                if (transaction.getCategory() != null){
+                    params.put("category", transaction.getCategory().getName());
+                }
                 System.out.println(params);
                 return params;
             }

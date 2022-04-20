@@ -63,6 +63,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorString) {
+                System.out.println(errorString);
                 makeToast();
             }
         });

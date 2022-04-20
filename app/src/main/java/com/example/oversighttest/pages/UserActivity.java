@@ -3,6 +3,8 @@ package com.example.oversighttest.pages;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.oversighttest.R;
+import com.example.oversighttest.entities.Session;
+import com.google.gson.annotations.SerializedName;
 
 public class UserActivity extends AppCompatActivity {
 

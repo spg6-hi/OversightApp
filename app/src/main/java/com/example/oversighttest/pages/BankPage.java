@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.BankAccount;
 import com.example.oversighttest.entities.Session;
+import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.github.mikephil.charting.charts.LineChart;
@@ -31,12 +33,18 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.nio.channels.NonWritableChannelException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import com.example.oversighttest.services.BankBalanceService;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class BankPage extends Fragment {
@@ -57,6 +65,8 @@ public class BankPage extends Fragment {
 
     private LineChart mLineChart;
     private RadioGroup mPeriodRadioGroup;
+    private HashMap<Integer, Integer> map;
+    private int selectdDays = 2;
 
 
     /**
@@ -65,6 +75,11 @@ public class BankPage extends Fragment {
     public BankPage(){
         this.bankBalanceHistory = new int[10];
         this.nm = NetworkManager.getInstance(this.getContext());
+        this.map = new HashMap<>();
+        map.put(1, 7);
+        map.put(2, 30);
+        map.put(3, 90);
+        map.put(4, 365);
     }
 
     @Override
@@ -97,9 +112,8 @@ public class BankPage extends Fragment {
                 int index = mPeriodRadioGroup.indexOfChild(radioButton);
 
                 // Add logic here
-                Toast.makeText(getContext(), "Selected button number " + index, Toast.LENGTH_LONG).show();
-                System.out.println("radio id: " + checkedId + " " +index);
-
+                selectdDays = index;
+                setBankHistory();
 
             }
         });
@@ -117,8 +131,7 @@ public class BankPage extends Fragment {
             public void onSuccess(BankAccount result) {
                 Session.getInstance().setBankAccount(result);
                 mBankBalance.setText("" + Session.getInstance().getBankAccount().getBalance());
-                configureLineChart();
-                setLineChartData();
+                setBankHistory();
             }
             @Override
             public void onFailure(String errorString) {
@@ -145,30 +158,7 @@ public class BankPage extends Fragment {
                 startActivityForResult(i, REMOVE_BANK_BALANCE);
             }
         });
-
-        nm.getTransactionsForDays(Session.getInstance().getLoggedIn(), 365, new NetworkCallback<List<Integer>>() {
-            @Override
-            public void onSuccess(List<Integer> result) {
-                int balance = Session.getInstance().getBankAccount().getBalance();
-
-                if (result != null){
-                    System.out.println(result);
-                    bankBalanceHistory = new int[result.size()];
-                    int index = 0;
-                    for (Integer i: result){
-                        bankBalanceHistory[index++] = i+balance;
-                    }
-                    configureLineChart();
-                    setLineChartData();
-                }
-            }
-
-            @Override
-            public void onFailure(String errorString) {
-
-            }
-        });
-
+        setBankHistory();
     }
 
     /**
@@ -207,14 +197,16 @@ public class BankPage extends Fragment {
         current.setBalance(current.getBalance()+fundsAdded);
         s.setBankAccount(current);
 
+        Transaction t = new Transaction(-fundsAdded, null, LocalDate.now());
         //Call network to update the real spending plan
-        nm.addBalance(fundsAdded, s.getLoggedIn(), new NetworkCallback<BankAccount>() {
+        nm.createTransaction(s.getLoggedIn(), t, new NetworkCallback<List<Transaction>>() {
             @Override
-            public void onSuccess(BankAccount result) {
-                Session.getInstance().setBankAccount(result);
-                mBankBalance.setText(""+result.getBalance());
-                setLineChartData();
+            public void onSuccess(List<Transaction> result) {
+                System.out.println("It works");
+                mBankBalance.setText(""+current.getBalance());
+                setBankHistory();
             }
+
             @Override
             public void onFailure(String errorString) {
 
@@ -237,14 +229,14 @@ public class BankPage extends Fragment {
         BankAccount current = s.getBankAccount();
         current.setBalance(current.getBalance() - fundsRemoved);
         s.setBankAccount(current);
-
+        Transaction t = new Transaction(fundsRemoved, null, LocalDate.now());
+        System.out.println(t);
         //call network and update session with real data
-        nm.removeBalance(fundsRemoved, s.getLoggedIn(), new NetworkCallback<BankAccount>() {
+        nm.createTransaction(s.getLoggedIn(), t, new NetworkCallback<List<Transaction>>() {
             @Override
-            public void onSuccess(BankAccount result) {
-                Session.getInstance().setBankAccount(result);
-                mBankBalance.setText(""+result.getBalance());
-                setLineChartData();
+            public void onSuccess(List<Transaction> result) {
+                mBankBalance.setText(""+current.getBalance());
+                setBankHistory();
             }
 
             @Override
@@ -285,6 +277,32 @@ public class BankPage extends Fragment {
             }
         });
     }
+
+    private void setBankHistory(){
+        int days = map.get(this.selectdDays);
+        nm.getTransactionsForDays(Session.getInstance().getLoggedIn(), days, new NetworkCallback<List<Integer>>() {
+            @Override
+            public void onSuccess(List<Integer> result) {
+                int balance = Session.getInstance().getBankAccount().getBalance();
+                System.out.println(balance);
+                if (result != null){
+                    bankBalanceHistory = new int[result.size()];
+                    int index = 0;
+                    for (Integer i: result){
+                        bankBalanceHistory[index++] = i+balance;
+                    }
+                    configureLineChart();
+                    setLineChartData();
+                }
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+
+            }
+        });
+    }
+
     private void setLineChartData(){
         v = getView();
         mLineChart = (LineChart) v.findViewById(R.id.mLineChart);
@@ -331,6 +349,8 @@ public class BankPage extends Fragment {
         }
 
         LineDataSet set1 = new LineDataSet(lineOne, "Your spending");
+        set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+
         set1.setColor(getResources().getColor(R.color.overSightOrange));
         //LineDataSet set2 = new LineDataSet(lineTwo, "spending plan");
         //set2.setColor(getResources().getColor(R.color.overSightGreen));
@@ -348,12 +368,41 @@ public class BankPage extends Fragment {
 
         // so that the entire chart is shown when scrolled from right to left
         xAxis.setAxisMaximum(valOne.length);
+        mLineChart.setTouchEnabled(true);
+        mLineChart.setHighlightPerDragEnabled(true);
+        mLineChart.setDragEnabled(true);
+
+
         mLineChart.setData(data);
         mLineChart.setScaleEnabled(false);
         mLineChart.animateX(500);
 
         mLineChart.setDescription(new Description());
         mLineChart.getDescription().setText(getResources().getString(R.string.mLineChartDescription));
+
+        mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+
+                Highlight highlight[] = new Highlight[mLineChart.getData().getDataSets().size()];
+                for (int j = 0; j < mLineChart.getData().getDataSets().size(); j++) {
+
+                    IDataSet iDataSet = mLineChart.getData().getDataSets().get(j);
+
+                    for (int i = 0; i < ((LineDataSet) iDataSet).getValues().size(); i++) {
+                        if (((LineDataSet) iDataSet).getValues().get(i).getX() == e.getX()) {
+                            highlight[j] = new Highlight(e.getX(), e.getY(), j);
+                        }
+                    }
+
+                }
+                mLineChart.highlightValues(highlight);
+            }
+
+            @Override
+            public void onNothingSelected() {
+            }
+        });
 
         //setting the color of the axis values
         mLineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white)); // left y-axis
