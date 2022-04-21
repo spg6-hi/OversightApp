@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         mUserName = (EditText)findViewById(R.id.mNewUserName);
         mPassword = (EditText)findViewById(R.id.mNewPassword);
 
-        mConfirmLogin = (Button)findViewById(R.id.mconfirmSignup);
+        mConfirmLogin = (Button)findViewById(R.id.mConfirmSignup);
         mConfirmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

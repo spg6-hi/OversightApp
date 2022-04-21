@@ -10,7 +10,7 @@
         android:id="@+id/mAddFundsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remove funds from your bank account"
+        android:text="@string/mRemoveFunds"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,9 +23,12 @@
         android:id="@+id/mFundsRemoved"
         android:layout_width="272dp"
         android:layout_height="81dp"
+        android:autofillHints="@string/mAmountHint"
         android:ems="10"
+        android:hint="@string/mAmountHint"
         android:inputType="number"
         android:textColor="@color/textColor"
+        android:textColorHint="@color/textColorHint"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,18 +50,23 @@
 
         <Button
             android:id="@+id/cancelRemoveBalance"
-            android:layout_width="150dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="cancel" />
+            android:layout_weight="1"
+            android:text="@string/mCancel"
+            android:textColor="@color/textColorHint" />
 
         <Button
             android:id="@+id/mConfirmRemoveFunds"
-            android:layout_width="150dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_margin="10dp"
-            android:text="Confirm" />
+            android:layout_weight="1"
+            android:text="@string/mConfirm"
+            android:textColor="@color/textColorHint" />
 
     </LinearLayout>
 

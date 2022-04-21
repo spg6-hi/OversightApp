@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,36 +11,43 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
 
-public class RemoveBankActivity extends AppCompatActivity {
+public class AddBankActivity extends AppCompatActivity {
 
-    private EditText mFundsRemoved;
+    private EditText mFundsAdded;
     private Button confirmButton;
     private Button cancelButton;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_remove_bank);
+        setContentView(R.layout.activity_add_bank);
+        mFundsAdded = (EditText) findViewById(R.id.mFundsRemoved);
 
-        //text input for amount to be removed
-        mFundsRemoved = (EditText) findViewById(R.id.mFundsRemoved);
-
-        //confirm button, tries to take value from text field and return it to parent activity
+        /*
+        Confirm button
+        When pressed, get value from text field and return it
+         */
         confirmButton = (Button)findViewById(R.id.mConfirmRemoveFunds);
         confirmButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                try{
-                    int fundsRemoved = Integer.valueOf(mFundsRemoved.getText().toString());
+                try {
+                    /*
+                    Get the value from the text field and return it to parent activity
+                     */
+                    int fundsAdded = Integer.valueOf(mFundsAdded.getText().toString());
                     Intent data = new Intent();
-                    data.putExtra("funds removed", fundsRemoved);
+                    data.putExtra("funds added", fundsAdded);
                     setResult(RESULT_OK, data);
                     finish();
                 }
-                catch (Exception e){
-
-                    //something went wrong, cancel
-
+                catch (Exception e) {
+                    /*
+                    Something went wrong, cancel
+                     */
                     Intent data = new Intent();
                     setResult(RESULT_CANCELED, data);
                     finish();
@@ -48,8 +55,10 @@ public class RemoveBankActivity extends AppCompatActivity {
             }
         });
 
-        // cancel button, returns CANCELED to parent activity
-        cancelButton = (Button) findViewById(R.id.cancelRemoveBalance);
+        /*
+        Cancel button, returns to parent activity
+         */
+        cancelButton = (Button) findViewById(R.id.mCancelAddBalance);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,8 +69,9 @@ public class RemoveBankActivity extends AppCompatActivity {
         });
     }
 
+
     public static Intent newIntent(Context packageContext){
-        Intent i = new Intent(packageContext, RemoveBankActivity.class);
+        Intent i = new Intent(packageContext, AddBankActivity.class);
         return i;
     }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Background"
-    tools:context=".pages.EditSpendingPlanPage">
+    tools:context=".activities.EditSpendingPlanActivity">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView4"

@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;

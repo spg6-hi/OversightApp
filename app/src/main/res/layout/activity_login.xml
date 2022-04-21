@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background">>
+    android:background="@color/Background">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="253dp"
@@ -51,7 +51,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/mconfirmSignup"
+        android:id="@+id/mConfirmSignup"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="@string/mLogInSignUpConfirm"
@@ -77,11 +77,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't have an account?"
+        android:text="@string/mNoAccount"
         android:textColor="@color/overSightGreen"
         app:layout_constraintBottom_toTopOf="@+id/mLogIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mconfirmSignup"
+        app:layout_constraintTop_toBottomOf="@+id/mConfirmSignup"
         app:layout_constraintVertical_bias="0.94" />
 </androidx.constraintlayout.widget.ConstraintLayout>

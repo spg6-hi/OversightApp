@@ -8,6 +8,8 @@
     <string name="fab_three">Edit Spending Plan</string>
     <string name="fab_two">Delete Spending Plan</string>
     <string name="fab_one">Create Spending Plan</string>
+    <string name="mViewPagerContentDesc">Viewpager displays fragments</string>
+    <string name="mAccountContentDesc">User Settings</string>
 
     <string name="spinnerDescription">Drop down spinner of categories</string>
     <string name="mAddTransaction">Add Transaction</string>
@@ -16,26 +18,43 @@
     <string name="mAddTransactionValueHint">Enter transaction amount</string>
     <string name="mShowDate">Click button to select Date</string>
     <string name="mEditTextDateHint">Selected Date</string>
+    <string name="mSelectDate">Select Date:</string>
+    <string name="mCreateTransaction">Create a transaction</string>
+    <string name="mSelectAmount">Select amount</string>
+    <string name="mSelectCategory">Select Category</string>
+    <string name="mCancel">Cancel</string>
+    <string name="mConfirm">Confirm</string>
+
+    <string name="mDate">Date</string>
+    <string name="mCategory">Category</string>
+    <string name="mAmount">Amount</string>
 
     <string name="spendingplan_save">Save</string>
     <string name="spendingplan_cancel">Cancel</string>
     <string name="spendingplan_confirm">YES</string>
     <string name="spendingplan_deny">NO</string>
     <string name="mDeleteSpendingPlan">Delete the spending plan?</string>
+    <string name="mSpendingPlanFloatingContentDesc">Spending Plan actions</string>
 
     <string name="mAccountDetails">Account Information</string>
     <string name="mAccountDelete">Delete Account</string>
     <string name="mAccountLogOut">Log Out</string>
     <string name="mAccountChangePassword">Change Password</string>
     <string name="mAccountGoBack">Back</string>
+    <string name="mUserName">UserName:</string>
 
     <string name="mAccountConfirmDeletion">Delete Account?</string>
+    <string name="mMemberSince">Member since:</string>
+    <string name="mTotalTransactions">Total Transactions:</string>
+    <string name="mAccountFloatingContentDesc">Account actions</string>
 
     <string name="mLogInSignUpUsernameHint">Username</string>
     <string name="mLogInSignUpPasswordHint">Password</string>
     <string name="mLogInSignUpConfirm">Confirm</string>
     <string name="mSignUp">Sign Up</string>
     <string name="mLogIn">Log In</string>
+    <string name="mNoAccount">Don\'t have an account?</string>
+    <string name="mAccountExists">Already have an account?</string>
 
     <string name="mChangePassword">Change Password</string>
     <string name="mChangePasswordHintOld">Old Password</string>
@@ -54,6 +73,7 @@
     <string name="add_funds_to_you_bank_account">Add funds to your bank account</string>
     <string name="mCancelAddBalance">Cancel</string>
     <string name="mConfirmRemoveFunds">Confirm</string>
-    <string name="mBankBalanceHint">1000</string>
+    <string name="mBankBalanceHint">Amount</string>
+    <string name="mRemoveFunds">Remove funds from your bank account</string>
 
 </resources>

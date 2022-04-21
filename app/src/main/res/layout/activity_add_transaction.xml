@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Background"
-    tools:context=".pages.AddTransactionActivity">
+    tools:context=".activities.AddTransactionActivity">
 
 <!--
     <LinearLayout
@@ -57,7 +57,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Date:"
+        android:text="@string/mSelectDate"
         android:textColor="@color/textColor"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,8 +71,9 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/mDate"
+
         android:onClick="openDatePicker"
-        android:text="JAN 01 2020"
         android:textColor="@color/textColor"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,7 +86,7 @@
         android:id="@+id/mAddFundsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a transaction"
+        android:text="@string/mCreateTransaction"
         android:textColor="@color/textColor"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +99,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select amount"
+        android:text="@string/mSelectAmount"
         android:textColor="@color/textColor"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,9 +112,13 @@
         android:id="@+id/mTransactionAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/mAmount"
         android:ems="10"
+        android:hint="@string/mAmount"
         android:inputType="number"
+        android:minHeight="48dp"
         android:textColor="@color/textColor"
+        android:textColorHint="@color/textColorHint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +129,7 @@
         android:id="@+id/mBankBalanceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select category"
+        android:text="@string/mSelectCategory"
         android:textColor="@color/textColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +140,8 @@
     <Spinner
         android:id="@+id/spinnerCategory"
         android:layout_width="253dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/mCategory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,20 +160,23 @@
 
         <Button
             android:id="@+id/cancelCreateTransaction"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:padding="10dp"
             android:layout_margin="10dp"
-            android:text="Cancel" />
+            android:text="@string/mCancel"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/confirmCreateTransaction"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:padding="10dp"
             android:layout_margin="10dp"
-            android:text="Confirm" />
+            android:text="@string/mConfirm"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

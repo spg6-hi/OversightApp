@@ -1,8 +1,6 @@
 package com.example.oversighttest.network;
 
-import android.app.DownloadManager;
 import android.content.Context;
-import android.net.Uri;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,15 +13,11 @@ import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
 import com.example.oversighttest.entities.User;
-import com.example.oversighttest.pages.BankPage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.time.Year;
 import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;

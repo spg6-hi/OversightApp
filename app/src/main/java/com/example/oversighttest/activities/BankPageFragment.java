@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -45,7 +45,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-public class BankPage extends Fragment {
+public class BankPageFragment extends Fragment {
     private TextView mBankBalance;
     private Button mAddFunds;
     private Button mRemoveFunds;
@@ -69,7 +69,7 @@ public class BankPage extends Fragment {
     /**
      * Constructor
      */
-    public BankPage(){
+    public BankPageFragment(){
         this.bankBalanceHistory = new int[10];
         this.nm = NetworkManager.getInstance(this.getContext());
         this.map = new HashMap<>();

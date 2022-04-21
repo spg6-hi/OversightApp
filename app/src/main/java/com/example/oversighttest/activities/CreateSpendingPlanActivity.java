@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.example.oversighttest.services.SpendingPlanService;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CreateSpendingPlanPage extends AppCompatActivity {
+public class CreateSpendingPlanActivity extends AppCompatActivity {
 
     private SpendingPlanService spendingPlanService = new SpendingPlanService();
 

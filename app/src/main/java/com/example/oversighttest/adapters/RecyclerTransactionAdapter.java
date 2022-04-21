@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oversighttest.R;
-import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.Transaction;
-import com.example.oversighttest.pages.TransactionsPage;
+import com.example.oversighttest.activities.TransactionsFragment;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,8 +20,13 @@ import java.util.ArrayList;
 public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTransactionAdapter.ViewHolder> {
     private static final String TAG = null;
     private final Context context;
-    private TransactionsPage tp;
+    private TransactionsFragment tp;
     private ArrayList<Transaction> transactions = new ArrayList<>();
+    private Fragment mFragment;
+
+    public interface OnItemLongClickListener {
+        public boolean onItemLongClicked(int position);
+    }
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
@@ -70,7 +75,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
      * by RecyclerView.
      *
      */
-    public RecyclerTransactionAdapter(Context contx, ArrayList<Transaction> transactions, TransactionsPage tp) {
+    public RecyclerTransactionAdapter(Context contx, ArrayList<Transaction> transactions, TransactionsFragment tp) {
         this.context = contx;
         this.transactions = transactions;
         this.tp = tp;
@@ -112,6 +117,7 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
                 String s = v.getTvId().getText().toString();
                 int id = Integer.parseInt(s);
                 long ID = Integer.toUnsignedLong(id);
+
                 tp.deleteTransaction(ID);
                 return true;
             };

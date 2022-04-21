@@ -4,7 +4,7 @@ import com.example.oversighttest.entities.Category;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
-import com.example.oversighttest.pages.TransactionsPage;
+import com.example.oversighttest.activities.TransactionsFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public class TransactionService {
         TreeMap<Object, ArrayList<Transaction>> map = new TreeMap<>();
 
 
-        if (code == TransactionsPage.SORT_BY_AMOUNT){
+        if (code == TransactionsFragment.SORT_BY_AMOUNT){
             //sort by amount
             for (Transaction t : transactions){
                 ArrayList<Transaction> transactionsOfAmount = new ArrayList<>();
@@ -68,7 +68,7 @@ public class TransactionService {
                 map.put(t.getAmount(), transactionsOfAmount);
             }
         }
-        else if (code == TransactionsPage.SORT_BY_CATEGORY){
+        else if (code == TransactionsFragment.SORT_BY_CATEGORY){
             //sort by category
             //this is the same as by amount
             for (Transaction t : transactions){
@@ -101,7 +101,7 @@ public class TransactionService {
         for (Object list: map.values()){
             for (Object o: (ArrayList<Object>)list){
                 Transaction t = (Transaction) o;
-                if (code == TransactionsPage.SORT_BY_AMOUNT  || code == TransactionsPage.SORT_BY_DATE){
+                if (code == TransactionsFragment.SORT_BY_AMOUNT  || code == TransactionsFragment.SORT_BY_DATE){
                     sorted.add(0,t);
                 }
                 else{

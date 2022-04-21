@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -40,7 +40,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-public class SpendingPlanPage extends Fragment {
+public class SpendingPlanFragment extends Fragment {
 
     //request codes
     private static final int CREATE_SPENDING_PLAN = 0;
@@ -230,7 +230,7 @@ public class SpendingPlanPage extends Fragment {
                 if (spendingPlanExists) {
                     Toast.makeText(getActivity(), "Spending Plan Already Exists", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
+                    Intent intent = new Intent(getActivity(), CreateSpendingPlanActivity.class);
 
                     startActivityForResult(intent, CREATE_SPENDING_PLAN);
                 }
@@ -242,7 +242,7 @@ public class SpendingPlanPage extends Fragment {
             public void onClick(View view) {
                 closeFab();
                 if (spendingPlanExists) {
-                    Intent intent = new Intent(getActivity(), DeleteSpendingPlanPage.class);
+                    Intent intent = new Intent(getActivity(), DeleteSpendingPlanActivity.class);
 
                     startActivityForResult(intent, DELETE_SPENDING_PLAN);
                 } else {
@@ -256,11 +256,11 @@ public class SpendingPlanPage extends Fragment {
             public void onClick(View view) {
                 closeFab();
                 if (spendingPlanExists) {
-                    Intent intent = new Intent(getActivity(), EditSpendingPlanPage.class);
+                    Intent intent = new Intent(getActivity(), EditSpendingPlanActivity.class);
 
                     startActivityForResult(intent, CHANGE_SPENDING_PLAN);
                 } else {
-                    Intent intent = new Intent(getActivity(), CreateSpendingPlanPage.class);
+                    Intent intent = new Intent(getActivity(), CreateSpendingPlanActivity.class);
 
                     startActivityForResult(intent, CREATE_SPENDING_PLAN);
                 }

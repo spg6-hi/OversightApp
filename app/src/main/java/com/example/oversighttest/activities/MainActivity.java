@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.oversighttest.R;
+import com.example.oversighttest.adapters.FragmentAdapter;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.SpendingPlan;
 import com.example.oversighttest.entities.Transaction;
@@ -27,12 +28,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private TransactionsPage tp;
-    private SpendingPlanPage sp;
-    private BankPage bp;
-    private FloatingActionButton mAccountButton;
+    private TransactionsFragment tp;
 
     public static final String SHARED_PREFS = "Shared preferences";
     public static final String USER = "userName";
@@ -48,16 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        tabLayout = findViewById(R.id.tabs);
-        viewPager = findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        ViewPager viewPager = findViewById(R.id.viewPager);
 
         tabLayout.setupWithViewPager(viewPager);
         AccountButton();
         //Three main pages; transactions, spending plan, and bank account
-        tp = new TransactionsPage();
-        sp = new SpendingPlanPage();
-        bp = new BankPage();
-        PageAdapter tabManager = new PageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        tp = new TransactionsFragment();
+        SpendingPlanFragment sp = new SpendingPlanFragment();
+        BankPageFragment bp = new BankPageFragment();
+        FragmentAdapter tabManager = new FragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         tabManager.addFragment(tp, "Transactions");
         tabManager.addFragment(sp, "Spending Plan");
         tabManager.addFragment(bp, "Bank");
@@ -100,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void AccountButton() {
-        mAccountButton = findViewById(R.id.mAccount);
-        mAccountButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton accountButton = findViewById(R.id.mAccount);
+        accountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplication(), AccountActivity.class);
@@ -112,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static Intent newIntent(Context packageContext){
-        Intent i = new Intent(packageContext, MainActivity.class);
-        return i;
+        return new Intent(packageContext, MainActivity.class);
     }
 
 

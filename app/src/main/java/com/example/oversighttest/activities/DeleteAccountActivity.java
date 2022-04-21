@@ -1,6 +1,7 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,33 +17,31 @@ import com.example.oversighttest.network.NetworkCallback;
 import com.example.oversighttest.network.NetworkManager;
 import com.example.oversighttest.services.UserService;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class DeleteAccountActivity extends AppCompatActivity {
 
-    private Button mChangePasswordConfirmButton, mChangePasswordCancelButton;
-    private EditText mChangePasswordOldPassword, mChangePasswordNewPassword;
-
+    private Button mAccountDeleteConfirmButton, mAccountDeleteDenyButton;
+    private EditText mAccountDeletePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_change_password);
+        setContentView(R.layout.activity_account_delete);
 
 
-        mChangePasswordConfirmButton = (Button)findViewById(R.id.mChangePasswordButtonConfirm);
-        mChangePasswordCancelButton = (Button)findViewById(R.id.mChangePasswordButtonCancel);
+        mAccountDeleteConfirmButton = (Button)findViewById(R.id.mAccountDeleteConfirmButton);
+        mAccountDeleteDenyButton = (Button)findViewById(R.id.mAccountDeleteDenyButton);
 
-        mChangePasswordOldPassword = (EditText)findViewById(R.id.mChangePasswordOldPassword);
-        mChangePasswordNewPassword = (EditText)findViewById(R.id.mChangePasswordNewPassword);
+        mAccountDeletePassword = (EditText)findViewById(R.id.mAccountDeletePassword);
 
         //confirm button, returns OK
-        mChangePasswordConfirmButton.setOnClickListener(new View.OnClickListener() {
+        mAccountDeleteConfirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                changePassword();
+                deleteAccount();
             }
         });
 
         //cancel button, returns CANCELED
-        mChangePasswordCancelButton.setOnClickListener(new View.OnClickListener() {
+        mAccountDeleteDenyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Bæta við
                 //Returns the user back
@@ -53,15 +52,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
     }
 
-    public void changePassword() {
+    public void deleteAccount() {
         NetworkManager nm = NetworkManager.getInstance(this.getApplicationContext());
         Session session = Session.getInstance();
         User user = session.getLoggedIn();
-        nm.changePassword(user.getUserName(), UserService.get_SHA_512(mChangePasswordOldPassword.getText().toString()),
-                UserService.get_SHA_512(mChangePasswordNewPassword.getText().toString()), new NetworkCallback<User>() {
+        nm.deleteUser(user.getUserName(), user.getPassword(), UserService.get_SHA_512(mAccountDeletePassword.getText().toString()), new NetworkCallback<String>() {
             @Override
-            public void onSuccess(User result) {
-                changePasswordAgain();
+            public void onSuccess(String result) {
+                deleteAccountAgain();
             }
 
             @Override
@@ -71,13 +69,24 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
     }
 
-    public void changePasswordAgain() {
+    public void deleteAccountAgain() {
+        deleteSharedPrefs();
+
         Intent intent = LoginActivity.newIntent(this);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+
+    }
+
+    public void deleteSharedPrefs(){
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(MainActivity.USER, "");
+        editor.putString(MainActivity.PASSWORD, "");
+        editor.apply();
     }
 
     public void makeToast() {
-        Toast.makeText(this, "Wrong Old Password", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Wrong Password", Toast.LENGTH_SHORT).show();
     }
 }

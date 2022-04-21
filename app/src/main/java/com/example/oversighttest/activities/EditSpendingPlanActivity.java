@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.example.oversighttest.entities.SpendingPlan;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EditSpendingPlanPage extends AppCompatActivity {
+public class EditSpendingPlanActivity extends AppCompatActivity {
     private Button saveButton, cancelButton;
     private EditText carsandtransportation, children, education, finesandfees, food,
             healthandbeauty, home, insurance, investmentsandsavings, leisuretime,

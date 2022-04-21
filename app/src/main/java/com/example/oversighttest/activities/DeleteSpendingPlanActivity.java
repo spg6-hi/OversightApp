@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oversighttest.R;
 
-public class DeleteSpendingPlanPage extends AppCompatActivity {
+public class DeleteSpendingPlanActivity extends AppCompatActivity {
 
     private Button confirmButton, denyButton;
 
