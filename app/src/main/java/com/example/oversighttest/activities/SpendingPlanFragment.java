@@ -2,6 +2,8 @@ package com.example.oversighttest.activities;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -102,7 +104,10 @@ public class SpendingPlanFragment extends Fragment {
         ShowMenu();
         setupPieChart();
         loadPieChartData();
+
+
     }
+
 
     /**
      * set up pie chart look

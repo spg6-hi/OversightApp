@@ -1,6 +1,8 @@
 package com.example.oversighttest.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,16 +117,41 @@ public class RecyclerTransactionAdapter extends RecyclerView.Adapter<RecyclerTra
             public boolean onLongClick(View view) {
                 ViewHolder v = new ViewHolder(view);
                 String s = v.getTvId().getText().toString();
+                String cat = v.getTvCategory().getText().toString();
+                String amount = v.getTvAmount().getText().toString();
                 int id = Integer.parseInt(s);
                 long ID = Integer.toUnsignedLong(id);
 
-                tp.deleteTransaction(ID);
+                open(view, amount, cat, ID);
+
                 return true;
             };
 
 
         });
     }
+
+    public void open(View view, String amount, String cat, long ID){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.context);
+        alertDialogBuilder.setMessage("Do you want to delete this transaction?\ncategory: "+cat + "\namount: " + amount);
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                            tp.deleteTransaction(ID);
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

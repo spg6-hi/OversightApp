@@ -44,8 +44,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp1"
@@ -54,10 +54,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
                     android:ems="10"
-                    android:hint="Cars \u0026 Transportation" />
+                    android:hint="Cars \u0026 Transportation"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown" />
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -65,8 +65,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp2"
@@ -75,8 +75,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Children" />
 
@@ -86,8 +86,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp3"
@@ -96,8 +96,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Education" />
 
@@ -107,8 +107,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp4"
@@ -117,8 +117,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Fines \u0026 Fees" />
 
@@ -128,8 +128,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp5"
@@ -138,8 +138,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Food" />
 
@@ -149,8 +149,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp6"
@@ -159,8 +159,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Health \u0026 Beauty" />
 
@@ -170,8 +170,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp7"
@@ -180,8 +180,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Home" />
 
@@ -191,8 +191,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp8"
@@ -201,8 +201,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Insurance" />
 
@@ -212,8 +212,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp9"
@@ -222,8 +222,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Investments \u0026 Savings" />
 
@@ -233,8 +233,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp10"
@@ -243,8 +243,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Leisure Time" />
 
@@ -254,8 +254,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp11"
@@ -264,8 +264,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Shopping \u0026 Services" />
 
@@ -275,8 +275,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp12"
@@ -285,8 +285,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Uncategorized Expenses / Other" />
 
@@ -296,8 +296,8 @@
                 android:layout_width="300dp"
                 android:layout_height="68dp"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor">
+                android:textColor="@color/overSightOrange"
+                android:textColorHint="@color/overSightGreen">
 
                 <EditText
                     android:id="@+id/esp13"
@@ -306,8 +306,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/Background"
-                    android:textColorHint="@color/menuColor"
-                    android:textColor="@color/menuColor"
+                    android:textColor="@color/overSightBrown"
+                    android:textColorHint="@color/overSightBrown"
                     android:ems="10"
                     android:hint="Vacation \u0026 Travel" />
 

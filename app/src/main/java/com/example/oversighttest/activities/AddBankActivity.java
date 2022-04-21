@@ -69,7 +69,11 @@ public class AddBankActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * for other activities to call this activity
+     * @param packageContext
+     * @return
+     */
     public static Intent newIntent(Context packageContext){
         Intent i = new Intent(packageContext, AddBankActivity.class);
         return i;
