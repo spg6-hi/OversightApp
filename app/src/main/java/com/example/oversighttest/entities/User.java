@@ -16,6 +16,7 @@ public class User {
     @SerializedName("created")
     private String created;
 
+    //So that we can get the date from the rest API
     @SerializedName("amountOfTransactions")
     private int amountOfTransactions;
 

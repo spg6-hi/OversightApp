@@ -45,8 +45,8 @@
                 android:ems="10"
                 android:hint="Cars \u0026 Transportation"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -57,8 +57,8 @@
                 android:ems="10"
                 android:hint="Children"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -69,7 +69,7 @@
                 android:ems="10"
                 android:hint="Education"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
                 android:textColor="@color/menuColor"
                 android:inputType="number" />
 
@@ -81,8 +81,8 @@
                 android:ems="10"
                 android:hint="Fines \u0026 Fees"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -94,7 +94,7 @@
                 android:ems="10"
                 android:hint="Food"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
                 android:textColor="@color/menuColor"
                 android:inputType="number"/>
 
@@ -106,8 +106,8 @@
                 android:ems="10"
                 android:hint="Health \u0026 Beauty"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -118,8 +118,8 @@
                 android:ems="10"
                 android:hint="Home"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -130,8 +130,8 @@
                 android:ems="10"
                 android:hint="Insurance"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -142,8 +142,8 @@
                 android:ems="10"
                 android:hint="Investments \u0026 Savings"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -154,8 +154,8 @@
                 android:ems="10"
                 android:hint="Leisure Time"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -166,8 +166,8 @@
                 android:ems="10"
                 android:hint="Shopping \u0026 Services"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -178,8 +178,8 @@
                 android:ems="10"
                 android:hint="Uncategorized Expenses / Other"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
-                android:textColor="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
+                android:textColor="@color/overSightBrown"
                 android:inputType="number" />
 
             <EditText
@@ -191,7 +191,7 @@
                 android:ems="10"
                 android:hint="Vacation \u0026 Travel"
                 android:backgroundTint="@color/menuColor"
-                android:textColorHint="@color/menuColor"
+                android:textColorHint="@color/overSightGreen"
                 android:textColor="@color/menuColor"
                 android:inputType="number" />
         </LinearLayout>

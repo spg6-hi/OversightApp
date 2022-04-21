@@ -15,6 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.oversighttest.R;
 import com.example.oversighttest.entities.Session;
 import com.example.oversighttest.entities.User;
+import com.example.oversighttest.network.NetworkCallback;
+import com.example.oversighttest.network.NetworkManager;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,6 +25,7 @@ public class AccountActivity extends AppCompatActivity {
     private TextView mAccountUserName, mAccountCreated, mAccountTransactions;
     private Button mAccountChangePasswordButton, mAccountDeleteAccountButton, mAccountGoBack, mLogOut;
 
+    //action button
     private FloatingActionButton fab;
     private ExtendedFloatingActionButton fabone, fabtwo, fabthree;
     private Float translationYaxis = 100f;
@@ -37,52 +40,77 @@ public class AccountActivity extends AppCompatActivity {
         Session session = Session.getInstance();
         User user = session.getLoggedIn();
 
+        //reload data on user and set data
+        NetworkManager nm = NetworkManager.getInstance(this.getApplicationContext());
+        nm.loginUser(user.getUserName(), user.getPassword(), new NetworkCallback<User>() {
+            @Override
+            public void onSuccess(User result) {
+                Session s = Session.getInstance();
+                s.setLoggedIn(result);
+
+                //Sækja username og password og setja það hér
+                mAccountUserName.setText(result.getUserName());
+
+                String created = result.getCreated();
+                if (created == null){
+                    if (result.getDateCreated() != null){
+                        created = result.getDateCreated().toString();
+                    }
+
+                    else{
+                        created = "no date available";
+                    }
+                }
+                mAccountCreated.setText(created);
+
+                String totalTransactions = Integer.toString(result.getAmountOfTransactions());
+
+                mAccountTransactions.setText(totalTransactions);
+
+                ShowMenu();
+            }
+
+            @Override
+            public void onFailure(String errorString) {
+
+            }
+        });
+
+
+        //find views
         mAccountUserName = (TextView)findViewById(R.id.mAccountUserName);
         mAccountCreated = (TextView) findViewById(R.id.mAccountCreated);
         mAccountTransactions = (TextView) findViewById(R.id.mAccountTransactions);
 
-        //Sækja username og password og setja það hér
-        mAccountUserName.setText(user.getUserName());
 
-        String created = user.getCreated();
-        if (created == null){
-            if (user.getDateCreated() != null){
-                created = user.getDateCreated().toString();
-            }
-
-            else{
-                created = "no date available";
-            }
-        }
-        mAccountCreated.setText(created);
-
-        String totalTransactions = Integer.toString(user.getAmountOfTransactions());
-
-        mAccountTransactions.setText(totalTransactions);
-
-        ShowMenu();
 
     }
 
-
+    /**
+     * opens intent for you to change password
+     */
     public void changePassword() {
         Intent intent = new Intent(this, ChangePasswordActivity.class);
 
         startActivity(intent);
     }
 
+
+    /**
+     * Opens intent for you to delete account
+     */
     public void deleteAccount() {
         Intent intent = new Intent(this, DeleteAccountActivity.class);
 
         startActivity(intent);
     }
 
+    /**
+     * Logs user out
+     * deltes shared preferences data
+     */
     public void logOut(){
         deleteSharedPrefs();
-
-        SharedPreferences prefs = getSharedPreferences(MainActivity.SHARED_PREFS, MODE_PRIVATE);
-        String userName = prefs.getString(MainActivity.USER, "asdf");
-        System.out.println(userName);
 
         Session.getInstance().setLoggedIn(null);
         Intent intent = LoginActivity.newIntent(this);
@@ -128,6 +156,7 @@ public class AccountActivity extends AppCompatActivity {
         fabone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!menuOpen) return;
                 closeFab();
                 logOut();
             }
@@ -136,6 +165,7 @@ public class AccountActivity extends AppCompatActivity {
         fabtwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!menuOpen) return;
                 closeFab();
                 changePassword();
             }
@@ -144,6 +174,7 @@ public class AccountActivity extends AppCompatActivity {
         fabthree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!menuOpen) return;
                 closeFab();
                 deleteAccount();
             }
@@ -152,7 +183,7 @@ public class AccountActivity extends AppCompatActivity {
 
     //Closes floating action buttons
     private void closeFab() {
-        menuOpen = !menuOpen;
+        menuOpen = false;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
         fabone.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
         fabtwo.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
@@ -161,7 +192,7 @@ public class AccountActivity extends AppCompatActivity {
 
     //Opens floating action buttons
     private void openFab() {
-        menuOpen = !menuOpen;
+        menuOpen = true;
         fab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
         fabone.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         fabtwo.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();

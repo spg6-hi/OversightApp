@@ -300,7 +300,8 @@ public class BankPage extends Fragment {
         xAxis.setTextSize(15);
         xAxis.setAxisLineColor(Color.BLACK);
         xAxis.setAxisMinimum(1f);
-        xAxis.setLabelCount(5);
+        xAxis.setLabelCount(0);
+        xAxis.setDrawLabels(false);
         //xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
         YAxis leftAxis = mLineChart.getAxisLeft();
@@ -354,9 +355,6 @@ public class BankPage extends Fragment {
         mLineChart.setData(data);
         mLineChart.setScaleEnabled(false);
         mLineChart.animateX(500);
-
-        mLineChart.setDescription(new Description());
-        mLineChart.getDescription().setText(getResources().getString(R.string.mLineChartDescription));
 
         mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override

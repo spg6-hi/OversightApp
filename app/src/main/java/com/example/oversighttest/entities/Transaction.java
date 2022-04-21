@@ -15,6 +15,7 @@ public class Transaction {
     @SerializedName("category")
     private Category category;
 
+    //So that you can send the date through the restAPI, for some reason it doesn't allow LocalDates
     @SerializedName("date")
     private String dateString;
 
