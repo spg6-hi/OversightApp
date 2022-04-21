@@ -79,6 +79,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                     else{
+                        SharedPreferences sh = getSharedPreferences(MainActivity.SHARED_PREFS, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sh.edit();
+                        editor.putString(MainActivity.USER, "");
+                        editor.putString(MainActivity.PASSWORD, "");
+                        editor.apply();
                         Toast.makeText(getApplicationContext(), "This user does not exist", Toast.LENGTH_LONG).show();
                     }
                 }
