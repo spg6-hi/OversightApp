@@ -1,11 +1,10 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,7 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
         mNewUserName = (EditText) findViewById(R.id.mNewUserName);
         mNewPassword = (EditText) findViewById(R.id.mNewPassword);
 
-        mConfirmSignup = (Button) findViewById(R.id.mconfirmSignup);
+        mConfirmSignup = (Button) findViewById(R.id.mConfirmSignup);
         mConfirmSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

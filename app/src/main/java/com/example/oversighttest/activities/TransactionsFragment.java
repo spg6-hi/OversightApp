@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -60,7 +60,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TransactionsPage extends Fragment {
+public class TransactionsFragment extends Fragment {
 
     private static final int CREATE_TRANSACTION = 0;
 

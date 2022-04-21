@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
@@ -14,10 +13,10 @@
             android:id="@+id/tvDate"
             android:layout_width="77dp"
             android:layout_height="20dp"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_margin="20dp"
-            android:text="Date"
-            android:textAlignment="textEnd"
+            android:text="@string/mDate"
+
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,8 +29,8 @@
             android:layout_width="151dp"
             android:layout_height="19dp"
             android:layout_gravity="center_horizontal"
-            android:text="Category"
-            android:textAlignment="textStart"
+            android:text="@string/mCategory"
+
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,9 +41,9 @@
             android:id="@+id/tvAmount"
             android:layout_width="83dp"
             android:layout_height="17dp"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_margin="20dp"
-            android:text="Amount"
+            android:text="@string/mAmount"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,13 +56,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.1"
-            android:background="@color/white" />
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/mtvId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

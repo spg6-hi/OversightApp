@@ -1,4 +1,4 @@
-package com.example.oversighttest.pages;
+package com.example.oversighttest.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,6 @@ import com.example.oversighttest.R;
 public class RemoveBankActivity extends AppCompatActivity {
 
     private EditText mFundsRemoved;
-    private Button confirmButton;
-    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -23,15 +21,15 @@ public class RemoveBankActivity extends AppCompatActivity {
         setContentView(R.layout.activity_remove_bank);
 
         //text input for amount to be removed
-        mFundsRemoved = (EditText) findViewById(R.id.mFundsRemoved);
+        mFundsRemoved = findViewById(R.id.mFundsRemoved);
 
         //confirm button, tries to take value from text field and return it to parent activity
-        confirmButton = (Button)findViewById(R.id.mConfirmRemoveFunds);
+        Button confirmButton = findViewById(R.id.mConfirmRemoveFunds);
         confirmButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 try{
-                    int fundsRemoved = Integer.valueOf(mFundsRemoved.getText().toString());
+                    int fundsRemoved = Integer.parseInt(mFundsRemoved.getText().toString());
                     Intent data = new Intent();
                     data.putExtra("funds removed", fundsRemoved);
                     setResult(RESULT_OK, data);
@@ -49,7 +47,7 @@ public class RemoveBankActivity extends AppCompatActivity {
         });
 
         // cancel button, returns CANCELED to parent activity
-        cancelButton = (Button) findViewById(R.id.cancelRemoveBalance);
+        Button cancelButton = findViewById(R.id.cancelRemoveBalance);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
