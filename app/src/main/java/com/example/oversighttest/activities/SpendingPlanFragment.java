@@ -231,6 +231,7 @@ public class SpendingPlanFragment extends Fragment {
         fabone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!menuOpen) return;
                 closeFab();
                 if (spendingPlanExists) {
                     Toast.makeText(getActivity(), "Spending Plan Already Exists", Toast.LENGTH_SHORT).show();
@@ -245,6 +246,7 @@ public class SpendingPlanFragment extends Fragment {
         fabtwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!menuOpen) return;
                 closeFab();
                 if (spendingPlanExists) {
                     Intent intent = new Intent(getActivity(), DeleteSpendingPlanActivity.class);
@@ -259,6 +261,7 @@ public class SpendingPlanFragment extends Fragment {
         fabthree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!menuOpen) return;
                 closeFab();
                 if (spendingPlanExists) {
                     Intent intent = new Intent(getActivity(), EditSpendingPlanActivity.class);
