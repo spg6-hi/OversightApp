@@ -32,7 +32,7 @@ public class EditSpendingPlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.editspendingplan);
+        setContentView(R.layout.activity_editspendingplan);
 
 
         spendingPlan = Session.getInstance().getSpendingPlan();

@@ -16,7 +16,7 @@ public class DeleteSpendingPlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.deletespendingplan);
+        setContentView(R.layout.activity_deletespendingplan);
 
 
         confirmButton = (Button)findViewById(R.id.confirmButton);

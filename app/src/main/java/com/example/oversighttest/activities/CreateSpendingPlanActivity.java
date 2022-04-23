@@ -34,7 +34,7 @@ public class CreateSpendingPlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.createspendingplan);
+        setContentView(R.layout.activity_createspendingplan);
 
         saveButton = (Button)findViewById(R.id.saveCreateSpendingPlan);
         cancelButton = (Button)findViewById(R.id.cancelCreateSpendingPlan);
