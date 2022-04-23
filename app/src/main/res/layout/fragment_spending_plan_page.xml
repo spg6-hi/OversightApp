@@ -47,7 +47,7 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/mLogOut"
-            android:layout_width="220dp"
+            android:layout_width="224dp"
             android:layout_height="48dp"
             android:layout_marginBottom="5dp"
             android:text="@string/fab_three"
@@ -65,7 +65,7 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/mChangePassword"
-            android:layout_width="220dp"
+            android:layout_width="224dp"
             android:layout_height="48dp"
             android:layout_marginBottom="5dp"
             android:text="@string/fab_two"
@@ -85,7 +85,7 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/mDeleteAccount"
-            android:layout_width="220dp"
+            android:layout_width="224dp"
             android:layout_height="48dp"
             android:layout_marginBottom="5dp"
             android:text="@string/fab_one"
